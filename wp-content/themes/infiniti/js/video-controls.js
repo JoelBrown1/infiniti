@@ -209,8 +209,8 @@ function stateSwitch( tripContainer ){
 	}
 }
 $('.video_container').tubular({
-	videoId: 'e4UJLHFkWZ8',
-	mute: false
+	videoId: 'PhSanuvCrOA',
+	mute: true
 });
 function on_resize(c, t) {
     onresize = function() {

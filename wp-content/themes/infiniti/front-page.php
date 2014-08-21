@@ -52,9 +52,9 @@
 
     </ul>
     <ul id="trip_controls">
-      <li id="trip1" class="trip trip1" data-trip="RDTBH8o8XXnVM" data-state="false"><div>Great Bear<br>Rainforest</div></li>
-      <li id="trip2" class="trip trip2" data-trip="RDwwmUMvhy-lY" data-state="false"><div>Athabasca<br>Sand Dunes</div></li>
-      <li id="trip3" class="trip trip3" data-trip="PL799A9489387D5870" data-state="false"><div>Sable<br>Islands</div></li>
+      <li id="trip1" class="trip trip1" data-trip="PL9AA766E4B502CC48" data-state="false"><div>Great Bear<br>Rainforest</div></li>
+      <li id="trip2" class="trip trip2" data-trip="PLVf811yyyVnMpInuhgQgI6cLi2iLEKubg" data-state="false"><div>Athabasca<br>Sand Dunes</div></li>
+      <li id="trip3" class="trip trip3" data-trip="PL94B14C406493206F" data-state="false"><div>Sable<br>Islands</div></li>
     </ul>
     <ul id="vid_bottom_nav" class="clearfix">
       <li>Go Behind The Scenes</li>
