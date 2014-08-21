@@ -17,6 +17,7 @@ function infiniti_scripts(){
 
 	if(is_front_page()){
 		wp_enqueue_style('home-page', get_bloginfo('template_url').'/css/stylesheets/homepage.css');
+		wp_enqueue_script('modernizr', get_bloginfo('template_url').'/js/modernizr.js', array(), "", true);
 		wp_enqueue_script('greensock', 'http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js', array(), "", true);
 		wp_enqueue_script('tubular', get_bloginfo('template_url').'/js/jquery.tubular.1.0.js', array(), "", true);
 		wp_enqueue_script('debounce_throttle', get_bloginfo('template_url').'/js/debounce_throttle.js', array(), "", true);

@@ -13,6 +13,13 @@ var opHide = .1;
 var vidIndex = count+1;
 var tripNavContainer;
 
+console.log("looking at modernizr: ", Modernizr);
+if(Modernizr.touch){
+	console.log("touch events are supported");
+} else {
+	console.log("no touch events available");
+}
+
 function init(){
 	$(".trip").each( function(){
 		var container = this;
