@@ -20,6 +20,11 @@ if(Modernizr.touch){
 	console.log("no touch events available");
 }
 
+if('vibrate' in navigator){
+	console.log("this device can shake");
+} else {
+	console.log("this device can't shake");
+}
 function init(){
 	$(".trip").each( function(){
 		var container = this;
