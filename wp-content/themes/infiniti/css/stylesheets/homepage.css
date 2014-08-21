@@ -1,0 +1,290 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 17, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 12, ../sass/homepage.scss */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 16, ../sass/homepage.scss */
+body {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+}
+/* line 20, ../sass/homepage.scss */
+body ul {
+  z-index: 100;
+}
+/* line 23, ../sass/homepage.scss */
+body .video_container {
+  position: absolute;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+/* line 29, ../sass/homepage.scss */
+body #branding {
+  z-index: 100;
+  position: absolute;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  top: 15%;
+}
+/* line 36, ../sass/homepage.scss */
+body #branding img.main_logo {
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+/* line 43, ../sass/homepage.scss */
+body ul.vid_controls {
+  position: absolute;
+  top: 0;
+  right: 22px;
+  background-color: #fff;
+  color: #000;
+  padding: 33px 5px 10px 5px;
+  box-shadow: 0px 2px 16px -1px #000;
+}
+/* line 51, ../sass/homepage.scss */
+body ul.vid_controls li {
+  float: left;
+  margin: 0px 5px;
+}
+/* line 55, ../sass/homepage.scss */
+body ul.vid_controls .socialBtns {
+  background-image: url(../../images/spritesheet.png);
+  background-repeat: no-repeat;
+  padding: 0px 0px;
+  line-height: 0px;
+  width: 42px;
+  height: 42px;
+}
+/* line 63, ../sass/homepage.scss */
+body ul.vid_controls #facebook {
+  background-position: left -363px;
+}
+/* line 66, ../sass/homepage.scss */
+body ul.vid_controls .twitter {
+  background-position: left -407px;
+}
+/* line 69, ../sass/homepage.scss */
+body ul.vid_controls .g_plus {
+  background-position: left -451px;
+}
+/* line 73, ../sass/homepage.scss */
+body ul#trip_controls {
+  z-index: 101;
+  position: absolute;
+  bottom: 100px;
+  left: 0px;
+  overflow: hidden;
+}
+/* line 79, ../sass/homepage.scss */
+body ul#trip_controls .trip1 {
+  background-position: 175px 10px;
+}
+@media screen and (max-width: 568px) {
+  /* line 79, ../sass/homepage.scss */
+  body ul#trip_controls .trip1 {
+    background-position-y: 6px;
+  }
+}
+/* line 85, ../sass/homepage.scss */
+body ul#trip_controls .trip2 {
+  background-position: 175px -69px;
+}
+@media screen and (max-width: 568px) {
+  /* line 85, ../sass/homepage.scss */
+  body ul#trip_controls .trip2 {
+    background-position-y: -35px;
+  }
+}
+/* line 91, ../sass/homepage.scss */
+body ul#trip_controls .trip3 {
+  background-position: 175px -149px;
+}
+@media screen and (max-width: 568px) {
+  /* line 91, ../sass/homepage.scss */
+  body ul#trip_controls .trip3 {
+    background-position-y: -74px;
+  }
+}
+/* line 97, ../sass/homepage.scss */
+body ul#trip_controls .trip {
+  background-image: url(../../images/spritesheet.png);
+  height: 84px;
+  width: 180px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: block;
+  margin-top: 10px;
+  margin-left: -86px;
+  line-height: 84px;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-size: auto 330px;
+}
+@media screen and (max-width: 568px) {
+  /* line 97, ../sass/homepage.scss */
+  body ul#trip_controls .trip {
+    background-size: auto 168px;
+  }
+}
+/* line 113, ../sass/homepage.scss */
+body ul#trip_controls .trip div {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+  padding: 18px 0px;
+}
+@media screen and (max-width: 568px) {
+  /* line 113, ../sass/homepage.scss */
+  body ul#trip_controls .trip div {
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px 0px;
+  }
+}
+/* line 126, ../sass/homepage.scss */
+body ul#trip_controls .trip .vidNav:first-child {
+  margin-right: 10px;
+  margin-left: 0px;
+}
+/* line 130, ../sass/homepage.scss */
+body ul#trip_controls .trip .vidNav {
+  margin-left: 10px;
+}
+@media screen and (max-width: 568px) {
+  /* line 97, ../sass/homepage.scss */
+  body ul#trip_controls .trip {
+    height: 44px;
+    line-height: 44px;
+  }
+}
+@media screen and (max-width: 568px) {
+  /* line 73, ../sass/homepage.scss */
+  body ul#trip_controls {
+    bottom: 80px;
+  }
+}
+/* line 141, ../sass/homepage.scss */
+body ul#trip_controls .trip:first-child {
+  margin-top: 0px;
+}
+/* line 144, ../sass/homepage.scss */
+body ul#trip_controls .trip_pause {
+  background-image: url(../../images/pause_icon.png);
+  background-size: auto 66px;
+  background-position: 175px 10px;
+}
+@media screen and (max-width: 568px) {
+  /* line 144, ../sass/homepage.scss */
+  body ul#trip_controls .trip_pause {
+    background-size: auto 36px;
+    background-position: 134px 4px;
+  }
+}
+/* line 153, ../sass/homepage.scss */
+body ul#trip_controls .prevVid, body ul#trip_controls .nextVid {
+  border: thin solid #fff;
+  font-size: 14px;
+  padding: 0px 7px;
+}
+/* line 158, ../sass/homepage.scss */
+body ul#trip_controls .prevVid {
+  /* visibility: hidden; */
+}
+/* line 162, ../sass/homepage.scss */
+body ul#vid_bottom_nav {
+  position: absolute;
+  bottom: 12px;
+  left: 10px;
+}
+/* line 166, ../sass/homepage.scss */
+body ul#vid_bottom_nav li {
+  color: white;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.2);
+  /* line-height: 40px; */
+  padding: 10px 20px;
+}
+/* line 176, ../sass/homepage.scss */
+body footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  visibility: hidden;
+}

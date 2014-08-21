@@ -1,0 +1,182 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+$font-stack : Helvetic, sans-serif;
+$primary-color : rgba(244, 173, 4, .6);
+$tripNavColor : rgba(0, 0, 0, .2);
+$font-color: #fff;
+
+html, body{
+	height: 100%;
+	width: 100%;
+}
+body{
+	position: relative;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	ul{
+		z-index: 100;
+	}
+	.video_container{
+		position: absolute;
+		padding-bottom: 56.25%; /* 16:9 */
+		height: 0;
+		overflow: hidden;
+	}
+	#branding{
+		z-index: 100;
+		position: absolute;
+		display: block;
+		width: 100%;
+		margin: 0 auto;
+		top: 15%;
+		img.main_logo{
+			width: 60%;
+			height: auto;
+			margin: 0 auto;
+			display: block;
+		}
+	}
+	ul.vid_controls{
+		position: absolute;
+		top: 0;
+		right: 22px;
+		background-color: #fff;
+		color: #000;
+		padding: 33px 5px 10px 5px;
+		box-shadow: 0px 2px 16px -1px #000;
+		li{
+			float: left;
+			margin: 0px 5px;
+		}
+		.socialBtns{
+			background-image: url(../../images/spritesheet.png);
+			background-repeat: no-repeat;
+			padding: 0px 0px;
+			line-height: 0px;
+			width: 42px;
+			height: 42px;
+		}
+		#facebook{
+			background-position: left -363px
+		}
+		.twitter{
+			background-position: left -407px;
+		}
+		.g_plus{
+			background-position: left -451px;
+		}
+	}
+	ul#trip_controls{
+		z-index: 101;
+		position: absolute;
+		bottom: 100px;
+		left: 0px;
+		overflow: hidden;
+		.trip1{
+			background-position: 175px 10px;
+			@media screen and ( max-width: 568px ){
+				background-position-y: 6px;
+			}
+		}
+		.trip2{
+			background-position: 175px -69px;
+			@media screen and ( max-width: 568px ){
+				background-position-y: -35px;
+			}
+		}
+		.trip3{
+			background-position: 175px -149px;
+			@media screen and ( max-width: 568px ){
+				background-position-y: -74px;
+			}
+		}
+		.trip{
+			background-image: url(../../images/spritesheet.png);
+			height: 84px;
+			width: 180px;
+			background-color: $tripNavColor;
+			display: block;
+			margin-top: 10px;
+			margin-left: -86px;
+			line-height: 84px;
+			padding-left: 20px;
+			background-repeat: no-repeat;
+			background-size: auto 330px;
+			@media screen and (max-width: 568px){
+				background-size: auto 168px;
+			}
+
+			div{
+				display: inline-block;
+				font-weight: 400;
+				font-size: 20px;
+				line-height: 24px;
+				color: $font-color;
+				padding: 18px 0px;
+				@media screen and (max-width: 568px){
+					font-size: 14px;
+					line-height: 14px;
+					padding: 8px 0px;
+				}
+			}
+			.vidNav:first-child{
+				margin-right: 10px;
+				margin-left:0px;
+			}
+			.vidNav{
+				margin-left:10px;
+			}
+			@media screen and ( max-width: 568px ){
+				height: 44px;
+				line-height: 44px;
+			}
+		}
+		@media screen and ( max-width: 568px ){
+			bottom: 80px;
+		}
+		.trip:first-child{
+			margin-top: 0px;
+		}
+		.trip_pause{
+			background-image: url(../../images/pause_icon.png);
+			background-size: auto 66px;
+			background-position: 175px 10px;
+			@media screen and ( max-width: 568px ){
+				background-size: auto 36px;
+				background-position: 134px 4px;
+			}
+		}
+		.prevVid, .nextVid{
+			border: thin solid #fff;
+			font-size: 14px;
+			padding: 0px 7px;
+		}
+		.prevVid{
+			/* visibility: hidden; */
+		}
+	}
+	ul#vid_bottom_nav{
+		position: absolute;
+		bottom: 12px;
+		left: 10px;
+		li{
+			color:$font-color;
+			display:inline-block;
+			// float: left;
+			background-color: $tripNavColor;
+			/* line-height: 40px; */
+			padding: 10px 20px;
+		}
+		
+	}
+	footer{
+		position: absolute;
+		bottom: 0px;
+		left:0px;
+		visibility: hidden;
+	}
+}
