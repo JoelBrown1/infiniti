@@ -42,14 +42,12 @@
 
 		<div class="video_container"></div>
     <div id="branding">
-<!--       <h1><img src="<?php echo get_template_directory_uri().'/images/logo_infiniti.png'; ?>" alt="Infiniti"> &amp; <img src="<?php echo get_template_directory_uri().'/images/logo_oasis.png'; ?>" alt="Oasis"> present</h1> -->
       <img class="main_logo" src="<?php echo get_template_directory_uri().'/images/logo_branding.png'; ?>" alt="Infiniti and Oasis Present Canada Undiscovered">
     </div>
     <ul class="vid_controls">
-      <li id="facebook" class="socialBtns"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-fb.jpg'; ?>" alt="facebook social link"> --></li>
+      <li id="facebook" class="socialBtns"></li>
       <li class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&text=INFINITI and OASIS Present Canada Undiscovered"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-twitter.jpg'; ?>" alt="twitter social link"> --></a></li>
       <li class="socialBtns g_plus" itemscope><a id="gPlus" target="_blank" href="https://plus.google.com/share?url=http://ford.cottagelife.com/"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-gplus.jpg'; ?>" alt="gPlus social link"> --></a></li>
-
     </ul>
     <ul id="trip_controls">
       <li id="trip1" class="trip trip1" data-trip="PL9AA766E4B502CC48" data-state="false"><div>Great Bear<br>Rainforest</div></li>
@@ -60,6 +58,6 @@
       <li>Go Behind The Scenes</li>
       <li>Enter To Win</li>
     </ul>
+    <div id="sndControls" class="off"></div>
 		<?php get_footer(); ?>
-	</body>
-</html>
+	
