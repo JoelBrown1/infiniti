@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 5, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,45 +24,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../.rbenv/versions/2.0.0-p0/lib/ruby/gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
@@ -153,48 +153,41 @@ body ul#trip_controls {
   overflow: hidden;
 }
 /* line 80, ../sass/homepage.scss */
-body ul#trip_controls .trip1 {
+body ul#trip_controls .trip1 .vid_container {
   background-position: 175px 10px;
 }
 @media screen and (max-width: 568px) {
   /* line 80, ../sass/homepage.scss */
-  body ul#trip_controls .trip1 {
+  body ul#trip_controls .trip1 .vid_container {
     background-position-y: 6px;
   }
 }
 /* line 86, ../sass/homepage.scss */
-body ul#trip_controls .trip2 {
-  background-position: 175px -69px;
+body ul#trip_controls .trip2 .vid_container {
+  background-position: 175px -90px;
 }
 @media screen and (max-width: 568px) {
   /* line 86, ../sass/homepage.scss */
-  body ul#trip_controls .trip2 {
+  body ul#trip_controls .trip2 .vid_container {
     background-position-y: -35px;
   }
 }
 /* line 92, ../sass/homepage.scss */
-body ul#trip_controls .trip3 {
-  background-position: 175px -149px;
+body ul#trip_controls .trip3 .vid_container {
+  background-position: 175px -188px;
 }
 @media screen and (max-width: 568px) {
   /* line 92, ../sass/homepage.scss */
-  body ul#trip_controls .trip3 {
+  body ul#trip_controls .trip3 .vid_container {
     background-position-y: -74px;
   }
 }
 /* line 98, ../sass/homepage.scss */
 body ul#trip_controls .trip {
-  background-image: url(../../images/spritesheet.png);
-  height: 84px;
-  width: 180px;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: block;
   margin-top: 10px;
-  margin-left: -86px;
+  height: 84px;
+  display: block;
   line-height: 84px;
-  padding-left: 20px;
-  background-repeat: no-repeat;
-  background-size: auto 330px;
 }
 @media screen and (max-width: 568px) {
   /* line 98, ../sass/homepage.scss */
@@ -202,29 +195,31 @@ body ul#trip_controls .trip {
     background-size: auto 168px;
   }
 }
-/* line 114, ../sass/homepage.scss */
-body ul#trip_controls .trip div {
+/* line 109, ../sass/homepage.scss */
+body ul#trip_controls .trip .vid_container {
   display: inline-block;
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   color: #fff;
-  padding: 18px 0px;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-image: url(../../images/spritesheet.png);
+  background-repeat: no-repeat;
+  padding-left: 10px;
 }
 @media screen and (max-width: 568px) {
-  /* line 114, ../sass/homepage.scss */
-  body ul#trip_controls .trip div {
+  /* line 109, ../sass/homepage.scss */
+  body ul#trip_controls .trip .vid_container {
     font-size: 14px;
     line-height: 14px;
-    padding: 8px 0px;
   }
 }
-/* line 127, ../sass/homepage.scss */
+/* line 124, ../sass/homepage.scss */
 body ul#trip_controls .trip .vidNav:first-child {
   margin-right: 10px;
   margin-left: 0px;
 }
-/* line 131, ../sass/homepage.scss */
+/* line 128, ../sass/homepage.scss */
 body ul#trip_controls .trip .vidNav {
   margin-left: 10px;
 }
@@ -235,46 +230,56 @@ body ul#trip_controls .trip .vidNav {
     line-height: 44px;
   }
 }
+/* line 135, ../sass/homepage.scss */
+body ul#trip_controls .trip .trip_pause {
+  background-image: url(../../images/pause_icon.png);
+  /* background-size: auto 66px; */
+  background-position: 175px 10px;
+}
+@media screen and (max-width: 568px) {
+  /* line 135, ../sass/homepage.scss */
+  body ul#trip_controls .trip .trip_pause {
+    background-size: auto 36px;
+    background-position: 134px 4px;
+  }
+}
+/* line 145, ../sass/homepage.scss */
+body ul#trip_controls .trip > div {
+  padding: 18px 0px;
+}
+@media screen and (max-width: 568px) {
+  /* line 145, ../sass/homepage.scss */
+  body ul#trip_controls .trip > div {
+    padding: 8px 0px;
+  }
+}
 @media screen and (max-width: 568px) {
   /* line 74, ../sass/homepage.scss */
   body ul#trip_controls {
     bottom: 80px;
   }
 }
-/* line 142, ../sass/homepage.scss */
+/* line 154, ../sass/homepage.scss */
 body ul#trip_controls .trip:first-child {
   margin-top: 0px;
 }
-/* line 145, ../sass/homepage.scss */
-body ul#trip_controls .trip_pause {
-  background-image: url(../../images/pause_icon.png);
-  background-size: auto 66px;
-  background-position: 175px 10px;
-}
-@media screen and (max-width: 568px) {
-  /* line 145, ../sass/homepage.scss */
-  body ul#trip_controls .trip_pause {
-    background-size: auto 36px;
-    background-position: 134px 4px;
-  }
-}
-/* line 154, ../sass/homepage.scss */
+/* line 158, ../sass/homepage.scss */
 body ul#trip_controls .prevVid, body ul#trip_controls .nextVid {
   border: thin solid #fff;
   font-size: 14px;
   padding: 0px 7px;
 }
-/* line 159, ../sass/homepage.scss */
+/* line 163, ../sass/homepage.scss */
 body ul#trip_controls .prevVid {
   /* visibility: hidden; */
 }
-/* line 163, ../sass/homepage.scss */
+/* line 167, ../sass/homepage.scss */
 body ul#vid_bottom_nav {
   position: absolute;
   bottom: 12px;
   left: 10px;
 }
-/* line 167, ../sass/homepage.scss */
+/* line 171, ../sass/homepage.scss */
 body ul#vid_bottom_nav li {
   color: #fff;
   display: inline-block;
@@ -282,55 +287,172 @@ body ul#vid_bottom_nav li {
   /* line-height: 40px; */
   padding: 10px 20px;
 }
-/* line 177, ../sass/homepage.scss */
+/* line 181, ../sass/homepage.scss */
 body footer {
   position: absolute;
-  bottom: 10px;
+  bottom: 13px;
   right: 10px;
   color: #fff;
   font-size: 8px;
   z-index: 110;
+  display: block;
+  width: 350px;
 }
-/* line 185, ../sass/homepage.scss */
-body .mobVidCont {
-  position: relative;
-  top: 20%;
-  width: 50%;
-  margin: 0 auto;
-  z-index: 111;
+/* line 190, ../sass/homepage.scss */
+body footer #trademark {
+  width: 210px;
+  text-align: right;
+  float: left;
+  line-height: 11px;
+  display: inline-block;
 }
-/* line 191, ../sass/homepage.scss */
-body .mobVidCont .mobile_video {
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 62.5%;
+/* line 197, ../sass/homepage.scss */
+body footer #infinitiLink {
+  background-color: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 10px 25px;
+  margin-left: 18px;
+  font-size: 13px;
+  color: #fff;
+  text-decoration: none;
+  vertical-align: bottom;
+  float: right;
 }
-/* line 195, ../sass/homepage.scss */
-body .mobVidCont .mobile_video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-/* line 204, ../sass/homepage.scss */
+/* line 209, ../sass/homepage.scss */
 body #sndControls {
   width: 40px;
   height: 40px;
   background-color: rgba(209, 62, 44, 0.4);
   background-image: url(../../images/spritesheet.png);
   background-repeat: no-repeat;
-  background-size: 80px auto;
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 105;
 }
-/* line 216, ../sass/homepage.scss */
+/* line 221, ../sass/homepage.scss */
 body .on {
   background-position: bottom left;
 }
-/* line 219, ../sass/homepage.scss */
+/* line 224, ../sass/homepage.scss */
 body .off {
   background-position: bottom right;
+}
+
+/* line 229, ../sass/homepage.scss */
+body.mobile {
+  background-image: url(../../images/testAnimationBgnd.gif);
+  background-position: top center;
+  background-size: cover;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale');
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale')";
+}
+/* line 236, ../sass/homepage.scss */
+body.mobile #branding {
+  top: 10%;
+}
+/* line 238, ../sass/homepage.scss */
+body.mobile #branding img.main_logo {
+  width: 40%;
+}
+/* line 242, ../sass/homepage.scss */
+body.mobile #sndControls {
+  display: none;
+}
+/* line 246, ../sass/homepage.scss */
+body.mobile .mobVidCont {
+  position: relative;
+  top: 35%;
+  width: 45%;
+  margin: 0 auto;
+  z-index: 111;
+}
+/* line 252, ../sass/homepage.scss */
+body.mobile .mobVidCont .mobile_video {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 62.5%;
+}
+/* line 256, ../sass/homepage.scss */
+body.mobile .mobVidCont .mobile_video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 800px) {
+  /* line 246, ../sass/homepage.scss */
+  body.mobile .mobVidCont {
+    top: -5%;
+    width: 65%;
+  }
+}
+/* line 271, ../sass/homepage.scss */
+body.mobile ul#trip_controls {
+  bottom: 170px;
+}
+@media (max-width: 800px) {
+  /* line 271, ../sass/homepage.scss */
+  body.mobile ul#trip_controls {
+    position: relative;
+    width: 65%;
+    margin: 0 auto;
+    bottom: initial;
+    left: initial;
+    top: 60%;
+  }
+}
+@media (max-width: 800px) {
+  /* line 282, ../sass/homepage.scss */
+  body.mobile ul#trip_controls .trip .vid_container {
+    background-color: transparent;
+    text-align: left;
+  }
+}
+@media (max-width: 800px) {
+  /* line 281, ../sass/homepage.scss */
+  body.mobile ul#trip_controls .trip {
+    background-color: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 0px 30px;
+  }
+}
+/* line 293, ../sass/homepage.scss */
+body.mobile ul#trip_controls .trip .trip_pause {
+  background-size: auto 66px;
+}
+/* line 298, ../sass/homepage.scss */
+body.mobile ul#vid_bottom_nav {
+  left: initial;
+  right: 22px;
+  bottom: 240px;
+}
+/* line 302, ../sass/homepage.scss */
+body.mobile ul#vid_bottom_nav li {
+  display: block;
+  text-align: center;
+  padding: 20px 20px;
+}
+@media (max-width: 800px) {
+  /* line 302, ../sass/homepage.scss */
+  body.mobile ul#vid_bottom_nav li {
+    display: inline-block;
+  }
+}
+/* line 310, ../sass/homepage.scss */
+body.mobile ul#vid_bottom_nav li:first-child {
+  margin-bottom: 10px;
+}
+@media (max-width: 800px) {
+  /* line 298, ../sass/homepage.scss */
+  body.mobile ul#vid_bottom_nav {
+    left: 10px;
+    right: initial;
+    bottom: 12px;
+  }
+}
+/* line 319, ../sass/homepage.scss */
+body.mobile footer {
+  bottom: 30px;
 }

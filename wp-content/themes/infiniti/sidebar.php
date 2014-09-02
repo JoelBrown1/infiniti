@@ -5,11 +5,41 @@
  * @package infiniti
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+/*if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	return;
-}
+}*/
 ?>
-
-<div id="secondary" class="widget-area" role="complementary">
-	<?php // dynamic_sidebar( 'sidebar-1' ); ?>
-</div><!-- #secondary -->
+<nav>
+	<div id="branding">
+		<a href="<?php echo  get_home_url(); ?>"><img src="<?php echo get_template_directory_uri().'/images/content_logo.png'?>" alt="Infiniti and Oasis present Canada Undescovered!"></a>
+		
+	</div>
+	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
+	<div id="infiniti_link">
+		<div class="top_level">
+			Explore the infiniti model range
+		</div>
+	</div>
+	<div id="social_connections" class="clearfix">
+		<div id="infiniti_social">
+			<span>Connect with Infiniti</span>
+			<ul>
+				<li class="ifb"></li>
+				<li class="itw"></li>
+				<li class="iyt"></li>
+				<li class="iig"></li>
+				<li class="ipt"></li>
+				<li class="ica"></li>
+			</ul>
+		</div>
+		<div id="oasis_social">
+			<span>Connect with Oasis</span>
+			<ul>
+				<li class="ofb"></li>
+				<li class="otw"></li>
+				<li class="oyt"></li>
+				<li class="oca"></li>
+			</ul>
+		</div>
+	</div>
+</nav>

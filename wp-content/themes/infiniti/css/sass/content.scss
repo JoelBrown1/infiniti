@@ -1,0 +1,200 @@
+@import "compass/reset";
+$font-stack : 'Roboto', Helvetic, sans-serif;
+$primary-color : rgba(244, 173, 4, .6);
+$navColor : rgba(0, 0, 0, .2);
+$font-color: #fff;
+$nav_top_level: rgba(0, 0, 0, .4);
+$nav_child_level: rgba( 80, 80, 80, .4);
+$nav_top_level_hover: rgba(0, 0, 0, .6);
+$nav_child_level_hover: rgba( 80, 80, 80, .6);
+
+html, body{
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	font-family: $font-stack;
+	overflow: hidden;
+	ul.vid_controls{
+		position: absolute;
+		top: 0;
+		right: 22px;
+		background-color: #fff;
+		color: #000;
+		padding: 10px 5px 10px 5px;
+		box-shadow: 0px 2px 16px -1px #000;
+		li{
+			float: left;
+			margin: 0px 5px;
+		}
+		.socialBtns{
+			background-image: url(../../images/spritesheet.png);
+			background-repeat: no-repeat;
+			padding: 0px 0px;
+			line-height: 0px;
+			width: 42px;
+			height: 42px;
+		}
+		#facebook{
+			background-position: left -363px
+		}
+		.twitter{
+			background-position: left -407px;
+		}
+		.g_plus{
+			background-position: left -451px;
+		}
+	}
+	#page{
+		height: 100%;
+		#content{
+			height: 100%;
+			nav{
+				height: 100%;
+				width: 300px;
+				float: left;
+				background-image: url(../../images/nav_texture.jpg);
+				background-position: top left;
+				background-repeat: repeat-y;
+				padding: 40px 20px 0px 20px;
+				font-size: 12px;
+				margin-right: 10px;
+				overflow: hidden;
+				position: relative;
+				-moz-box-shadow:    3px 0px 8px 3px #ccc;
+				-webkit-box-shadow: 3px 0px 8px 3px #ccc;
+				box-shadow:         3px 0px 8px 3px #ccc;
+				#branding{
+					margin-bottom: 40px;
+					img{
+						width: 100%;
+						height: auto;
+					}
+				}
+				a{
+					color: $font-color;
+					text-decoration: none;
+				}
+				.top_level{
+					padding: 10px 15px;
+					background-color: $nav_top_level;
+					margin-top:10px;
+					text-transform: uppercase;
+					
+				}
+				.top_level:hover, .top_level_active{
+					background-color: $nav_top_level_hover;
+				}
+				.child_level{
+					margin: 1px 5px 0px 5px;
+					padding: 10px;
+					background-color: $nav_child_level;
+				}
+				.child_level:hover, .child_level_active{
+					background-color: $nav_child_level_hover;
+				}
+				#infiniti_link{
+					color: $font-color;
+					background-image: url(../../images/infiniti_Car_sm.jpg);
+					background-position: top left;
+					background-repeat: no-repeat;
+					margin-top: 10px;
+					padding-top: 36px;
+				}
+				#social_connections{
+					background-color: #fff;
+					position: absolute;
+					bottom: -100px;
+					left: 10px;
+					width: 280px;
+					#infiniti_social{
+						width: 57%;
+					}
+					#oasis_social{
+						width: 43%;
+					}
+					div{
+						float: left;
+						text-transform: uppercase;
+						text-align: center;
+						font-size: 10px;
+						padding-top: 10px;
+						ul{
+							margin-top: 10px;
+						}
+						ul li{
+							display: inline-block;
+							background-image: url(../../images/social_icons.jpg);
+							background-repeat: no-repeat;
+							width: 40px;
+							height: 40px;
+							background-position-x: 0px; 
+							margin-right: 5px;
+							margin-bottom: 5px;
+						}
+						.ifb{
+							background-position-y: 0px;
+						}
+						.itw{
+							background-position-y: -40px;
+						}
+						.iyt{
+							background-position-y: -80px;
+						}
+						.iig{
+							background-position-y: -120px;
+						} 
+						.ipt{
+							background-position-y: -160px;
+						} 
+						.ica{
+							background-position-y: -200px;
+						} 
+						.ofb{
+							background-position-y: -240px;
+						} 
+						.otw{
+							background-position-y: -280px;
+						} 
+						.oyt{
+							background-position-y: -320px;
+						} 
+						.oca{
+							background-position-y: -360px;
+						}
+
+						#infiniti_social li:nth-child(3n){
+							margin-right: 0px;
+						}
+						#oasis_social li:nth-child(2n){
+							margin-right: 0px;
+						}
+					}
+
+				}
+			}
+			#primary{
+				float: left;
+				max-width:1200px;
+				background-color: rgba(0, 0, 255, .2);
+				#post_banner{
+					height: 181px;
+					width: 100%;
+					overflow: hidden;
+				}
+			}
+		}
+	}
+	.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: "";
+	clear: both;
+	height: 0;
+	}
+	* html .clearfix             { zoom: 1; } /* IE6 */
+	*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+}
