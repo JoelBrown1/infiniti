@@ -35,20 +35,33 @@ $(document).ready(function(){
 	);
 
 	function checkPos( evt ){
+		console.log("check pos is happening");
         var scroll = ($(window).scrollTop() + $(window).height());
-        if (scroll >= navHeight) {
+        if(parseInt($(".navigation").css("height"))> $(window).height()){
+            if (scroll >= navHeight) {
             $(".navigation").css({position: "fixed",
         						  top: "initial",
         						  bottom: "0px"});
-        } else {
-            $(".navigation").css({position: "absolute",
-        						  top: "0px",
-        						  bottom: "initial"	});
+	        } else {
+	            $(".navigation").css({position: "absolute",
+	        						  top: "0px",
+	        						  bottom: "initial"	});
+	        }    	
         }
 	}
 
 	function checkOffset(){
 		offsetH = primaryContainer.outerHeight() - navHeight;
+		if( navHeight < $(window).height()){
+			$(".navigation").css({	position : "fixed",
+									height : "100%"
+									})
+		} else {
+			$(".navigation").css({	position : "absolutle",
+									height : "initial"
+									})
+		}
+		console.log("this is the navHeight value: ", navHeight);
 	}
 
 	if(sTitle.search(/bear/i)>= 0){
