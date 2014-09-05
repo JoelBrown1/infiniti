@@ -285,12 +285,6 @@ function setReady(){
 function setMobilePlayer(vList){
 	mPlayer = new YT.Player(vidIframe, {
         videoId: vList,
-        /*playerVars: {
-            controls: 0,
-            autohide: 0,
-            autoplay: 1,
-            enablejsapi: 1
-        },*/
         height: '480',
         width: '270',
         events: {

@@ -38,11 +38,12 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
-	<ul class="vid_controls">
-      <li id="facebook" class="socialBtns"></li>
-      <li class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&text=INFINITI and OASIS Present Canada Undiscovered"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-twitter.jpg'; ?>" alt="twitter social link"> --></a></li>
-    </ul>
 	<div id="page" class="hfeed site">
+		<ul class="vid_controls">
+	      <li id="facebook" class="socialBtns"></li>
+	      <li class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&text=INFINITI and OASIS Present Canada Undiscovered"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-twitter.jpg'; ?>" alt="twitter social link"> --></a></li>
+	    </ul>
+
 		<header id="masthead" class="site-header" role="banner">
 
 			<nav id="site-navigation" class="main-navigation" role="navigation">
