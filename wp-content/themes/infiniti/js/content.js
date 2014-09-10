@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	var socialVis = false;
 
-	var socialOrigPos = parseInt($("#social_connections").css("bottom"));
+	var socialOrigPos = parseInt($(".social_connections").css("bottom"));
 	var greatBear = "7HKoqNJtMTQ";
 	var aniTime = .3;
 	var sTitle = $(".entry-title").html();
@@ -16,26 +16,49 @@ $(document).ready(function(){
 	var currentTop = currentOffset.top;
 	var yPosition = 0;
 	var offsetH;
+	var is_mobile = WURFL.is_mobile;
+	var aniTime = .25;
 
-	setTimeout( function(){
-		checkOffset();
-	}, 1000);
 
-	$("#social_connections").on("click", doSocial);
+	setTimeout( function(){ checkOffset(); }, 1000);
+
+	$(".social_connections").on("click", doSocial);
+	$(window).on("click", doClickCheck);
 	$(".panorama_img").on("click", doPopup);
 	$(".geo").on("click", doPopup);
-	$(window).on("scroll", checkPos);
+	$(".ham_nav").on('click', mobMenu);
+	$(document).on("scroll", checkPos);
 
 	$(window).on("resize", $.debounce( 
 			50, 
 			true, 
 			function(e){
 				checkOffset(); 
+				getPos();
 	    })
 	);
 
+	function doClickCheck( evt ){
+		console.log( evt.target);
+	}
+
+	function mobMenu( evt ){
+		var totalHeight = $("#mobile_nav").outerHeight(true) + $(".menu-main-menu-container").outerHeight(true) + $('#infiniti_link').outerHeight(true) + $(".social_connections").outerHeight(true);
+		console.log("total outer height of nav: ", totalHeight);
+		console.log("total outer height of mobile_nav: ", $("#mobile_nav").outerHeight(true));
+		console.log("total outer height of menu-main-menu-container: ", $(".menu-main-menu-container").outerHeight(true));
+		console.log("total outer height of infiniti_link: ", $('#infiniti_link').outerHeight(true));
+		console.log("total outer height of social_connections: ", $(".social_connections").outerHeight(true));
+		if($("#mobile_nav").outerHeight() == 0){
+			console.log("should open the nav...");
+			$("#mobile_nav").css({height : totalHeight});
+		} else {
+			console.log("should close the nav");
+			$("#mobile_nav").css({height : 0});
+		}
+	}
+
 	function checkPos( evt ){
-		console.log("check pos is happening");
         var scroll = ($(window).scrollTop() + $(window).height());
         if(parseInt($(".navigation").css("height"))> $(window).height()){
             if (scroll >= navHeight) {
@@ -50,7 +73,12 @@ $(document).ready(function(){
         }
 	}
 
+	function getPos(){
+		socialOrigPos = parseInt($(".social_connections").css("bottom"));
+	}
+
 	function checkOffset(){
+		console.log("looking at emulation of devices and chcking for screen size change...");
 		offsetH = primaryContainer.outerHeight() - navHeight;
 		if( navHeight < $(window).height()){
 			$(".navigation").css({	position : "fixed",
@@ -61,7 +89,6 @@ $(document).ready(function(){
 									height : "initial"
 									})
 		}
-		console.log("this is the navHeight value: ", navHeight);
 	}
 
 	if(sTitle.search(/bear/i)>= 0){
@@ -86,14 +113,18 @@ $(document).ready(function(){
 		});
 	}
 	function doSocial( evt ){
+		var openPos = -(parseInt($(this).css("margin-bottom")));
 		evt.stopPropagation();
 		evt.preventDefault();
-		if(!socialVis){
-			TweenMax.to(this, aniTime, {css:{bottom:0}, ease:Circ.easeOut});
-			socialVis = true;
-		} else {
-			TweenMax.to(this, aniTime, {css:{bottom:socialOrigPos}, ease:Circ.easeOut});
-			socialVis = false;
+		if( $(evt.target).parent().attr("id") != "mobile_nav" ){
+			if(!socialVis){
+				TweenMax.to(this, aniTime, {css:{bottom:openPos}, ease:Circ.easeOut});
+				socialVis = true;
+			} else {
+				TweenMax.to(this, aniTime, {css:{bottom:socialOrigPos}, ease:Circ.easeOut});
+				socialVis = false;
+			}
 		}
+		
 	}
 })

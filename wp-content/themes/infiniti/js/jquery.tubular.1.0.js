@@ -39,11 +39,17 @@
             $node = $(node); // cache wrapper node
 
         // build container
-        var tubularContainer = '<div id="tubular-container" style="overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
+        if(!is_mobile){
+            var pContainer = '<div id="tubular-container" style="overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
+        } else {
+            var pContainer = '<div id="tubular-container" style="display: none; overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
+        }
+        var tubularContainer = pContainer;
 
         // set up css prereq's, inject tubular container and set up wrapper defaults
         $('html,body').css({'width': '100%', 'height': '100%'});
-        $body.prepend(tubularContainer);
+
+        $body.prepend(tubularContainer);        
         $node.css({position: 'relative', 'z-index': options.wrapperZIndex});
 
         // set up iframe player, use global scope so YT api can talk

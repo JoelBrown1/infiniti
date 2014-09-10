@@ -4,319 +4,414 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
-$font-stack : Helvetic, sans-serif;
+$font-stack : 'Roboto', Helvetic, sans-serif;
 $primary-color : rgba(244, 173, 4, .6);
 $navColor : rgba(0, 0, 0, .2);
 $font-color: #fff;
 
-html, body{
-	height: 100%;
-	width: 100%;
-}
 body{
 	position: relative;
-	font-family: 'Roboto', sans-serif;
+	font-family: $font-stack;
 	text-transform: uppercase;
-	ul{
-		z-index: 100;
-	}
-	.video_container{
-		position: absolute;
-		padding-bottom: 56.25%; /* 16:9 */
-		height: 0;
-		overflow: hidden;
-		display: none;
-	}
-	#branding{
-		z-index: 100;
-		position: absolute;
-		display: block;
-		width: 100%;
-		margin: 0 auto;
-		top: 15%;
-		img.main_logo{
-			width: 60%;
-			height: auto;
-			margin: 0 auto;
-			display: block;
-		}
-	}
-	ul.vid_controls{
-		position: absolute;
-		top: 0;
-		right: 22px;
-		background-color: #fff;
-		color: #000;
-		padding: 33px 5px 10px 5px;
-		box-shadow: 0px 2px 16px -1px #000;
-		li{
-			float: left;
-			margin: 0px 5px;
-		}
-		.socialBtns{
-			background-image: url(../../images/spritesheet.png);
-			background-repeat: no-repeat;
-			padding: 0px 0px;
-			line-height: 0px;
-			width: 42px;
-			height: 42px;
-		}
-		#facebook{
-			background-position: left -363px
-		}
-		.twitter{
-			background-position: left -407px;
-		}
-		.g_plus{
-			background-position: left -451px;
-		}
-	}
-	ul#trip_controls{
-		z-index: 101;
-		position: absolute;
-		bottom: 100px;
-		left: 0px;
-		overflow: hidden;
-		.trip1 .vid_container{
-			background-position: 175px 10px;
-			@media screen and ( max-width: 568px ){
-				background-position-y: 6px;
-			}
-		}
-		.trip2 .vid_container{
-			background-position: 175px -90px;
-			@media screen and ( max-width: 568px ){
-				background-position-y: -35px;
-			}
-		}
-		.trip3 .vid_container{
-			background-position: 175px -188px;
-			@media screen and ( max-width: 568px ){
-				background-position-y: -74px;
-			}
-		}
-		.trip{
-			margin-top: 10px;
-			height: 84px;
-			display: block;
-			line-height: 84px;
-			
-			// background-size: auto 330px;
-			@media screen and (max-width: 568px){
-				background-size: auto 168px;
-			}
+}
+a{
+	text-decoration: none;
+	color: #fff;
+}
+#content{
+	position: relative;
+	z-index: 2;
+	min-height: 100%;
+}
+#sndControls{
+	width: 40px;
+	height: 40px;
+	background-image: url(../../images/spritesheet.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 105;
+}
+.on{
+	background-position: bottom left;
+}
+.off{
+	background-position: bottom right;
+}
+.social_share{
+	position: absolute;
+	top: 0;
+	right: 22px;
+	background-color: #fff;
+	color: #000;
+	padding: 10px 5px 10px 5px;
+	box-shadow: 0px 2px 16px -1px #000;
+}
+.social_share li{
+	float: left;
+	margin: 0px 5px;
+}
+.socialBtns{
+	background-image: url(../../images/spritesheet.png);
+	background-repeat: no-repeat;
+	padding: 0px 0px;
+	line-height: 0px;
+	width: 42px;
+	height: 42px;
+}
+#facebook{
+	background-position: left -363px
+}
+.twitter{
+	background-position: left -407px;
+}
+#branding{
+	display: none;
+	margin: 10% auto;
+	width: 70%;
+}
+.main_logo{
+	width: 60%;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+.video_container{
+	position: absolute;
+	padding-bottom: 56.25%; /* 16:9 */
+	height: 0;
+	overflow: hidden;
+	display: none;
+}
+#trip_controls{
+	position: absolute;
+	left: 0px;
+	bottom: 100px;
+	overflow: hidden;
+	display: inline-block;
+}
+.trip{
+	margin-top: 10px;
+	height: 84px;
+	display: block;
+	line-height: 84px;
+	cursor: pointer;
+}
+.trip1 .trip_container{
+	background-image: url(../../images/icon-rain_forest.png);
+}
+.trip2 .trip_container{
+	background-image: url(../../images/icon_sand_dunes.png);
+}
+.trip3 .trip_container{
+	background-image: url(../../images/icon-sable_island.png);
+}
+.trip_container{
+	display: inline-block;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	color: $font-color;
+	background-position: 175px 10px;
+	background-repeat: no-repeat;
+	background-color: $navColor;
+	padding: 18px 0px 18px 10px;
+}
+#vid_bottom_nav{
 
-			.vid_container{
-				display: inline-block;
-				font-weight: 400;
-				font-size: 20px;
-				line-height: 24px;
-				color: $font-color;
-				background-color: $navColor;
-				background-image: url(../../images/spritesheet.png);
-				background-repeat: no-repeat;
-				padding-left: 10px;
-				@media screen and (max-width: 568px){
-					font-size: 14px;
-					line-height: 14px;
-				}
-			}
-			.vidNav:first-child{
-				margin-right: 10px;
-				margin-left:0px;
-			}
-			.vidNav{
-				margin-left:10px;
-			}
-			@media screen and ( max-width: 568px ){
-				height: 44px;
-				line-height: 44px;
-			}
-			.trip_pause{
-				background-image: url(../../images/pause_icon.png);
-				/* background-size: auto 66px; */
-				background-position: 175px 10px;
-				@media screen and ( max-width: 568px ){
-					background-size: auto 36px;
-					background-position: 134px 4px;
-				}
-			}
-		}
-		.trip>div{
-			padding: 18px 0px;
-			@media screen and (max-width: 568px){
-				padding: 8px 0px;
-			}
-		}
-		@media screen and ( max-width: 568px ){
-			bottom: 80px;
-		}
-		.trip:first-child{
-			margin-top: 0px;
-		}
-
-		.prevVid, .nextVid{
-			border: thin solid #fff;
-			font-size: 14px;
-			padding: 0px 7px;
-		}
-		.prevVid{
-			/* visibility: hidden; */
-		}
-	}
-	ul#vid_bottom_nav{
-		position: absolute;
-		bottom: 12px;
-		left: 10px;
-		li{
-			color:$font-color;
-			display:inline-block;
-			// float: left;
-			background-color: $navColor;
-			/* line-height: 40px; */
-			padding: 10px 20px;
-		}
-		
-	}
-	footer{
-		position: absolute;
-		bottom: 13px;
-		right: 10px;
-		color: $font-color;
-		font-size: 8px;
-		z-index: 110;
-		display: block;
-		width: 350px;
-		#trademark{
-			width: 210px;
-			text-align: right;
-			float: left;
-			line-height: 11px;
-			display: inline-block;
-		}
-		#infinitiLink{
-			background-color: $navColor;
-			display: inline-block;
-			padding: 10px 25px;
-			margin-left: 18px;
-			font-size: 13px;
-			color: #fff;
-			text-decoration: none;
-			vertical-align: bottom;
-			float: right;
-		}
-	}
-	#sndControls{
-		width: 40px;
-		height: 40px;
-		background-color: rgba( 209, 62, 44, 0.4 );
-		background-image: url(../../images/spritesheet.png);
-		background-repeat: no-repeat;
-		// background-size: 80px auto;
-		position: absolute;
-		top: 10px;
-		left: 10px;
-		z-index: 105;
-	}
-	.on{
-		background-position: bottom left;
-	}
-	.off{
-		background-position: bottom right;
-	}
+}
+.vidNav:first-child{
+	margin-right: 10px;
+	margin-left:0px;
+}
+.vidNav{
+	margin-left:10px;
+}
+.trip_pause{
+	background-image: url(../../images/pause_icon.png) !important;
+}
+.trip:first-child{
+	margin-top: 0px;
+}
+.prevVid, .nextVid{
+	border: thin solid #fff;
+	font-size: 14px;
+	padding: 0px 7px;
+}
+#vid_bottom_nav{
+	position: absolute;
+	bottom: 12px;
+	left: 10px;
+}
+#vid_bottom_nav>li{
+	color:$font-color;
+	display:inline-block;
+	background-color: $navColor;
+}
+#vid_bottom_nav a{
+	padding: 20px;
+	display: block;
+}
+footer{
+	position: absolute;
+	bottom: 13px;
+	right: 10px;
+	color: $font-color;
+	font-size: 8px;
+	display: block;
+	width: 350px;
+}
+#trademark{
+	width: 210px;
+	text-align: right;
+	float: left;
+	line-height: 11px;
+	display: inline-block;
+}
+#infinitiLink{
+	background-color: $navColor;
+	display: inline-block;
+	padding: 10px 25px;
+	margin-left: 18px;
+	font-size: 13px;
+	color: #fff;
+	text-decoration: none;
+	vertical-align: bottom;
+	float: right;
 }
 
+// this where all the mobile stuff starts to happen
 body.mobile{
-	background-image: url(../../images/testAnimationBgnd.gif);
-	background-position: top center;
-	background-size: cover;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale');
-	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale')";
-
+	#content{
+		background-image: url(../../images/testAnimationBgnd.gif);
+		background-position: top center;
+		background-size: cover;
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale');
+		-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/logo.gif', sizingMethod='scale')";
+		padding: 40px 0px 10px;
+	}
 	#branding{
-		top: 10%;
-		img.main_logo{
-			width: 40%;
-		}
+		display: block;
 	}
-	#sndControls{
-		display: none;
-	}
-
-	.mobVidCont{
+	#mob_vid_container{
 		position: relative;
-		top: 35%;
-		width: 45%;
+		width: 85%;
 		margin: 0 auto;
 		z-index: 111;
-		.mobile_video{
-		    width: 100%;
-		    margin: 0 auto;
-		    padding-top: 62.5%;
-		    iframe{
-		    	position: absolute;
-			    top:0;
-			    left: 0;
-			    width: 100%;
-			    height: 100%;
-		    }
-		}
-		@media (max-width: 800px){				
-			top: -5%;
-			width: 65%;
-		}
-
 	}
-
-	ul#trip_controls{
-		bottom:170px;
-		@media (max-width: 800px){
-			position: relative;
-			width: 65%;
-			margin: 0 auto;
-			bottom: initial;
-			left: initial;
-			top: 60%;
-		}
-		.trip{
-			.vid_container{
-				@media (max-width: 800px){
-					background-color: transparent;
-					text-align: left;
-				}
-			}
-			@media (max-width: 800px){
-				background-color:$navColor;
-				text-align: center;
-				padding: 0px 30px;
-			}
-			.trip_pause{
-				background-size: auto 66px;
-			}
-		}
+	.big_player{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 100%;
+		width:100%;
+		background-image: url(../../images/bigPlayBtn.png);
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: 40%;
 	}
-	ul#vid_bottom_nav{
+	.mobile_video{
+	    width: 100%;
+	    margin: 0 auto;
+	    padding-top: 62.5%;
+	}
+	.mobile_video iframe{
+		position: absolute;
+	    top:0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+	.vid_hidden{
+		visibility: hidden;
+	}
+	#trip_controls{
+		position: relative;
 		left: initial;
-		right: 22px;
-		bottom: 240px;
-		li{
-			display: block;
-			text-align: center;
-			padding: 20px 20px;
-			@media(max-width: 800px){
-				display: inline-block;
-			}
-		}
-		li:first-child{
-			margin-bottom: 10px;
-		}
-		@media (max-width: 800px){
-			left: 10px;
-			right: initial;
-			bottom: 12px;
-		}
+		bottom: initial;
+		display: block;
+	}
+	.trip{
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	.trip_container{
+		background-color: transparent;
+	}
+	.trip_inactive{
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+		opacity: .2;
+	}
+	#vid_bottom_nav{
+		position: relative;
+		bottom: initial;
+		left: initial;
+	} 
+	#sndControls, #tubular-shield{
+		display: none;
 	}
 	footer{
-		bottom: 30px;
+		position: relative;
+	}
+	@media screen and (max-width: 1024px){
+		#content{
+			padding: 0px 10px 0px 0px;
+			min-height: 100%;
+		}
+		#branding{
+			margin: 40px auto;
+		}
+		.main_logo{
+			width:55%;
+		}
+		#mob_vid_container{
+			float: right;
+			width: 70%;
+		}
+		#trip_controls{
+			float: left;
+			width: 29%;
+		}
+		.trip{
+			padding-left: 10px;
+		}
+		.trip_container{
+			display: block;
+			background-position: right 10px;
+			font-size: 16px;
+		}
+		#vid_bottom_nav{
+			width: 29%;
+			float: left;
+			margin-top: 10px;
+		}
+		#vid_bottom_nav li{
+			display: block;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+		footer{
+			width: 70%;
+			float: right;
+			margin-top: 10px;
+		}
+		#trademark{
+			width: 60%;
+			float: right;
+			margin-top: 8px;
+		}
+		footer{
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+	}
+	@media screen and (min-width: 768px) and ( orientation: portrait ){
+		#content{
+			padding: 5% 10px;
+			min-height: 100%;
+		}
+		#mob_vid_container{
+			float: none;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+		 #trip_controls{
+			float: left;
+			width: 45%;
+		}
+		.trip_container{
+			text-align: left;
+			display: block;
+			padding-left: 0px;
+			width: 230px;
+			margin: 0 auto;
+			font-size: 16px;
+		}
+		#vid_bottom_nav{
+			float: right;
+			width: 40%;
+			text-align: center;
+			margin-top: 0px;
+		}
+		#vid_bottom_nav li{
+			text-align: center;
+			display: block;
+		}
+		footer{
+			margin: 0 auto;
+			float: none;
+		}
+		#trademark{
+
+		}
+	}
+	@media screen and (max-width: 767px){
+		#content{
+			padding: 0px;
+		}
+		#branding{
+			width: 60%;
+			margin: 70px auto 20px;
+		}
+		.main_logo{
+			width: 100%;
+		}
+		#mob_vid_container{
+			float: none;
+			width: 85%;
+			margin-bottom: 10px;
+		}
+		#trip_controls{
+			float: none;
+			width: 80%;
+			margin: 0 auto 20px;
+		}
+		.trip_container{
+			display: block;
+			padding-left: 20px;
+			width: 260px;
+			margin: 0 auto;
+			font-size: 20px;
+		}
+		#vid_bottom_nav{
+			float: none;
+			width: 80%;
+			margin: 10px auto ;
+		}
+		#vid_bottom_nav li{
+			display: block;
+			text-align: center;
+			margin-bottom: 5px;
+		}
+		footer{
+			float: none;
+			width: 80%;
+			margin: 0 auto;
+		}
+		#trademark{
+			text-align: center;
+			width: 100%;
+		}
+		#infinitiLink{
+			width: 100%;
+			text-align: center;
+			margin: 0px 0px 5px;
+		}
+		footer{
+			position: relative;
+			bottom: initial;
+			right: initial;
+		}		
+	}
+	@media screen and (max-width: 320px){
+		#branding{
+			width: 80%;
+		}
+		.trip_container{
+			width: initial;
+			display: block;
+			padding-left: 0px;
+		}
 	}
 }

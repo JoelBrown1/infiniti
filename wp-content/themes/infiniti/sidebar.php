@@ -17,31 +17,9 @@
 	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
 	<div id="infiniti_link">
 		<div class="top_level">
-			<a href="#" target="_blank">Explore the infiniti model range</a>
+			<a href="http://www.infiniti.ca/en/" target="_blank">Explore the infiniti model range</a>
 		</div>
 	</div>
-	<div id="social_connections" class="clearfix">
-		<div class="social_container clearfix">
-			<div id="infiniti_social">
-				<span>Connect with Infiniti</span>
-				<ul>
-					<li class="ifb"></li>
-					<li class="itw"></li>
-					<li class="iyt"></li>
-					<li class="iig"></li>
-					<li class="ipt"></li>
-					<li class="ica"></li>
-				</ul>
-			</div>
-			<div id="oasis_social">
-				<span>Connect with Oasis</span>
-				<ul>
-					<li class="ofb"></li>
-					<li class="otw"></li>
-					<li class="oyt"></li>
-					<li class="oca"></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<?php get_template_part( "navigation", "social_channels" ); ?>
+
 </nav>

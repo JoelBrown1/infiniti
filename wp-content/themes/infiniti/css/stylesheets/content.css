@@ -102,12 +102,8 @@ body h1 {
 body p {
   font-size: 14px;
 }
-/* line 45, ../sass/content.scss */
-body #page {
-  position: relative;
-}
-/* line 48, ../sass/content.scss */
-body ul.vid_controls {
+/* line 47, ../sass/content.scss */
+body ul.social_share {
   position: absolute;
   top: 0;
   right: 22px;
@@ -116,13 +112,13 @@ body ul.vid_controls {
   padding: 10px 5px 10px 5px;
   box-shadow: 0px 2px 16px -1px #000;
 }
-/* line 56, ../sass/content.scss */
-body ul.vid_controls li {
+/* line 55, ../sass/content.scss */
+body ul.social_share li {
   float: left;
   margin: 0px 5px;
 }
-/* line 60, ../sass/content.scss */
-body ul.vid_controls .socialBtns {
+/* line 59, ../sass/content.scss */
+body ul.social_share .socialBtns {
   background-image: url(../../images/spritesheet.png);
   background-repeat: no-repeat;
   padding: 0px 0px;
@@ -130,37 +126,25 @@ body ul.vid_controls .socialBtns {
   width: 42px;
   height: 42px;
 }
-/* line 68, ../sass/content.scss */
-body ul.vid_controls #facebook {
+/* line 67, ../sass/content.scss */
+body ul.social_share #facebook {
   background-position: left -363px;
 }
-/* line 71, ../sass/content.scss */
-body ul.vid_controls .twitter {
+/* line 70, ../sass/content.scss */
+body ul.social_share .twitter {
   background-position: left -407px;
 }
-/* line 74, ../sass/content.scss */
-body ul.vid_controls .g_plus {
+/* line 73, ../sass/content.scss */
+body ul.social_share .g_plus {
   background-position: left -451px;
 }
-/* line 78, ../sass/content.scss */
+/* line 77, ../sass/content.scss */
 body #page {
+  position: relative;
   height: 100%;
 }
 /* line 80, ../sass/content.scss */
-body #page #content {
-  height: 100%;
-}
-/* line 82, ../sass/content.scss */
-body #page #content .white-popup {
-  position: relative;
-  background: #FFF;
-  padding: 20px;
-  width: auto;
-  max-width: 500px;
-  margin: 20px auto;
-}
-/* line 90, ../sass/content.scss */
-body #page #content nav {
+body #page .navigation {
   width: 400px;
   height: 850px;
   position: absolute;
@@ -176,90 +160,54 @@ body #page #content nav {
   -moz-box-shadow: -23px 2px 49px 14px #000;
   -webkit-box-shadow: -23px 2px 49px 14px #000;
   box-shadow: -23px 2px 49px 14px #000;
+  /* @media screen and( max-width:) */
 }
-/* line 107, ../sass/content.scss */
-body #page #content nav #branding {
+/* line 98, ../sass/content.scss */
+body #page .navigation #branding {
   margin-bottom: 40px;
 }
-/* line 109, ../sass/content.scss */
-body #page #content nav #branding img {
+/* line 100, ../sass/content.scss */
+body #page .navigation #branding img {
   width: 100%;
   height: auto;
 }
-/* line 114, ../sass/content.scss */
-body #page #content nav a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 10px 15px;
-}
-/* line 120, ../sass/content.scss */
-body #page #content nav .top_level {
-  background-color: rgba(0, 0, 0, 0.4);
-  margin-top: 10px;
-  text-transform: uppercase;
-}
-/* line 126, ../sass/content.scss */
-body #page #content nav .top_level:hover, body #page #content nav .top_level_active {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-/* line 129, ../sass/content.scss */
-body #page #content nav .child_level {
-  margin: 1px 5px 0px 5px;
-  background-color: rgba(80, 80, 80, 0.4);
-}
-/* line 133, ../sass/content.scss */
-body #page #content nav .child_level:hover, body #page #content nav .child_level_active {
-  background-color: rgba(80, 80, 80, 0.6);
-}
-/* line 136, ../sass/content.scss */
-body #page #content nav #infiniti_link {
-  color: #fff;
-  background-image: url(../../images/infiniti_Car_sm.jpg);
-  background-position: top left;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 10px;
-  margin-bottom: 124px;
-  padding-top: 36px;
-}
-/* line 146, ../sass/content.scss */
-body #page #content nav #social_connections {
+/* line 105, ../sass/content.scss */
+body #page .navigation #social_connections {
   background-color: #fff;
   position: absolute;
-  bottom: -100px;
+  bottom: -130px;
   left: 10px;
   width: 90%;
   height: 124px;
 }
-/* line 153, ../sass/content.scss */
-body #page #content nav #social_connections .social_container {
+/* line 112, ../sass/content.scss */
+body #page .navigation #social_connections .social_container {
   width: 270px;
   position: relative;
   margin: 0 auto;
 }
-/* line 159, ../sass/content.scss */
-body #page #content nav #social_connections #infiniti_social {
+/* line 118, ../sass/content.scss */
+body #page .navigation #social_connections #infiniti_social {
   width: 154px;
 }
-/* line 162, ../sass/content.scss */
-body #page #content nav #social_connections #oasis_social {
+/* line 121, ../sass/content.scss */
+body #page .navigation #social_connections #oasis_social {
   width: 116px;
 }
-/* line 165, ../sass/content.scss */
-body #page #content nav #social_connections #oasis_social, body #page #content nav #social_connections #infiniti_social {
+/* line 124, ../sass/content.scss */
+body #page .navigation #social_connections #oasis_social, body #page .navigation #social_connections #infiniti_social {
   float: left;
   text-transform: uppercase;
   text-align: center;
   font-size: 10px;
   padding-top: 10px;
 }
-/* line 173, ../sass/content.scss */
-body #page #content nav #social_connections div ul {
+/* line 132, ../sass/content.scss */
+body #page .navigation #social_connections div ul {
   margin-top: 10px;
 }
-/* line 176, ../sass/content.scss */
-body #page #content nav #social_connections div ul li {
+/* line 135, ../sass/content.scss */
+body #page .navigation #social_connections div ul li {
   display: inline-block;
   background-image: url(../../images/social_icons.jpg);
   background-repeat: no-repeat;
@@ -269,123 +217,406 @@ body #page #content nav #social_connections div ul li {
   margin-right: 5px;
   margin-bottom: 5px;
 }
-/* line 186, ../sass/content.scss */
-body #page #content nav #social_connections div .ifb {
+/* line 145, ../sass/content.scss */
+body #page .navigation #social_connections div .ifb {
   background-position-y: 0px;
 }
-/* line 189, ../sass/content.scss */
-body #page #content nav #social_connections div .itw {
+/* line 148, ../sass/content.scss */
+body #page .navigation #social_connections div .itw {
   background-position-y: -40px;
 }
-/* line 192, ../sass/content.scss */
-body #page #content nav #social_connections div .iyt {
+/* line 151, ../sass/content.scss */
+body #page .navigation #social_connections div .iyt {
   background-position-y: -80px;
 }
-/* line 195, ../sass/content.scss */
-body #page #content nav #social_connections div .iig {
+/* line 154, ../sass/content.scss */
+body #page .navigation #social_connections div .iig {
   background-position-y: -120px;
 }
-/* line 198, ../sass/content.scss */
-body #page #content nav #social_connections div .ipt {
+/* line 157, ../sass/content.scss */
+body #page .navigation #social_connections div .ipt {
   background-position-y: -160px;
 }
-/* line 201, ../sass/content.scss */
-body #page #content nav #social_connections div .ica {
+/* line 160, ../sass/content.scss */
+body #page .navigation #social_connections div .ica {
   background-position-y: -200px;
 }
-/* line 204, ../sass/content.scss */
-body #page #content nav #social_connections div .ofb {
+/* line 163, ../sass/content.scss */
+body #page .navigation #social_connections div .ofb {
   background-position-y: -240px;
 }
-/* line 207, ../sass/content.scss */
-body #page #content nav #social_connections div .otw {
+/* line 166, ../sass/content.scss */
+body #page .navigation #social_connections div .otw {
   background-position-y: -280px;
 }
-/* line 210, ../sass/content.scss */
-body #page #content nav #social_connections div .oyt {
+/* line 169, ../sass/content.scss */
+body #page .navigation #social_connections div .oyt {
   background-position-y: -320px;
 }
-/* line 213, ../sass/content.scss */
-body #page #content nav #social_connections div .oca {
+/* line 172, ../sass/content.scss */
+body #page .navigation #social_connections div .oca {
   background-position-y: -360px;
 }
-/* line 217, ../sass/content.scss */
-body #page #content nav #social_connections div #infiniti_social li:nth-child(3n) {
+/* line 176, ../sass/content.scss */
+body #page .navigation #social_connections div #infiniti_social li:nth-child(3n) {
   margin-right: 0px;
 }
-/* line 220, ../sass/content.scss */
-body #page #content nav #social_connections div #oasis_social li:nth-child(2n) {
+/* line 179, ../sass/content.scss */
+body #page .navigation #social_connections div #oasis_social li:nth-child(2n) {
   margin-right: 0px;
 }
 @media screen and (max-width: 1200px) {
-  /* line 90, ../sass/content.scss */
-  body #page #content nav {
+  /* line 80, ../sass/content.scss */
+  body #page .navigation {
     width: 30%;
   }
 }
 @media screen and (max-width: 1024px) {
-  /* line 90, ../sass/content.scss */
-  body #page #content nav {
+  /* line 80, ../sass/content.scss */
+  body #page .navigation {
     width: 300px;
     font-size: 12px;
   }
 }
-/* line 234, ../sass/content.scss */
+@media screen and (max-width: 767px) {
+  /* line 194, ../sass/content.scss */
+  body #page .navigation {
+    display: none;
+  }
+}
+/* line 199, ../sass/content.scss */
+body #page .site-header {
+  background-image: url(../../images/nav_texture.jpg);
+  background-position: top left;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+/* line 205, ../sass/content.scss */
+body #page .site-header .mob_nav_header {
+  margin: auto;
+  -moz-box-shadow: 0px 2px 39px -2px #000;
+  -webkit-box-shadow: 0px 2px 39px -2px #000;
+  box-shadow: 0px 2px 39px -2px #000;
+  position: relative;
+  z-index: 2;
+}
+/* line 212, ../sass/content.scss */
+body #page .site-header .mob_nav_header div {
+  display: inline-block;
+  float: left;
+}
+/* line 216, ../sass/content.scss */
+body #page .site-header .mob_nav_header .ham_nav {
+  width: 24%;
+  margin-top: 10%;
+  text-align: center;
+  min-width: 40px;
+}
+/* line 221, ../sass/content.scss */
+body #page .site-header .mob_nav_header .ham_nav img {
+  width: 40%;
+}
+/* line 225, ../sass/content.scss */
+body #page .site-header .mob_nav_header .mob_brand {
+  width: 75%;
+  text-align: center;
+  border-left: solid thin #646464;
+  padding: 30px 30px;
+}
+/* line 230, ../sass/content.scss */
+body #page .site-header .mob_nav_header .mob_brand img {
+  width: 70%;
+  max-width: 400px;
+  min-width: 180px;
+}
+@media screen and (max-width: 320px) {
+  /* line 237, ../sass/content.scss */
+  body #page .site-header .mob_nav_header .ham_nav {
+    margin-top: 50px;
+  }
+  /* line 239, ../sass/content.scss */
+  body #page .site-header .mob_nav_header .ham_nav img {
+    max-width: 40px;
+  }
+}
+/* line 245, ../sass/content.scss */
+body #page .site-header .mobile_nav {
+  width: 70%;
+  margin: 0 auto;
+  height: 0px;
+  padding: 0px 0px;
+  overflow: hidden;
+  -webkit-transition: all 500ms ease-out;
+  -moz-transition: all 500ms ease-out;
+  -o-transition: all 500ms ease-out;
+  transition: all 500ms ease-out;
+}
+/* line 255, ../sass/content.scss */
+body #page .site-header .mobile_nav .social_connections {
+  background-color: transparent;
+}
+/* line 260, ../sass/content.scss */
+body #page .site-header .nav_vis {
+  height: initial;
+}
+/* line 264, ../sass/content.scss */
+body #page .site-header .menu-main-menu-container {
+  margin-top: 30px;
+  text-align: center;
+}
+/* line 271, ../sass/content.scss */
+body #page #content {
+  height: 100%;
+  position: relative;
+}
+/* line 274, ../sass/content.scss */
+body #page #content .white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+/* line 282, ../sass/content.scss */
 body #page #content #primary {
   margin-left: 400px;
   padding: 30px 30px 0px 40px;
 }
 @media screen and (max-width: 1200px) {
-  /* line 234, ../sass/content.scss */
+  /* line 282, ../sass/content.scss */
   body #page #content #primary {
     margin-left: 30%;
   }
 }
 @media screen and (max-width: 1024px) {
-  /* line 234, ../sass/content.scss */
+  /* line 282, ../sass/content.scss */
   body #page #content #primary {
     margin-left: 300px;
   }
 }
-/* line 243, ../sass/content.scss */
+@media screen and (max-width: 767px) {
+  /* line 282, ../sass/content.scss */
+  body #page #content #primary {
+    margin-left: 0px;
+  }
+}
+/* line 294, ../sass/content.scss */
 body #page #content #primary #post_banner {
   margin-left: -40px;
   overflow: hidden;
 }
-/* line 246, ../sass/content.scss */
+/* line 297, ../sass/content.scss */
 body #page #content #primary #post_banner img {
   width: 100%;
 }
-/* line 250, ../sass/content.scss */
+/* line 301, ../sass/content.scss */
 body #page #content #primary article {
   margin: 40px 0px;
 }
-/* line 252, ../sass/content.scss */
+/* line 303, ../sass/content.scss */
 body #page #content #primary article header {
   margin-bottom: 20px;
 }
-/* line 255, ../sass/content.scss */
+/* line 306, ../sass/content.scss */
 body #page #content #primary article p {
   line-height: 25px;
   margin-bottom: 20px;
 }
-/* line 259, ../sass/content.scss */
+/* line 310, ../sass/content.scss */
 body #page #content #primary article .panorama_img {
   width: 100%;
 }
-/* line 261, ../sass/content.scss */
+/* line 312, ../sass/content.scss */
 body #page #content #primary article .panorama_img img {
   width: 100%;
 }
-/* line 266, ../sass/content.scss */
+/* line 317, ../sass/content.scss */
 body #page #content #primary #bottom_cta {
   width: 100%;
 }
-/* line 268, ../sass/content.scss */
+/* line 319, ../sass/content.scss */
 body #page #content #primary #bottom_cta img {
   width: 100%;
 }
-/* line 275, ../sass/content.scss */
+@media screen and (min-width: 768px) {
+  /* line 326, ../sass/content.scss */
+  body #page .site-header {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  /* line 332, ../sass/content.scss */
+  body #page .mobile_nav {
+    display: none;
+  }
+}
+/* line 336, ../sass/content.scss */
+body #page .top_level {
+  background-color: rgba(0, 0, 0, 0.4);
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+/* line 341, ../sass/content.scss */
+body #page .top_level:hover, body #page .top_level_active {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+/* line 344, ../sass/content.scss */
+body #page .child_level {
+  margin: 1px 5px 0px 5px;
+  background-color: rgba(80, 80, 80, 0.4);
+}
+/* line 348, ../sass/content.scss */
+body #page .child_level:hover, body #page .child_level_active {
+  background-color: rgba(80, 80, 80, 0.6);
+}
+/* line 351, ../sass/content.scss */
+body #page a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+}
+/* line 357, ../sass/content.scss */
+body #page #infiniti_link {
+  color: #fff;
+  background-image: url(../../images/infiniti_Car_sm.jpg);
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 10px;
+  margin-bottom: 124px;
+  padding-top: 36px;
+}
+@media screen and (max-width: 768px) {
+  /* line 369, ../sass/content.scss */
+  body #page #infiniti_link {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #000;
+  }
+}
+/* line 375, ../sass/content.scss */
+body #page .social_connections {
+  background-color: #fff;
+  position: absolute;
+  bottom: -130px;
+  left: 10px;
+  width: 90%;
+  height: 124px;
+  padding-top: 10px;
+  margin-bottom: 30px;
+}
+/* line 384, ../sass/content.scss */
+body #page .social_connections .social_container {
+  width: 270px;
+  position: relative;
+  margin: 0 auto;
+}
+/* line 390, ../sass/content.scss */
+body #page .social_connections #infiniti_social {
+  width: 154px;
+}
+/* line 393, ../sass/content.scss */
+body #page .social_connections #oasis_social {
+  width: 116px;
+}
+/* line 396, ../sass/content.scss */
+body #page .social_connections #oasis_social, body #page .social_connections #infiniti_social {
+  float: left;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 10px;
+  /* padding-top: 10px; */
+}
+/* line 404, ../sass/content.scss */
+body #page .social_connections div ul {
+  margin-top: 10px;
+}
+/* line 407, ../sass/content.scss */
+body #page .social_connections div ul li {
+  display: inline-block;
+  background-image: url(../../images/social_icons.jpg);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  background-position-x: 0px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+/* line 417, ../sass/content.scss */
+body #page .social_connections div .ifb {
+  background-position-y: 0px;
+}
+/* line 420, ../sass/content.scss */
+body #page .social_connections div .itw {
+  background-position-y: -40px;
+}
+/* line 423, ../sass/content.scss */
+body #page .social_connections div .iyt {
+  background-position-y: -80px;
+}
+/* line 426, ../sass/content.scss */
+body #page .social_connections div .iig {
+  background-position-y: -120px;
+}
+/* line 429, ../sass/content.scss */
+body #page .social_connections div .ipt {
+  background-position-y: -160px;
+}
+/* line 432, ../sass/content.scss */
+body #page .social_connections div .ica {
+  background-position-y: -200px;
+}
+/* line 435, ../sass/content.scss */
+body #page .social_connections div .ofb {
+  background-position-y: -240px;
+}
+/* line 438, ../sass/content.scss */
+body #page .social_connections div .otw {
+  background-position-y: -280px;
+}
+/* line 441, ../sass/content.scss */
+body #page .social_connections div .oyt {
+  background-position-y: -320px;
+}
+/* line 444, ../sass/content.scss */
+body #page .social_connections div .oca {
+  background-position-y: -360px;
+}
+/* line 448, ../sass/content.scss */
+body #page .social_connections div #infiniti_social li:nth-child(3n) {
+  margin-right: 0px;
+}
+/* line 451, ../sass/content.scss */
+body #page .social_connections div #oasis_social li:nth-child(2n) {
+  margin-right: 0px;
+}
+@media screen and (max-width: 768px) {
+  /* line 375, ../sass/content.scss */
+  body #page .social_connections {
+    position: relative;
+    bottom: initial;
+    left: 0px;
+    width: initial;
+  }
+}
+@media screen and (max-width: 360px) {
+  /* line 375, ../sass/content.scss */
+  body #page .social_connections {
+    height: initial;
+  }
+  /* line 464, ../sass/content.scss */
+  body #page .social_connections .social_container {
+    width: initial;
+  }
+  /* line 466, ../sass/content.scss */
+  body #page .social_connections .social_container #infiniti_social, body #page .social_connections .social_container #oasis_social {
+    float: none;
+    margin: 0 auto;
+  }
+}
+/* line 476, ../sass/content.scss */
 body .clearfix:after {
   visibility: hidden;
   display: block;
@@ -394,11 +625,20 @@ body .clearfix:after {
   clear: both;
   height: 0;
 }
-/* line 283, ../sass/content.scss */
+/* line 484, ../sass/content.scss */
 body * html .clearfix {
   zoom: 1;
 }
-/* line 284, ../sass/content.scss */
+/* line 485, ../sass/content.scss */
 body *:first-child + html .clearfix {
   zoom: 1;
+}
+
+/* line 489, ../sass/content.scss */
+body.page-id-2 header.entry-header {
+  margin-top: 60px;
+}
+/* line 492, ../sass/content.scss */
+body.page-id-2 .entry-content p:first-child img {
+  width: 100%;
 }

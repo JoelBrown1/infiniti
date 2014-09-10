@@ -39,28 +39,21 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
-  <div id="content" class="clear">
-    <div id="sndControls" class="off"></div>
-    <ul class="social_share">
-      <li id="facebook" class="socialBtns"></li>
-      <li class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&amp;text=INFINITI and OASIS Present Canada Undiscovered"><!-- <img src="http://infiniti/wp-content/themes/infiniti/images/socialIcons-twitter.jpg" alt="twitter social link"> --></a></li>
-    </ul>
+
+		<div class="video_container"></div>
     <div id="branding">
       <img class="main_logo" src="<?php echo get_template_directory_uri().'/images/logo_branding.png'; ?>" alt="Infiniti and Oasis Present Canada Undiscovered">
     </div>
-
-    <div class="video_container"></div>
-    <div id="mob_vid_container"></div>
+    <?php get_template_part( "navigation", "social_channels" ); ?>
     <ul id="trip_controls">
-      <li id="trip1" class="trip trip1" data-trip="PLlGPzfcuhqdtjaEpIvGkA1RiKRRySTLyk" data-state="false"><div class="trip_container trip_inactive"><div>Great Bear<br>Rainforest</div></div></li>
-      <li id="trip2" class="trip trip2" data-trip="PLlGPzfcuhqdtUB1WJzfqpkAManPI6k_E2" data-state="false"><div class="trip_container trip_inactive"><div>Athabasca<br>Sand Dunes</div></div></li>
-      <li id="trip3" class="trip trip3" data-trip="PLlGPzfcuhqdvuxMGjAB8wXvIB2GnAKy6g" data-state="false"><div class="trip_container trip_inactive"><div>Sable<br>Island</div></div></li>
+      <li id="trip1" class="trip trip1" data-trip="PLlGPzfcuhqdtjaEpIvGkA1RiKRRySTLyk" data-state="false"><div class="vid_container"><div>Great Bear<br>Rainforest</div></div></li>
+      <li id="trip2" class="trip trip2" data-trip="PLlGPzfcuhqdtUB1WJzfqpkAManPI6k_E2" data-state="false"><div class="vid_container"><div>Athabasca<br>Sand Dunes</div></div></li>
+      <li id="trip3" class="trip trip3" data-trip="PLlGPzfcuhqdvuxMGjAB8wXvIB2GnAKy6g" data-state="false"><div class="vid_container"><div>Sable<br>Island</div></div></li>
     </ul>
-    <ul id="vid_bottom_nav" class="clear">
+    <ul id="vid_bottom_nav" class="clearfix">
       <li><a href="<?php echo site_url().'/welcome'; ?>" />Go Behind The Scenes</a></li>
       <li><a href="#">Enter To Win</a></li>
     </ul>
-    <?php get_footer(); ?>
-  </div>
-	
+    <div id="sndControls" class="off"></div>
+		<?php get_footer(); ?>
 	

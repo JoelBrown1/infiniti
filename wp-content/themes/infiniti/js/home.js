@@ -3,32 +3,56 @@ var $ = jQuery;
 var aniTime = .25;
 var aniNav = 1.5;
 var origPos;
-var vidDrawerPaddingL = parseInt($(".vid_container").css("padding-left"))*2;
+var vidDrawerPaddingL = parseInt($(".trip_container").css("padding-left"))*2;
 var navVis = true;
 var mouseOver = false;
 var currentlyPlaying;
+var availbleToPlay = false;
 var opHide = .1;
 var sound = false;
-// might remove this variable
 var vidIndex = 1;
 var tripNavContainer;
 var availablePlayer;
 
 // condition for mobile devices
-var isMobile = false;
-var jbPlayer;
 var mPlayer;
 
 var videoBox;
 var vidIframe;
 
-if(Modernizr.touch){
-	isMobile = true;
+// var is_mobile = WURFL.is_mobile;
+var is_mobile = true;
+
+if(is_mobile){
 	$('body').addClass("mobile");
 }
 
+init();
+
 function init(){
-	if(!isMobile){
+	if(!is_mobile){
+		availbleToPlay = true;
+		var textWidth = 0;
+		var bgndImgmargin = parseInt($(".trip_container").css("background-position-y"));
+		var requiredPadding = parseInt($(".trip_container").css("padding-left"));
+		$(".trip_container").each( function(){
+			var tw = $(this).find("div").width();
+			if( tw > textWidth ){
+				textWidth = tw;
+			}
+		});
+		var drawerBgndImageWidth = $(".trip").height();
+		var drawerW = textWidth+drawerBgndImageWidth+vidDrawerPaddingL+requiredPadding;
+		var bgndImgPos = textWidth+vidDrawerPaddingL;
+		origPos = textWidth+vidDrawerPaddingL+requiredPadding;	
+
+		$(".trip").each( function(){
+			$(this).find(".trip_container").css({
+				'width': drawerW+"px",
+				'background-position-x': bgndImgPos+bgndImgmargin+requiredPadding+"px"
+			});
+		});
+	
 		$(".trip").each( function(){
 			var container = this;
 			TweenMax.to(container, aniTime, {css:{marginLeft:0}, ease:Circ.easeOut, onComplete: hideDrawers, onCompleteParams:[container]});
@@ -37,7 +61,7 @@ function init(){
 
 	$('#sndControls').on("mouseenter", triggerMouseOver);
 	$('#sndControls').on("click", soundState);
-	if(!isMobile){
+	if(!is_mobile){
 		$(".trip").on("mouseenter", openBtn);
 		$(".trip").on("mouseleave", closeBtn);	
 		$(".vid_controls").on("mouseenter", triggerMouseOver);
@@ -45,10 +69,14 @@ function init(){
 		$("#vid_bottom_nav").on("mouseenter", triggerMouseOver);
 		$("#vid_bottom_nav").on("mouseleave", triggerMouseLeave);
 	}
-
+	if(availbleToPlay){
+		addPlayability();
+	}
+}
+function addPlayability(){
+	$(".trip_container").removeClass("trip_inactive");
 	$(".trip").on("click", "span", switchVids);
 	$(".trip").on("click", queVidPlaylist);
-
 }
 function hideDrawers(container){
 	TweenMax.to(container, aniTime, {delay: 2, css:{marginLeft:-origPos}, ease:Circ.easeOut});
@@ -65,32 +93,6 @@ function soundState( evt ){
 	}
 }
 
-function setControls(){
-	var textWidth = 0;
-	var bgndImgmargin = parseInt($(".vid_container").css("background-position-y"));
-	var requiredPadding = parseInt($(".vid_container").css("padding-left"));
-	// $(".trip").each( function(){
-	$(".vid_container").each( function(){
-		var tw = $(this).find("div").width();
-		if( tw > textWidth ){
-			textWidth = tw;
-		}
-	});
-	var drawerBgndImageWidth = $(".trip").height();
-	var drawerW = textWidth+drawerBgndImageWidth+vidDrawerPaddingL+requiredPadding;
-	var bgndImgPos = textWidth+vidDrawerPaddingL;
-	origPos = textWidth+vidDrawerPaddingL+requiredPadding;	
-
-	$(".trip").each( function(){
-		$(this).find(".vid_container").css({
-			'width': drawerW+"px",
-			'background-position-x': bgndImgPos+bgndImgmargin+requiredPadding+"px"
-		});
-	});
-
-	init();
-}
-setControls();
 
 function switchVids( evt ){
 	evt.stopPropagation();
@@ -180,7 +182,7 @@ function queVidPlaylist( evt ){
 	evt.stopPropagation();
 	evt.preventDefault();
 	navVis = false;
-	if(!isMobile){
+	if(!is_mobile){
 		toggleNav();
 		toggleBranding();		
 	}
@@ -190,26 +192,28 @@ function queVidPlaylist( evt ){
 
 	
 	if(isPlaying == "false"){
-		
+		if(availablePlayer.isMuted()){
+			availablePlayer.unMute();
+			$("#sndControls").removeClass("off").addClass("on");
+		}
 		availablePlayer.loadPlaylist({
 			list: vidList,
 			listType:"playlist"
 		});
+		
 
 		if(currentlyPlaying){
-			console.log("this is curretnlyPlaying: ", currentlyPlaying);
 			resetVids(currentlyPlaying);
 		}
-		$(".vid_container").each( function(){ $(this).attr("data-state", "false"); });
+		$(".trip").each( function(){ $(this).attr("data-state", "false"); });
 		
 		$(this).attr("data-state", "play");
-		$(this).find(".vid_container").addClass("trip_pause");
+		$(this).children().addClass("trip_pause");
 		currentlyPlaying = [ $(".trip").index($(this)), $(this).find("div").html() ];
 		tripNavContainer = this;
 	} else {
 		stateSwitch( this );
 	}
-	
 }
 function updatePlayDisplay(){
 	var playlist = availablePlayer.getPlaylist();
@@ -225,7 +229,7 @@ function updatePlayDisplay(){
 }
 
 function resetVids(oldVid){
-	var video = $(".vid_container").get(oldVid[0]);
+	var video = $(".trip_container").get(oldVid[0]);
 	var oldTrip = video.parentNode;
 	$(video).removeClass("trip_pause");
 	$(video).html("<div>"+oldVid[1]+"</div>");
@@ -237,18 +241,18 @@ function stateSwitch( tripContainer ){
 			case "play":
 				availablePlayer.pauseVideo();
 				$(tripContainer).attr("data-state", "pause");
-				$(tripContainer).find(".vid_container").removeClass("trip_pause");
+				$(tripContainer).children().removeClass("trip_pause");
 				break;
 			case "pause":
 				availablePlayer.playVideo();
 				$(tripContainer).attr("data-state", "play");
-				$(tripContainer).find(".vid_container").addClass("trip_pause");
+				$(tripContainer).children().addClass("trip_pause");
 				break;
 		}
 	}
 }
 $('.video_container').tubular({
-	videoId: 'PhSanuvCrOA',
+	videoId: 'jvuBe6b2iVk',
 	mute: true
 });
 
@@ -260,17 +264,21 @@ function on_resize(c, t) {
     return c
   };
 function setReady(){
-	if(isMobile){
-		var mobVidCont = document.createElement("div");
+	if(is_mobile){
+		var mobVidCont = document.getElementById("mob_vid_container");
 		mobVidCont.className = "mobVidCont";
+		var big_player = document.createElement("div");
+	    big_player.className = "big_player";
+	    big_player.addEventListener("click", showPlayer);
 		videoBox = document.createElement("div");
 	    vidIframe = document.createElement("div");
-	    videoBox.id="jbPlayer";
-	    videoBox.className = "mobile_video";
-	    document.body.appendChild(mobVidCont);
+	    videoBox.id="mob_Player";
+	    videoBox.className = "mobile_video vid_hidden";
+	    mobVidCont.appendChild(big_player);
 	    mobVidCont.appendChild(videoBox);
 	    videoBox.appendChild(vidIframe);
-	    setMobilePlayer('IqaSSmx2o38');
+	    setMobilePlayer('jvuBe6b2iVk');
+
 	} else {
 		window.player.addEventListener("onStateChange", function(evt){
 			if(evt.data === 1){
@@ -282,30 +290,38 @@ function setReady(){
 	}
 }
 
+function showPlayer( evt ){
+	$(evt.target).addClass("invisible");
+	$(videoBox).removeClass("vid_hidden");
+	availbleToPlay = true;
+	addPlayability();
+}
+
 function setMobilePlayer(vList){
 	mPlayer = new YT.Player(vidIframe, {
         videoId: vList,
         height: '480',
         width: '270',
+        playerVars:{'forceSSL':true},
         events: {
-            'onReady': testPlayerReady,
-            'onStateChange': testPlayerStateChange
+            'onReady': mobPlayerReady,
+            'onStateChange': mobPlayerStateChange
 		}	
 	});
 	availablePlayer = mPlayer;
 }
-function testPlayerReady( evt ){
+function mobPlayerReady( evt ){
 }
-function testPlayerStateChange( evt ){
+function mobPlayerStateChange( evt ){
 	switch( evt.data ){
 		case 1:
 			updatePlayDisplay();
+			$(tripNavContainer).attr("datae-state", "pause");
+			$(tripNavContainer).children().addClass("trip_pause");
 			break;
-
-/*		case 3:
-			console.log("trying to get the player to give the play icon");
-			console.log("this is the available player: ", availablePlayer);
-			availablePlayer.playVideo();
-			break;*/
+		case 2:
+			$(tripNavContainer).attr("datae-state", "play");
+			$(tripNavContainer).children().removeClass("trip_pause");
+			break;
 	}
 }
