@@ -58,9 +58,10 @@
     </ul>
     <ul id="vid_bottom_nav" class="clear">
       <li><a href="<?php echo site_url().'/welcome'; ?>" />Go Behind The Scenes</a></li>
-      <li><a href="#">Enter To Win</a></li>
+      <li><a href="<?php echo site_url().'/contest'; ?>">Enter To Win</a></li>
     </ul>
     <?php get_footer(); ?>
   </div>
-	
+	<div id="pageTags" style="display:none;"></div>
+  <!-- <script src="<?php echo get_stylesheet_directory().'/js/Undiscovered_Micro_Tags/engine.js' ?>" id="crmEngine" pageid="33329" pagelocale="en" pagesite="infiniti-Canada_Undiscovered" language="JavaScript" type="text/javascript"></script> -->
 	
