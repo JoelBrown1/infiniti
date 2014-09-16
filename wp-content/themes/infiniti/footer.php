@@ -11,7 +11,7 @@
 
 	<footer id="colophon" class="site-footer clearfix" role="contentinfo">
 		<a href="http://www.infiniti.ca" target="_blank" id="infinitiLink">infiniti.ca</a>
-		<div id="trademark">©2014 All rights reserved. Infiniti.ca is a trademark of infiniti global. OasisHD.ca is a trademark of Blue Ant Media</div>
+		<div id="trademark">INFINITI names, logos, product names, feature names and slogans are trademarks owned by or licensed to Nissan Motor Co. Ltd., and/or its North American subsidiaries. <br> ©2014 INFINITI. All rights reserved.</div>
 	</footer>
 
 
