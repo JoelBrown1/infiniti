@@ -16,7 +16,8 @@
 		$imageSrc = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
 	}
 	$footer_image = get_post_meta($post->ID, 'footer_image');
-	// ar_dump($footer_image[0]);
+	$footer_cta = get_post_meta($post->ID, 'footer_cta');
+	// var_dump( get_post_meta($post->ID) );
 
 get_header(); ?>
 <?php get_sidebar(); ?>
@@ -38,8 +39,13 @@ get_header(); ?>
 
 					endwhile; 
 				?>
-				<div id="bottom_cta">
-					<img src="<?php echo $footer_image[0];?>" alt="">
+				<div id="bottom_cta" style="background-image: url(<?php echo $footer_image[0];?>)">
+					<a href="#">
+						<div class="cta">
+							<span><?php echo $footer_cta[0]; ?> </span>
+						</div>
+						<img src="<?php echo $footer_image[0];?>" alt="<?php echo $footer_cta[0]; ?>">
+					</a>
 				</div>
 			</main>
 			<?php get_footer(); ?>
