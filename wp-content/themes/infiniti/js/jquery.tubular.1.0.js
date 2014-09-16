@@ -80,7 +80,8 @@
             if (options.mute) e.target.mute();
             e.target.seekTo(options.start);
             e.target.playVideo();
-            window.setReady();
+            console.log("this is the tubular e.target: ", e.target);
+            window.setReady(e.target);
         }
 
         window.onPlayerStateChange = function(state) {
