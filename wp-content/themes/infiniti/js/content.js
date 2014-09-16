@@ -23,7 +23,7 @@ $(document).ready(function(){
 	setTimeout( function(){ checkOffset(); }, 1000);
 
 	$(".social_connections").on("click", doSocial);
-	$(window).on("click", doClickCheck);
+	// $(window).on("click", doClickCheck);
 	$(".panorama_img").on("click", doPopup);
 	$(".geo").on("click", doPopup);
 	$(".ham_nav").on('click', mobMenu);
@@ -38,9 +38,9 @@ $(document).ready(function(){
 	    })
 	);
 
-	function doClickCheck( evt ){
+	/*function doClickCheck( evt ){
 		console.log( evt.target);
-	}
+	}*/
 
 	function mobMenu( evt ){
 		var totalHeight = $("#mobile_nav").outerHeight(true) + $(".menu-main-menu-container").outerHeight(true) + $('#infiniti_link').outerHeight(true) + $(".social_connections").outerHeight(true);
@@ -91,14 +91,16 @@ $(document).ready(function(){
 		}
 	}
 
-	if(sTitle.search(/bear/i)>= 0){
-		sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
-	} else if(sTitle.search(/island/i)>= 0){
-		sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
-	} else {
-		sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
+	if(sTitle){
+		if(sTitle.search(/bear/i)>= 0){
+			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
+		} else if(sTitle.search(/island/i)>= 0){
+			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
+		} else {
+			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
+		}
+		var structure = '<div class="white-popup">'+sIframe+'</div>';
 	}
-	var structure = '<div class="white-popup">'+sIframe+'</div>';
 
 	function doPopup( evt ){
 		$.magnificPopup.open({
