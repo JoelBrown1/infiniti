@@ -1,7 +1,7 @@
 var $ = jQuery;
 $(document).ready(function(){
+	sendTagData(1, "none", 0);
 
-	
 	var socialVis = false;
 
 	var socialOrigPos = parseInt($(".social_connections").css("bottom"));
@@ -18,16 +18,21 @@ $(document).ready(function(){
 	var offsetH;
 	var is_mobile = WURFL.is_mobile;
 	var aniTime = .25;
-
+	var imageIndex = 0;
 
 	setTimeout( function(){ checkOffset(); }, 1000);
 
 	$(".social_connections").on("click", doSocial);
-	// $(window).on("click", doClickCheck);
+	$('.social_share li').on("click", socialTrack);
 	$(".panorama_img").on("click", doPopup);
 	$(".geo").on("click", doPopup);
 	$(".ham_nav").on('click', mobMenu);
-	$(document).on("scroll", checkPos);
+	$(".gallery-item img").on('click', getImageData);
+	$('#cboxNext').on("click", changeImageCount);
+	$('#cboxPrevious').on("click", changeImageCount);
+	$('#cboxContent').on("click", changeImageCount);
+	$(window).on("click", uInteraction);
+	// $(document).on("scroll", checkPos);
 
 	$(window).on("resize", $.debounce( 
 			50, 
@@ -38,18 +43,50 @@ $(document).ready(function(){
 	    })
 	);
 
-	/*function doClickCheck( evt ){
-		console.log( evt.target);
+	function getImageData( evt ){
+		imageIndex = $(".gallery-item img").index( evt.target) + 1;
+		sendTagData(38, imageIndex, 0);
+	}
+	function changeImageCount( evt ){
+		evt.preventDefault();
+		evt.stopPropagation();
+		var btnID = $(evt.target).attr('id');
+		if(!$(evt.target).attr('id')){
+			btnID = $(evt.target).attr("class");
+		}
+		switch(btnID){
+			case "cboxNext":
+				imageIndex ++;
+				break;
+			case "cboxPrevious":
+				imageIndex --;
+				break;
+			case "cboxPhoto":
+				imageIndex ++;
+				break;
+		}
+		sendTagData(38, imageIndex, 0);
+	}
+	/*function uInteraction( evt ){
+		evt.preventDefault();
+		evt.stopPropagation();
+		console.log("this is what was clicked on: ", $(evt.target));
 	}*/
+	function socialTrack( evt ){
+		evt.preventDefault();
+		evt.stopPropagation();
+		console.log($(evt.target).attr("id"));
+		sendTagData(106, $(evt.target).attr("id"), "_Click");
+	}
 
 	function mobMenu( evt ){
 		var totalHeight = $("#mobile_nav").outerHeight(true) + $(".menu-main-menu-container").outerHeight(true) + $('#infiniti_link').outerHeight(true) + $(".social_connections").outerHeight(true);
-		console.log("total outer height of nav: ", totalHeight);
+/*		console.log("total outer height of nav: ", totalHeight);
 		console.log("total outer height of mobile_nav: ", $("#mobile_nav").outerHeight(true));
 		console.log("total outer height of menu-main-menu-container: ", $(".menu-main-menu-container").outerHeight(true));
 		console.log("total outer height of infiniti_link: ", $('#infiniti_link').outerHeight(true));
 		console.log("total outer height of social_connections: ", $(".social_connections").outerHeight(true));
-		if($("#mobile_nav").outerHeight() == 0){
+*/		if($("#mobile_nav").outerHeight() == 0){
 			console.log("should open the nav...");
 			$("#mobile_nav").css({height : totalHeight});
 		} else {
@@ -113,6 +150,7 @@ $(document).ready(function(){
 					    markupParse: function(template, values, item) {}
 					}
 		});
+		sendTagData(360, imageIndex, 0);
 	}
 	function doSocial( evt ){
 		var openPos = -(parseInt($(this).css("margin-bottom")));

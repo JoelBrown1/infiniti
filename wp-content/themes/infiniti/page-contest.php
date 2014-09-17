@@ -16,6 +16,8 @@
 	$dataError = false;
 	$rDate = new DateTime();
 	$cIP = get_client_ip();
+	$crmID = get_post_meta($post->ID, 'crmPageID');
+
 	function get_client_ip() {
 	    $ipaddress = '';
 	    if ($_SERVER['HTTP_CLIENT_IP'])
@@ -272,6 +274,7 @@ get_header(); ?>
 
 			
 				function validation(){
+					sendTagData(180, "", "");
 					var missing = [];
 					var flag = 0;
 					var trips = false;
@@ -320,6 +323,7 @@ get_header(); ?>
 						missing.push(pc);
 					}
 					if(flag != 0){
+						sendTagData(181, "", "");
 						if(trips == false){
 							$("#tripWarning").css("display", "block");
 						}
@@ -333,6 +337,7 @@ get_header(); ?>
 
 */						return false;
 					} else {
+						sendTagData(182, "", "");
 						// return true;
 						return false;
 					}
@@ -341,5 +346,6 @@ get_header(); ?>
 			</script>
 			<?php get_footer(); ?>
 		</div>
-
+		<div id="pageTags" style="display:none;"></div>
+		<!-- <script src="<?php echo get_stylesheet_directory().'/js/Undiscovered_Micro_Tags/engine.js' ?>" id="crmEngine" pageid="<?php echo $crmID[0]; ?>" pagelocale="en" pagesite="infiniti-Canada_Undiscovered" language="JavaScript" type="text/javascript"></script> -->
 <?php //get_footer(); ?>

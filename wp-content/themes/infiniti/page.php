@@ -17,6 +17,7 @@
 	}
 	$footer_image = get_post_meta($post->ID, 'footer_image');
 	$footer_cta = get_post_meta($post->ID, 'footer_cta');
+	$crmID = get_post_meta($post->ID, 'crmPageID');
 	// var_dump( get_post_meta($post->ID) );
 
 get_header(); ?>
@@ -50,5 +51,7 @@ get_header(); ?>
 			</main>
 			<?php get_footer(); ?>
 		</div>
+		<div id="pageTags" style="display:none;"></div>
+		<!-- <script src="<?php echo get_stylesheet_directory().'/js/Undiscovered_Micro_Tags/engine.js' ?>" id="crmEngine" pageid="<?php echo $crmID[0]; ?>" pagelocale="en" pagesite="infiniti-Canada_Undiscovered" language="JavaScript" type="text/javascript"></script> -->
 
 <?php //get_footer(); ?>

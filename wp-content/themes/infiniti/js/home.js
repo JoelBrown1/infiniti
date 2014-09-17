@@ -1,10 +1,8 @@
 var $ = jQuery;
 
-	console.log("checking for the WURFL object: ",WURFL);
 	var aniTime = .25;
 	var aniNav = 1.5;
 	var origPos;
-	var vidDrawerPaddingL = parseInt($(".trip_container").css("padding-left"))*2;
 	var navVis = true;
 	var mouseOver = false;
 	var currentlyPlaying;
@@ -22,9 +20,17 @@ var $ = jQuery;
 	var vidIframe;
 
 	var is_mobile = WURFL.is_mobile;
-	console.log("checking the is_mobile setting: ", is_mobile);
+
 	// var is_mobile = true;
 $(document).ready( function(window){
+	var vidDrawerPaddingL = parseInt($(".trip_container").css("padding-left"))*2;
+	var pTitle = $("title").html();
+	var vPercent;
+	var vDuration;
+	var dFlag = false;
+
+	sendTagData(1, "none", 0);
+
 	if(is_mobile){
 		$('body').addClass("mobile");
 	}
@@ -63,6 +69,7 @@ $(document).ready( function(window){
 
 		$('#sndControls').on("mouseenter", triggerMouseOver);
 		$('#sndControls').on("click", soundState);
+		$('.social_share li').on("click", socialTrack);
 		if(!is_mobile){
 			$(".trip").on("mouseenter", openBtn);
 			$(".trip").on("mouseleave", closeBtn);	
@@ -218,6 +225,9 @@ $(document).ready( function(window){
 		}
 	}
 	function updatePlayDisplay(){
+		if(vPercent){
+			stopInterval();
+		}
 		var playlist = availablePlayer.getPlaylist();
 		if(playlist) {
 			var cVid = availablePlayer.getVideoData();
@@ -225,69 +235,82 @@ $(document).ready( function(window){
 				if(playlist[i] == cVid.video_id){
 					vidIndex = i+1;
 				}
+				dFlag = false;
 			}
 			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+vidIndex+"/"+playlist.length+" <span class='nextVid'>next</span>");
 			
 			// set required variables for the CM tagging request:
-		} else {
+		} /*else {
 			console.log("this is the intro video that continues to loop:", availablePlayer.getVideoData().title);
-		}
-		sendTagData(101, availablePlayer.getVideoData().title, 1);
+
+		}*/
+		sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
+		vDuration = availablePlayer.getDuration();
+		vPercent = setInterval( function(){calDuration()},500);
 	}
-	function sendTagData(crmEvent, vidName='', vidNum=0){
+
+	function calDuration(){
+		var vidPoint = availablePlayer.getCurrentTime();
+		var _duration = vidPoint/vDuration;
+		if(!dFlag && _duration > .75){
+		sendTagData(104, availablePlayer.getVideoData().title, vidIndex);
+			dFlag = true;
+		}
+	}
+	function stopInterval(){
+		clearInterval(vPercent);
+	}
+	function socialTrack( evt ){
+		console.log($(evt.target).attr("id"));
+		sendTagData(106, $(evt.target).attr("id"), "_Click");
+	}
+
+/*	function sendTagData(crmEvent, name, num){
 		switch(crmEvent){
 			case 1:
+				console.log("this is the first event that is fired: "+ crmEvent+" : "+pageName);
 				try {
-					crmEvent100({
-						'page' : 'Landing',
-						'placement' : 'top_nav',
-						'view' : 'tolors_tab'
-					});
+					crmEvent1();
 				} catch(e){}
 				break;
 
 			case 101:
 				try {
-					crmEvent100({
-						'page' : 'Landing',
-						'placement' : 'top_nav',
-						'view' : 'tolors_tab'
+					crmEvent101({
+						'name' : name,
+						'num' : num,
 					});
 				} catch(e){}
 				break;
 
 			case 104:
 				try {
-					crmEvent100({
-						'page' : 'Landing',
-						'placement' : 'top_nav',
-						'view' : 'tolors_tab'
+					crmEvent104({
+						'name' : name,
+						'num' : num,
 					});
 				} catch(e){}
 				break;
 
 			case 105:
 				try {
-					crmEvent100({
-						'page' : 'Landing',
-						'placement' : 'top_nav',
-						'view' : 'tolors_tab'
+					crmEvent105({
+						'name' : name,
+						'num' : num,
 					});
 				} catch(e){}
 				break;
 
 			case 106:
 				try {
-					crmEvent100({
-						'page' : 'Landing',
-						'placement' : 'top_nav',
-						'view' : 'tolors_tab'
+					crmEvent106({
+						'name' : name,
 					});
 				} catch(e){}
 				break;
 
 		}
-	}
+	}*/
 	function resetVids(oldVid){
 		var video = $(".trip_container").get(oldVid[0]);
 		var oldTrip = video.parentNode;
@@ -323,8 +346,7 @@ $(document).ready( function(window){
 	    };
 	    return c
 	};
-	console.log("this is window: ", window.player);
-	setReady = 	function (player){
+	setReady = function (player){
 		if(is_mobile){
 			var mobVidCont = document.getElementById("mob_vid_container");
 			mobVidCont.className = "mobVidCont";
@@ -342,6 +364,14 @@ $(document).ready( function(window){
 
 		} else {
 			player.addEventListener("onStateChange", function(evt){
+				switch(evt.data){
+					case 1:
+						updatePlayDisplay();
+						break;
+					case 0:
+						sendTagData(105, pTitle, "Video_End", availablePlayer.getVideoData().title, vidIndex);
+						break;
+				}
 				if(evt.data === 1){
 					updatePlayDisplay();
 				}

@@ -633,8 +633,28 @@ body{
 	#social{
 		position: relative;
 	}
+	#gallery-1 > dl:nth-child(1)
 	#social ul.social_share{
 		position: absolute;
+	}
+	.gallery-item{
+		display:inline-block;
+		// float: left;
+		width: 10%;
+		margin: 0px 10px 10px 0px;
+	}
+	#gallery-1 br{
+		display: none;
+	}
+	.gallery-item img{
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	@media screen and (max-width: 640px){
+		.gallery-item{
+			width: 30%;
+		}
 	}
 }
 #trademark{

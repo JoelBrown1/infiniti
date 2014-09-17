@@ -11,7 +11,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0" />
-	<title><?php wp_title( '|', true, 'right' ); ?></title>
+	<title><?php echo get_bloginfo( 'name' )." ".get_bloginfo('description'); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
@@ -60,5 +60,5 @@
 		<div id="content" class="site-content">
 			<ul class="social_share">
 		      <li id="facebook" class="socialBtns"></li>
-		      <li class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&text=INFINITI and OASIS Present Canada Undiscovered"><!-- <img src="<?php echo get_template_directory_uri().'/images/socialIcons-twitter.jpg'; ?>" alt="twitter social link"> --></a></li>
+		      <li id="twitter" class="socialBtns twitter"><a id="twitter" target="_blank" href="https://twitter.com/intent/tweet?url=http://ford.cottagelife.com/&text=INFINITI and OASIS Present Canada Undiscovered"></a></li>
 		    </ul>
