@@ -23,11 +23,30 @@ var $ = jQuery;
 
 	// var is_mobile = true;
 $(document).ready( function(window){
+	console.log("this is the location url: ",document.URL);
+	$.urlParam = function(name){
+		console.log("this is the name value: ", name);
+		// var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(document.URL);
+		var IDBeginPos = document.URL.search("=")+1;
+		results = document.URL.slice(IDBeginPos, document.URL.length);
+		console.log("this is results: ", results);
+		if(results){
+		    return results;
+		}
+	}
+	
+	var tripPreload = $.urlParam('pList');
+	console.log("this the trip that should load right after the intro video: ", tripPreload);
 	var vidDrawerPaddingL = parseInt($(".trip_container").css("padding-left"))*2;
 	var pTitle = $("title").html();
 	var vPercent;
 	var vDuration;
 	var dFlag = false;
+	var vidLoop = true;
+
+	if( tripPreload !=""){
+		vidLoop = false;
+	}
 
 	sendTagData(1, "none", 0);
 
@@ -188,16 +207,36 @@ $(document).ready( function(window){
 			TweenMax.to($(".main_logo"), aniTime, {css:{alpha: 0}, ease:Circ.easeOut});
 	}
 	function queVidPlaylist( evt ){
-		evt.stopPropagation();
-		evt.preventDefault();
+		var vidList;
+		var isPlaying;
+		var trip;
+		if(evt != undefined){
+			evt.stopPropagation();
+			evt.preventDefault();
+		}
 		navVis = false;
 		if(!is_mobile){
 			toggleNav();
 			toggleBranding();		
 		}
 
-		var vidList = $(this).attr("data-trip");
-		var isPlaying = $(this).attr("data-state");
+		if(tripPreload){
+			console.log("there was a video cued to play after intro video: ",tripPreload);
+			vidList = tripPreload;
+			// getting the li element with that trip playlist id:
+			$(".trip").each(function(){
+				console.log("this is the trip id: ",$(this).attr("data-trip"));
+				if($(this).attr("data-trip") == tripPreload){
+					console.log("did we get a match?");
+					isPlaying = $(this).attr("data-state");
+					trip = this;
+				}
+			});
+		} else {
+			vidList = $(this).attr("data-trip");
+			isPlaying = $(this).attr("data-state");	
+			trip = this;		
+		}
 
 		
 		if(isPlaying == "false"){
@@ -216,12 +255,12 @@ $(document).ready( function(window){
 			}
 			$(".trip").each( function(){ $(this).attr("data-state", "false"); });
 			
-			$(this).attr("data-state", "play");
-			$(this).children().addClass("trip_pause");
-			currentlyPlaying = [ $(".trip").index($(this)), $(this).find("div").html() ];
-			tripNavContainer = this;
+			$(trip).attr("data-state", "play");
+			$(trip).children().addClass("trip_pause");
+			currentlyPlaying = [ $(".trip").index($(trip)), $(trip).find("div").html() ];
+			tripNavContainer = trip;
 		} else {
-			stateSwitch( this );
+			stateSwitch( trip );
 		}
 	}
 	function updatePlayDisplay(){
@@ -240,10 +279,7 @@ $(document).ready( function(window){
 			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+vidIndex+"/"+playlist.length+" <span class='nextVid'>next</span>");
 			
 			// set required variables for the CM tagging request:
-		} /*else {
-			console.log("this is the intro video that continues to loop:", availablePlayer.getVideoData().title);
-
-		}*/
+		}
 		sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
 		vDuration = availablePlayer.getDuration();
 		vPercent = setInterval( function(){calDuration()},500);
@@ -265,52 +301,6 @@ $(document).ready( function(window){
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
-/*	function sendTagData(crmEvent, name, num){
-		switch(crmEvent){
-			case 1:
-				console.log("this is the first event that is fired: "+ crmEvent+" : "+pageName);
-				try {
-					crmEvent1();
-				} catch(e){}
-				break;
-
-			case 101:
-				try {
-					crmEvent101({
-						'name' : name,
-						'num' : num,
-					});
-				} catch(e){}
-				break;
-
-			case 104:
-				try {
-					crmEvent104({
-						'name' : name,
-						'num' : num,
-					});
-				} catch(e){}
-				break;
-
-			case 105:
-				try {
-					crmEvent105({
-						'name' : name,
-						'num' : num,
-					});
-				} catch(e){}
-				break;
-
-			case 106:
-				try {
-					crmEvent106({
-						'name' : name,
-					});
-				} catch(e){}
-				break;
-
-		}
-	}*/
 	function resetVids(oldVid){
 		var video = $(".trip_container").get(oldVid[0]);
 		var oldTrip = video.parentNode;
@@ -336,7 +326,8 @@ $(document).ready( function(window){
 	}
 	$('.video_container').tubular({
 		videoId: 'jvuBe6b2iVk',
-		mute: true
+		mute: true,
+		repeat: vidLoop
 	});
 
 	function on_resize(c, t) {
@@ -370,11 +361,12 @@ $(document).ready( function(window){
 						break;
 					case 0:
 						sendTagData(105, pTitle, "Video_End", availablePlayer.getVideoData().title, vidIndex);
+						queVidPlaylist();
 						break;
 				}
-				if(evt.data === 1){
+				/*if(evt.data === 1){
 					updatePlayDisplay();
-				}
+				}*/
 			});
 
 			availablePlayer = player;

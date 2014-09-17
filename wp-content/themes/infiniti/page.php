@@ -11,12 +11,16 @@
  */
 	global $post;
 	$imageSrc;
-	if(has_post_thumbnail()){
-		// $postThumb = get_the_post_thumbnail();		
+	if($post->post_parent){
+		$imageSrc = wp_get_attachment_image_src( get_post_thumbnail_id( $post->post_parent ), 'single-post-thumbnail' );
+		$footer_image = get_post_meta($post->post_parent, 'footer_image');
+		$footer_cta = get_post_meta($post->post_parent, 'footer_cta');
+	} else if(has_post_thumbnail()){
 		$imageSrc = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
+		$footer_image = get_post_meta($post->ID, 'footer_image');
+		$footer_cta = get_post_meta($post->ID, 'footer_cta');
 	}
-	$footer_image = get_post_meta($post->ID, 'footer_image');
-	$footer_cta = get_post_meta($post->ID, 'footer_cta');
+	
 	$crmID = get_post_meta($post->ID, 'crmPageID');
 	// var_dump( get_post_meta($post->ID) );
 
@@ -28,7 +32,7 @@ get_header(); ?>
 		<div id="primary" class="content-area">
 			<main id="main" class="site-main" role="main">
 				<?php 
-					if(has_post_thumbnail()){ ?>
+					if($imageSrc){ ?>
 						<div id="post_banner">
 							<img src="<?php echo $imageSrc[0]; ?>" alt="<?php echo $post->post_title ;?>">
 							<?php //the_post_thumbnail( 'full' ); ?> 
@@ -39,15 +43,17 @@ get_header(); ?>
 					 get_template_part( 'content', 'page' ); 
 
 					endwhile; 
-				?>
-				<div id="bottom_cta" style="background-image: url(<?php echo $footer_image[0];?>)">
-					<a href="#">
-						<div class="cta">
-							<span><?php echo $footer_cta[0]; ?> </span>
-						</div>
-						<img src="<?php echo $footer_image[0];?>" alt="<?php echo $footer_cta[0]; ?>">
-					</a>
-				</div>
+				
+				if($footer_image){ ?>
+					<div id="bottom_cta">
+						<a href="<?php echo  get_home_url().'?pList=PLlGPzfcuhqdtUB1WJzfqpkAManPI6k_E2'; ?>">
+							<div class="cta">
+								<span><?php echo $footer_cta[0]; ?> </span>
+							</div>
+							<img src="<?php echo $footer_image[0];?>" alt="<?php echo $footer_cta[0]; ?>">
+						</a>
+					</div>
+			<?php	} ?>
 			</main>
 			<?php get_footer(); ?>
 		</div>
