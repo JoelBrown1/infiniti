@@ -44,14 +44,22 @@
 	$footer_image = get_post_meta($post->ID, 'footer_image');
 
 	if($_POST){
+		var_dump($_POST);
 		$pattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
-		$pcPatter = '/[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/';
+		$pcPatter = "/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i";
 		$missing = array();
 		if($_POST["firstname"] == "") array_push($missing, "First Name");
 		if($_POST["lastname"] == "") array_push($missing, "Last Name");
 		if($_POST["email"] == "" || preg_match($pattern, $_POST["email"]) == 0 || preg_match($pattern, $_POST["email"]) == false) {array_push($missing, "Email");}
-		if($_POST["trip"] == "") array_push($missing, "trip");
-		if($_POST["pCode"] == "" || preg_match($pcPatter, $_POST["pCode"]) == 0 || preg_match($pattern, $_POST["pCode"]) == false) {array_push($missing, "Postal Code");}
+		if($_POST["trip"] == "") array_push($missing, "Trip");
+		if($_POST["vehicle"] == "") {
+			array_push($missing, "Vehicle Model");
+		} else { 
+			$vDets = split(" ",$_POST["vehicle"]);
+		}
+		if($_POST["RULES"] == "" | $_POST["RULES"] == "false"){array_push($missing, "Rules and Regulations");}
+		var_dump($vDets);
+		if(preg_match($pcPatter, $_POST["pCode"]) == false) {array_push($missing, "Postal Code");}
 
 		$tStamp = new DateTime();
 		$cIP = get_client_ip();
@@ -60,7 +68,7 @@
 				$dataError = true;
 		} else {
 			if(count($data)==0){
-				/*$errorFlag = $wpdb->insert(
+				$errorFlag = $wpdb->insert(
 								$table_name,
 								array(
 									'f_name' 			=> $_POST["firstname"],
@@ -72,6 +80,8 @@
 									'province'			=> $_POST["province"],
 									'postal_code'		=> $_POST["pCode"],
 									'trip_choice'		=> $_POST["trip"],
+									'rules'				=> $_POST["Rules"],
+									'vehicle'			=> $_POST["vehicle"],
 									'time_stamp'		=> $tStamp->format('Y-m-d H:i:s'),
 									'ip_address'		=> $cIP,
 									'agent_string'		=> $_SERVER['HTTP_USER_AGENT']
@@ -81,20 +91,30 @@
 									'%s',
 									'%s',
 									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
+									'%s',
 									'%s'
 								)
-							);*/
+							);
 
 				$url = "http://staging.nissanleads.ca/leadservices/leadacceptanceservice.svc/SendLead";
 				$content = '<?xml version="1.0" encoding="UTF-8"?>
 								<adf>
 									<prospect status="new">
 										<id source="LeadId" sequence="0">8059</id>
+										<id source="EventName" sequence="1">Infiniti Canada Undiscovered</id>
+									    <id source="EventID" sequence="2">ICANUNDI</id>
 										<requestdate>'.$rDate->format("Y-m-d H:i:s").'</requestdate>
 										<vehicle status="new" interest="buy">
-											<year>2013</year>
-											<make>Nissan</make>
-											<model>Sentra</model>
+											<year>'.$vDets[1].'</year>
+											<make>Infiniti</make>
+											<model>'.$vDets[0].'</model>
 											<comments />
 										</vehicle>
 										<customer>
@@ -111,6 +131,7 @@
 												</address>
 												<donotsend>1</donotsend>
 											</contact>
+											<language>EN</language>
 										</customer>
 										<vendor>
 											<id source="nissan-dealer-id">12345</id>
@@ -129,7 +150,6 @@
 								</adf>';
 
 
-/* uncomment this 
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to 
 				curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
@@ -140,7 +160,7 @@
 				curl_setopt($ch, CURLOPT_POST, 1);  
 				$response = curl_exec($ch);
 				curl_close($ch);
-				echo $response;*/
+				echo $response;
 				
 /* - just got this message:
 HTTP/1.1 100 Continue 
@@ -182,7 +202,6 @@ get_header(); ?>
 								?>
 							</div>
 						<?php	} 
-
 							switch ($errorFlag) {
 								case 1: ?>
 									<div id="thanks">
@@ -200,7 +219,7 @@ get_header(); ?>
 								
 								} 
 								?>
-							<form action="" onsubmit="return validation()"> <!--  method="post"-->
+							<form action="" onsubmit="return validation()" method="post"> <!--  -->
 								<div id="tripWarning">
 									Please be sure to select your favourite journey...
 								</div>
@@ -212,6 +231,8 @@ get_header(); ?>
 									foreach ($trips as $trip) {
 										if($trip == $_POST["trip"])	{
 											$cVal = "checked";
+										} else { 
+											$cVal = ""; 
 										}
 										if($counter == 1){  ?>
 
@@ -241,7 +262,7 @@ get_header(); ?>
 								<input type="text" name="streetAddress" placeholder="Street Address" value="<?php echo $_POST["streetAddress"]; ?>">
 								<input type="text" name="city" placeholder="City" value="<?php echo $_POST["city"]; ?>">
 								<div class="clearfix">
-									<select placeholder="Province">
+									<select placeholder="Province" name="province">
 										<option value="">Province</option>
 										<option value="AB">Alberta</option>
 										<option value="BC">British Columbia</option>
@@ -260,6 +281,28 @@ get_header(); ?>
 
 									<!-- <input type="text" name="province" placeholder="Province" value="<?php $_POST["province"]; ?>"> -->
 									<input class="p_code" type="text" name="pCode" placeholder="Postal Code" value="<?php echo $_POST["pCode"]; ?>">
+								</div>
+								<div class="iCar clearfix">
+									<select placeholder="Vehicle Models" class="model" name="vehicle">
+										<option value="">Choose a Model</option>
+										<option value="QX50 2015">QX50 2015</option>
+										<option value="QX70 2015">QX70 2015</option>
+										<option value="Q50 2015">Q50 2015</option>
+										<option value="Q50 Hybrid 2015">Q50 Hybrid 2015</option>
+										<option value="Q50 2014">Q50 2014</option>
+										<option value="Q50 Hybrid 2014">Q50 Hybrid 2014</option>
+										<option value="Q60 Convertible 2014">Q60 Convertible 2014</option>
+										<option value="Q60 Coupe 2014">Q60 Coupe 2014</option>
+										<option value="Q70 2014">Q70 2014</option>
+										<option value="Q70 Hybrid 2014">Q70 Hybrid 2014</option>
+										<option value="QX60 2014">QX60 2014</option>
+										<option value="QX60 Hybrid 2014">QX60 Hybrid 2014</option>
+										<option value="QX80 2014">QX80 2014</option>
+									</select>
+								</div>
+								<div class="rules_regs">
+									<input class="rules" type="checkbox" name="Rules" value="">I have read the <a href="#" target="_blank">Rules and Regulations</a><br>
+									<a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a>
 								</div>
 								<button type="submit" value="Enter">Enter</button>
 							</form>
@@ -281,6 +324,8 @@ get_header(); ?>
 					var tripCheck = document.getElementsByClassName("t_data");
 					var req = document.getElementsByClassName("r_data");
 					var pc = document.getElementsByClassName("p_code");
+					var model = document.getElementsByClassName("model");
+					var rules = document.getElementsByClassName("rules");
 					var k = 0;
 					var i = 0;
 					while(tripCheck[k]){
@@ -310,9 +355,14 @@ get_header(); ?>
 						}
 						i++;
 					}
-					if(pc.value){
+					if(!model[0].options[model[0].options.selectedIndex].value){
+						flag = 1;
+						model[0].className = model[0].className + " warning";
+						missing.push(model);
+					}
+					if(pc[0].value != "" ){
 						var pcRE = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
-						if(pcRE.test(pc.value) == false){
+						if(pcRE.test(pc[0].value) == false){
 							pc[0].className = pc[0].className + " warning";
 							flag = 1;
 							missing.push(pc);
@@ -322,24 +372,22 @@ get_header(); ?>
 						flag = 1;
 						missing.push(pc);
 					}
+					if(rules[0].checked != true){
+						flag = 1;
+						missing.push(rules);
+
+						rules[0].parentNode.className = rules[0].parentNode.className+" warning";
+					}
 					if(flag != 0){
 						sendTagData(181, "", "");
 						if(trips == false){
 							$("#tripWarning").css("display", "block");
 						}
-
-/*						if(missing.length > 0){
-							var b = 0;
-							while(missing[b]){
-								b++
-							}
-						}
-
-*/						return false;
+						return false;
 					} else {
 						sendTagData(182, "", "");
-						// return true;
-						return false;
+						return true;
+						// return false;
 					}
 				}
 			

@@ -31,7 +31,7 @@ $(document).ready(function(){
 	$('#cboxNext').on("click", changeImageCount);
 	$('#cboxPrevious').on("click", changeImageCount);
 	$('#cboxContent').on("click", changeImageCount);
-	$(window).on("click", uInteraction);
+	// $(window).on("click", uInteraction);
 	// $(document).on("scroll", checkPos);
 
 	$(window).on("resize", $.debounce( 
@@ -67,11 +67,11 @@ $(document).ready(function(){
 		}
 		sendTagData(38, imageIndex, 0);
 	}
-	/*function uInteraction( evt ){
+/*	function uInteraction( evt ){
 		evt.preventDefault();
 		evt.stopPropagation();
 		console.log("this is what was clicked on: ", $(evt.target));
-	}*/
+	}*/	
 	function socialTrack( evt ){
 		evt.preventDefault();
 		evt.stopPropagation();

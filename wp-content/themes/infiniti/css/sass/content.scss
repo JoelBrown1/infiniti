@@ -610,6 +610,23 @@ body{
 		width: 48%;
 		margin-bottom: 0px;
 	}
+	.iCar{
+		margin-top:10px;
+		display: block;
+	}
+	.rules_regs{
+		text-align: left;
+		margin-top: 10px;
+		line-height: 25px;
+	}
+	#main form .rules_regs a{
+		text-decoration: none;
+		display: inline-block;
+		color: #999;
+	}
+	[type=checkbox] a:hover{
+		text-decoration: underline;
+	}
 	.warning{
 		background-color: rgba(255, 0, 0, .3);
 		border: solid thin rgba(255, 0, 0, 1);
