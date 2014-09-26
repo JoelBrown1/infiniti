@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+ <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Journey from Tofino to Pacific Rim National Park Reserve</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+    
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+<script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+var descriptions = [
+  {location:"Tofino", subject:"Our journey starts in beautiful Tofino, British Colombia"}, 
+  {location:"Radar", subject:"Radar Hill: some of Tofino's best views can be found here."}, 
+  {location:"Long", subject:"Long Beach: The longest and largest beach in the Pacific Rim National Park Reserve, and one of Canada's best surf spots."}, 
+  {location:"Meares", subject:"Meares Island is where you'll find the Big Tree Trail. Hike this trail to discover some of the world's largest and oldest cedar trees."}, 
+  {location:"Port", subject:"Port Alberni is picturesque city known as the gateway to the Pacific West Coast"}, 
+  {location:"Sproat", subject:"Sproat Lake is home to one of the finest panels of prehistoric petroglyphs in British Columbia, along with the last of the Mars waterbombers."}, 
+  {location:"Pacific", subject:"Pacific Rim National Park - our journey's end. Explore the beauty of Canada's temperate rainforest. "}
+];
+var directionDetails;
+var cInfoWindow;
+
+var tripData = [];
+
+function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer({
+    suppressMarkers: true
+  });
+
+  var tofino = new google.maps.LatLng(49.150434, -125.906430);
+  tripData.push({
+    way_name: "Tofino, BC", 
+    lat: tofino.k, 
+    lng: tofino.B,
+    blurb: descriptions[0].subject
+  })
+  
+  var mapOptions = {
+    zoom: 6,
+    center: tofino,
+  	mapTypeId: google.maps.MapTypeId.HYBRID,
+    //disableDefaultUI: true
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+  calcRoute();
+  cInfoWindow = new google.maps.InfoWindow();
+
+}
+
+function calcRoute() {
+  var start = "Tofino, BC";
+  var end = "Pacific Rim National Park Reserve, BC";
+  var waypts = [
+    {location:"Radar Hill, BC", stopover:true}, 
+    {location:"Long Beach, BC", stopover:true}, 
+    {location:"Meares Island, Alberni-Clayoquot, BC", stopover:true}, 
+    {location:"Port Alberni, BC", stopover:true},
+    {location:"Sproat Lake, Alberni-Clayoquot D, BC", stopover:true}
+  ];
+
+  var request = {
+      origin: start,
+      destination: end,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+  };
+  var directionDetails = directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionDetails = response;
+      directionsDisplay.setDirections(response);
+      
+
+      // populaating the array for all the points on the trip:
+      for(var i = 0; i< directionDetails.routes[0].legs.length; i++){
+        var loc = directionDetails.routes[0].legs[i];
+        var myLatLng = new google.maps.LatLng(loc.end_location.k, loc.end_location.B);
+        for(var k=0; k<descriptions.length; k++){
+          if(loc.end_address.indexOf(descriptions[k].location) != -1){
+            var description = descriptions[k].subject;
+            break;
+          }
+        }
+        tripData.push(
+          {
+            way_name: loc.end_address, 
+            lat: loc.end_location.k, 
+            lng: loc.end_location.B,
+            blurb: description
+          }
+        );
+      }
+      setMarkers(map, tripData);
+    }
+  });
+
+  function setMarkers(map, locations) {
+
+    for (var i = 0; i < locations.length; i++) {
+      var myLatLng = new google.maps.LatLng(locations[i].lat, locations[i].lng);
+      var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map, 
+          title: locations[i].way_name 
+      });
+      setInfoMarker(marker, locations[i].blurb);
+    }
+  }
+
+  function setInfoMarker(marker, message){
+    var infoWindow = new google.maps.InfoWindow({
+      content: message,
+      maxWidth: 300 
+    });
+
+    google.maps.event.addListener(marker, 'click',function(){
+      infoWindow.open(marker.get('map'), marker);
+    })
+  }
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+</head>
+
+<body>
+    <div id="map-canvas"></div><!-- style="float:left;width:70%;height:100%;" -->
+    <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
+    <div style="margin:20px;border-width:2px;">
+    </div>
+    <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
+    </div>
+  </body>
+</html>

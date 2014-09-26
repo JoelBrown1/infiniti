@@ -3,3 +3,19 @@
  * <!--[if IE]>
  *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
  * <![endif]--> */
+.trip_container, #vid_bottom_nav>li, #infinitiLink{
+	background-color: #000;
+}
+
+#masthead{
+	display: none;
+}
+.top_level{
+	background-color:#000;
+}
+.child_level{
+	background-color:#505050;
+}
+body #page .navigation{
+	height: 100%;
+}

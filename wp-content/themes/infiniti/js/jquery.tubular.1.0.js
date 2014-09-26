@@ -39,7 +39,7 @@
             $node = $(node); // cache wrapper node
 
         // build container
-        if(!is_mobile){
+        if(!_mob){
             var pContainer = '<div id="tubular-container" style="overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
         } else {
             var pContainer = '<div id="tubular-container" style="display: none; overflow: hidden; position: fixed; z-index: 1; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
@@ -51,7 +51,6 @@
 
         $body.prepend(tubularContainer);        
         $node.css({position: 'relative', 'z-index': options.wrapperZIndex});
-
         // set up iframe player, use global scope so YT api can talk
         window.player;
         window.onYouTubeIframeAPIReady = function() {
@@ -61,16 +60,18 @@
                     height: Math.ceil(options.width / options.ratio),
                     videoId: options.videoId,
                     playerVars: {
-                        controls: 0,
-                        showinfo: 0,
-                        modestbranding: 1,
-                        wmode: 'transparent'
+                        'controls': 0,
+                        'showinfo': 0,
+                        'modestbranding': 1,
+                        'wmode': 'transparent',
+                        'rel': 0
                     },
                     events: {
                         'onReady': onPlayerReady,
                         'onStateChange': onPlayerStateChange
                     }
                 });
+                ytReady = true;
             }
     
         }
@@ -80,7 +81,6 @@
             if (options.mute) e.target.mute();
             e.target.seekTo(options.start);
             e.target.playVideo();
-            console.log("this is the tubular e.target: ", e.target);
             window.setReady(e.target);
         }
 
@@ -139,11 +139,14 @@
     }
 
     // load yt iframe js api
+    setTimeout(function(){
+        var tag = document.createElement('script');
+        tag.src = "//www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }, 2000);
 
-    var tag = document.createElement('script');
-    tag.src = "//www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 
     // create plugin
 

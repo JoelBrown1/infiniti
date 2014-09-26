@@ -1,17 +1,22 @@
 var $ = jQuery;
-
+var _mob = WURFL.is_mobile;
+// var _mob = true;
+	var availablePlayer;
+$(document).ready( function(window){
 	var aniTime = .25;
 	var aniNav = 1.5;
 	var origPos;
 	var navVis = true;
 	var mouseOver = false;
 	var currentlyPlaying;
-	var availbleToPlay = false;
+	var availableToPlay = false;
 	var opHide = .1;
 	var sound = false;
 	var vidIndex = 1;
 	var tripNavContainer;
-	var availablePlayer;
+	var playerStates = [0, 0, 0, 0];
+
+	var lvisible = false;
 
 	// condition for mobile devices
 	var mPlayer;
@@ -19,46 +24,49 @@ var $ = jQuery;
 	var videoBox;
 	var vidIframe;
 
-	var is_mobile = WURFL.is_mobile;
-
-	// var is_mobile = true;
-$(document).ready( function(window){
-	console.log("this is the location url: ",document.URL);
 	$.urlParam = function(name){
-		console.log("this is the name value: ", name);
-		// var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(document.URL);
 		var IDBeginPos = document.URL.search("=")+1;
-		results = document.URL.slice(IDBeginPos, document.URL.length);
-		console.log("this is results: ", results);
-		if(results){
-		    return results;
+		if(IDBeginPos > 0){
+			results = document.URL.slice(IDBeginPos, document.URL.length);
+			return results;
 		}
 	}
-	
-	var tripPreload = $.urlParam('pList');
-	console.log("this the trip that should load right after the intro video: ", tripPreload);
+	if($.urlParam('pList') == undefined){
+		var tripPreload ="";
+	} else {
+		var tripPreload = $.urlParam('pList');
+	}
+
+	var vidList;
+	var isPlaying;
+	var trip;
+
 	var vidDrawerPaddingL = parseInt($(".trip_container").css("padding-left"))*2;
 	var pTitle = $("title").html();
 	var vPercent;
 	var vDuration;
 	var dFlag = false;
 	var vidLoop = true;
+	var introVid = true;
+	var introPlayed = false;
+	var introVidID = "buVSgs4GDtQ";
+	var footerContainer = $("footer");
+	var cEnabled = false;
 
-	if( tripPreload !=""){
-		vidLoop = false;
-	}
+	var finalVidTitle;
+	var finalVidIndex;
 
 	sendTagData(1, "none", 0);
 
-	if(is_mobile){
+	if(_mob){
 		$('body').addClass("mobile");
 	}
 
 	init();
 
 	function init(){
-		if(!is_mobile){
-			availbleToPlay = true;
+		if(!_mob){
+			availableToPlay = true;
 			var textWidth = 0;
 			var bgndImgmargin = parseInt($(".trip_container").css("background-position-y"));
 			var requiredPadding = parseInt($(".trip_container").css("padding-left"));
@@ -78,18 +86,15 @@ $(document).ready( function(window){
 					'width': drawerW+"px",
 					'background-position-x': bgndImgPos+bgndImgmargin+requiredPadding+"px"
 				});
+				TweenMax.to($(this), aniTime, {css:{marginLeft:0}, ease:Circ.easeOut, delay:5, onComplete: hideDrawers, onCompleteParams:[$(this)]});
 			});
 		
-			$(".trip").each( function(){
-				var container = this;
-				TweenMax.to(container, aniTime, {css:{marginLeft:0}, ease:Circ.easeOut, onComplete: hideDrawers, onCompleteParams:[container]});
-			});
 		}
 
 		$('#sndControls').on("mouseenter", triggerMouseOver);
 		$('#sndControls').on("click", soundState);
 		$('.social_share li').on("click", socialTrack);
-		if(!is_mobile){
+		if(!_mob){
 			$(".trip").on("mouseenter", openBtn);
 			$(".trip").on("mouseleave", closeBtn);	
 			$(".vid_controls").on("mouseenter", triggerMouseOver);
@@ -97,16 +102,17 @@ $(document).ready( function(window){
 			$("#vid_bottom_nav").on("mouseenter", triggerMouseOver);
 			$("#vid_bottom_nav").on("mouseleave", triggerMouseLeave);
 		}
-		if(availbleToPlay){
+		if(availableToPlay){
 			addPlayability();
 		}
 	}
 	function addPlayability(){
 		$(".trip_container").removeClass("trip_inactive");
 		$(".trip").on("click", "span", switchVids);
-		$(".trip").on("click", queVidPlaylist);
+		$(".trip").on("click", vidBtnClick);
 	}
 	function hideDrawers(container){
+		TweenMax.to(container, aniTime, {delay: 2, css:{marginLeft:-origPos}, ease:Circ.easeOut});
 		TweenMax.to(container, aniTime, {delay: 2, css:{marginLeft:-origPos}, ease:Circ.easeOut});
 	}
 
@@ -120,7 +126,6 @@ $(document).ready( function(window){
 			$(evt.target).removeClass("on").addClass("off");
 		}
 	}
-
 
 	function switchVids( evt ){
 		evt.stopPropagation();
@@ -145,50 +150,65 @@ $(document).ready( function(window){
 				if(count >= 0){
 					vidIndex = count - 1;
 					availablePlayer.cueVideoById(playlist[count]);
-					playNewVid();
+					playNewVid(playlist, count);
 				}
 				break;
 		}
 		tripNavContainer = $(this).closest('li');
 	}
+
 	function playNewVid(){
 		availablePlayer.playVideo();
 	}
+
 	function openBtn( evt ){
 		evt.stopPropagation();
 		evt.preventDefault();
 		TweenMax.to(this, aniTime, {css:{marginLeft:0}, ease:Circ.easeOut});
 		mouseOver = true;
 	}
+
 	function closeBtn( evt ){
 		evt.stopPropagation();
 		evt.preventDefault();
 		mouseOver = false;
 		TweenMax.to(this, aniTime, {css:{marginLeft: -origPos}, ease:Circ.easeOut});
 	}
+
 	function triggerMouseOver(){
 		mouseOver = true;
 	}
+
 	function triggerMouseLeave(){
 		mouseOver = false;
 	}
+
 	function switchExpanded(){
 		mouseOver = false;
 	}
+
 	function toggleNav(){	
 		TweenMax.to($('ul'), aniTime, {css:{alpha: opHide}, ease:Circ.easeOut, delay:1, onComplete: switchExpanded});
+		TweenMax.to($('footer'), aniTime, {css:{alpha: opHide}, ease:Circ.easeOut, delay:1, onComplete: switchExpanded});
+		TweenMax.to($('#sndControls'), aniTime, {css:{alpha: opHide}, ease:Circ.easeOut, delay:1, onComplete: switchExpanded});
 		
 		setMouseTracking();
 		navVis = true;
 	}
+
+	function showHideNav (op){
+		TweenMax.to($('ul'), aniTime, {css:{alpha: op}, ease:Circ.easeOut});
+		TweenMax.to($('#sndControls'), aniTime, {css:{alpha: op}, ease:Circ.easeOut});
+		TweenMax.to($('footer'), aniTime, {css:{alpha: op}, ease:Circ.easeOut});
+	}
+
 	function setMouseTracking(){
 		$(document).on("mousemove", 
 			$.debounce( 
 				50, 
 				true, 
 				function(e){
-					TweenMax.to($('ul'), aniTime, {css:{alpha: 1}, ease:Circ.easeOut});
-					TweenMax.to($('#sndControls'), aniTime, {css:{alpha: 1}, ease:Circ.easeOut});
+					showHideNav (1);
 		    })
 		).on("mousemove", $.debounce( 
 			250, 
@@ -196,60 +216,63 @@ $(document).ready( function(window){
 			function(e){
 				setTimeout( function(){
 					if(!mouseOver){
-						TweenMax.to($('ul'), aniTime, {css:{alpha: opHide}, ease:Circ.easeOut});
-						TweenMax.to($('#sndControls'), aniTime, {css:{alpha: opHide}, ease:Circ.easeOut});
+						showHideNav (opHide);
 					};
 				}, 2000);
 		    })
 		);
 	}
+
 	function toggleBranding(){
 			TweenMax.to($(".main_logo"), aniTime, {css:{alpha: 0}, ease:Circ.easeOut});
 	}
-	function queVidPlaylist( evt ){
-		var vidList;
-		var isPlaying;
-		var trip;
-		if(evt != undefined){
-			evt.stopPropagation();
-			evt.preventDefault();
+
+	function vidBtnClick( evt ){
+		evt.stopPropagation();
+		evt.preventDefault();
+		introVid = false;
+		vidList = $(this).attr("data-trip");
+		isPlaying = $(this).attr("data-state");	
+		trip = this;	
+		queVidPlaylist();
+	}
+
+	function queVidPlaylist(){
+		if( tripPreload !=""){
+			introVid = false;
 		}
-		navVis = false;
-		if(!is_mobile){
-			toggleNav();
-			toggleBranding();		
+
+		if(!_mob){
+			
+			if(!introVid){
+				toggleNav();
+				toggleBranding();
+			}
 		}
 
 		if(tripPreload){
-			console.log("there was a video cued to play after intro video: ",tripPreload);
 			vidList = tripPreload;
-			// getting the li element with that trip playlist id:
+
 			$(".trip").each(function(){
-				console.log("this is the trip id: ",$(this).attr("data-trip"));
 				if($(this).attr("data-trip") == tripPreload){
-					console.log("did we get a match?");
 					isPlaying = $(this).attr("data-state");
 					trip = this;
 				}
 			});
-		} else {
-			vidList = $(this).attr("data-trip");
-			isPlaying = $(this).attr("data-state");	
-			trip = this;		
 		}
-
-		
+		console.log("this is the playlist: ", vidList);
 		if(isPlaying == "false"){
 			if(availablePlayer.isMuted()){
 				availablePlayer.unMute();
 				$("#sndControls").removeClass("off").addClass("on");
 			}
+			
 			availablePlayer.loadPlaylist({
 				list: vidList,
-				listType:"playlist"
+				listType:"playlist", 
+				index: 0
 			});
 			
-
 			if(currentlyPlaying){
 				resetVids(currentlyPlaying);
 			}
@@ -260,12 +283,16 @@ $(document).ready( function(window){
 			currentlyPlaying = [ $(".trip").index($(trip)), $(trip).find("div").html() ];
 			tripNavContainer = trip;
 		} else {
+			
 			stateSwitch( trip );
 		}
 	}
+
 	function updatePlayDisplay(){
-		if(vPercent){
-			stopInterval();
+		if(cEnabled){
+			$("#content").css({display: "block"});
+			$("#tubular-shield").css({display: "block"});
+			cEnabled = false;
 		}
 		var playlist = availablePlayer.getPlaylist();
 		if(playlist) {
@@ -278,9 +305,12 @@ $(document).ready( function(window){
 			}
 			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+vidIndex+"/"+playlist.length+" <span class='nextVid'>next</span>");
 			
-			// set required variables for the CM tagging request:
 		}
-		sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
+		if( availablePlayer.getVideoData().video_id == introVidID && introPlayed == false){
+			sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
+		} else if(availablePlayer.getVideoData().video_id != introVidID){
+			sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
+		}
 		vDuration = availablePlayer.getDuration();
 		vPercent = setInterval( function(){calDuration()},500);
 	}
@@ -289,15 +319,29 @@ $(document).ready( function(window){
 		var vidPoint = availablePlayer.getCurrentTime();
 		var _duration = vidPoint/vDuration;
 		if(!dFlag && _duration > .75){
-		sendTagData(104, availablePlayer.getVideoData().title, vidIndex);
+			if( availablePlayer.getVideoData().video_id == introVidID && introPlayed == false){
+				sendTagData(104, availablePlayer.getVideoData().title, vidIndex);
+			} else if(availablePlayer.getVideoData().video_id != introVidID){
+				sendTagData(104, availablePlayer.getVideoData().title, vidIndex);
+				finalVidTitle = availablePlayer.getVideoData().title;
+				finalVidIndex = vidIndex;
+			}
 			dFlag = true;
 		}
+		if( !introVid && _duration> .9){
+			$("#content").css({display: "none"});
+			$("#tubular-shield").css({display: "none"});
+			cEnabled = true;
+			stopInterval();
+		}
 	}
+
 	function stopInterval(){
 		clearInterval(vPercent);
 	}
+
 	function socialTrack( evt ){
-		console.log($(evt.target).attr("id"));
+		console.log("this is the button that was clicked: ", $(evt.target).attr("id"));
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
@@ -308,6 +352,7 @@ $(document).ready( function(window){
 		$(video).html("<div>"+oldVid[1]+"</div>");
 		$(oldTrip).attr("data-state", "false");
 	}
+
 	function stateSwitch( tripContainer ){
 		if($(tripContainer).attr("data-state") != "false"){
 			switch($(tripContainer).attr("data-state")){
@@ -324,10 +369,10 @@ $(document).ready( function(window){
 			}
 		}
 	}
-	$('.video_container').tubular({
-		videoId: 'jvuBe6b2iVk',
-		mute: true,
-		repeat: vidLoop
+
+	$('#content').tubular({
+		videoId: introVidID,
+		mute: true
 	});
 
 	function on_resize(c, t) {
@@ -336,9 +381,17 @@ $(document).ready( function(window){
 	      t = setTimeout(c, 100)
 	    };
 	    return c
-	};
+	}
+
 	setReady = function (player){
-		if(is_mobile){
+		setInterval( function(){
+			if(!lvisible){
+				$("#loader").css({display: "none"});
+				lvisible = true;
+			}
+		}, 1500);
+
+		if(_mob){
 			var mobVidCont = document.getElementById("mob_vid_container");
 			mobVidCont.className = "mobVidCont";
 			var big_player = document.createElement("div");
@@ -351,59 +404,58 @@ $(document).ready( function(window){
 		    mobVidCont.appendChild(big_player);
 		    mobVidCont.appendChild(videoBox);
 		    videoBox.appendChild(vidIframe);
-		    setMobilePlayer('jvuBe6b2iVk');
+		    setMobilePlayer(introVidID);
 
 		} else {
+			player.setPlaybackQuality("default");
 			player.addEventListener("onStateChange", function(evt){
+				console.log("player event data: ", evt.data);
+				console.log("this is the player states: ", playerStates);
+				playerStates[3] = playerStates[2];
+				playerStates[2] = playerStates[1];
+				playerStates[1] = playerStates[0];
+				playerStates[0] = evt.data;
+				console.log("this is the updated playerStates: ", playerStates);
+
 				switch(evt.data){
 					case 1:
-						updatePlayDisplay();
+						updatePlayDisplay();						
+						player.setLoop(true);
 						break;
 					case 0:
-						sendTagData(105, pTitle, "Video_End", availablePlayer.getVideoData().title, vidIndex);
-						queVidPlaylist();
-						break;
+						if( player.getVideoData().video_id == introVidID && introPlayed == false){
+							introPlayed = true;
+							sendTagData(105, player.getVideoData().title, vidIndex);
+							if(tripPreload !=""){
+								queVidPlaylist();
+							}
+						} else if(player.getVideoData().video_id != introVidID){
+							if(vidIndex == player.getPlaylist().length){
+								console.log("we have gone back to the beginning of the experience");
+								player.setLoop(true);
+								player.cueVideoById(introVidID);
+								player.playVideo();
+								introVid = true;
+							}
+							sendTagData(105, finalVidTitle, finalVidIndex);
+						}
+						// break;
 				}
-				/*if(evt.data === 1){
-					updatePlayDisplay();
-				}*/
+				if(introPlayed){
+					if(playerStates[0] == 1 && playerStates[1] == -1 && playerStates[2] == 3 && playerStates[3] == -1){
+						console.log("the video has actaully started: ");
+					}
+				}
 			});
 
 			availablePlayer = player;
 		}
 	}
 
-/*	function setReady(){
-		if(is_mobile){
-			var mobVidCont = document.getElementById("mob_vid_container");
-			mobVidCont.className = "mobVidCont";
-			var big_player = document.createElement("div");
-		    big_player.className = "big_player";
-		    big_player.addEventListener("click", showPlayer);
-			videoBox = document.createElement("div");
-		    vidIframe = document.createElement("div");
-		    videoBox.id="mob_Player";
-		    videoBox.className = "mobile_video vid_hidden";
-		    mobVidCont.appendChild(big_player);
-		    mobVidCont.appendChild(videoBox);
-		    videoBox.appendChild(vidIframe);
-		    setMobilePlayer('jvuBe6b2iVk');
-
-		} else {
-			window.player.addEventListener("onStateChange", function(evt){
-				if(evt.data === 1){
-					updatePlayDisplay();
-				}
-			});
-
-			availablePlayer = window.player;
-		}
-	}
-*/
 	function showPlayer( evt ){
 		$(evt.target).addClass("invisible");
 		$(videoBox).removeClass("vid_hidden");
-		availbleToPlay = true;
+		availableToPlay = true;
 		addPlayability();
 	}
 
@@ -420,8 +472,10 @@ $(document).ready( function(window){
 		});
 		availablePlayer = mPlayer;
 	}
+
 	function mobPlayerReady( evt ){
 	}
+
 	function mobPlayerStateChange( evt ){
 		switch( evt.data ){
 			case 1:

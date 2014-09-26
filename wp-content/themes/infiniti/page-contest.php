@@ -44,7 +44,6 @@
 	$footer_image = get_post_meta($post->ID, 'footer_image');
 
 	if($_POST){
-		var_dump($_POST);
 		$pattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 		$pcPatter = "/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i";
 		$missing = array();
@@ -57,10 +56,9 @@
 		} else { 
 			$vDets = split(" ",$_POST["vehicle"]);
 		}
-		if($_POST["RULES"] == "" | $_POST["RULES"] == "false"){array_push($missing, "Rules and Regulations");}
-		var_dump($vDets);
+		if($_POST["Rules"] != "true"){array_push($missing, "Rules and Regulations");}
+		if($_POST["Privacy"] != "true"){array_push($missing, "Privacy Policy");}
 		if(preg_match($pcPatter, $_POST["pCode"]) == false) {array_push($missing, "Postal Code");}
-
 		$tStamp = new DateTime();
 		$cIP = get_client_ip();
 		$data = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE email=%s", $_POST["email"]));
@@ -81,12 +79,17 @@
 									'postal_code'		=> $_POST["pCode"],
 									'trip_choice'		=> $_POST["trip"],
 									'rules'				=> $_POST["Rules"],
+									'privacy'			=> $_POST["Privacy"],
 									'vehicle'			=> $_POST["vehicle"],
+									'oMarketing'		=> $_POST["oMarketing"],
+									'iMarketing'		=> $_POST["iMarketing"],
 									'time_stamp'		=> $tStamp->format('Y-m-d H:i:s'),
 									'ip_address'		=> $cIP,
 									'agent_string'		=> $_SERVER['HTTP_USER_AGENT']
 								),
 								array(
+									'%s',
+									'%s',
 									'%s',
 									'%s',
 									'%s',
@@ -148,7 +151,7 @@
 										</provider>
 									</prospect>
 								</adf>';
-
+				/*echo $content;*/
 
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to 
@@ -160,25 +163,14 @@
 				curl_setopt($ch, CURLOPT_POST, 1);  
 				$response = curl_exec($ch);
 				curl_close($ch);
-				echo $response;
-				
-/* - just got this message:
-HTTP/1.1 100 Continue 
-HTTP/1.1 200 OK 
-Content-Length: 169 
-Content-Type: application/xml; charset=utf-8 
-Server: Microsoft-IIS/8.0 
-X-Powered-By: ASP.NET 
-Date: Mon, 15 Sep 2014 15:14:57 GMT 
-3585778 Accepted true
-*/
-				
+
+				$errorFlag = 1;
+								
 			} else {
 				$errorFlag = 2;
 			}
 		}
 	}
-
 get_header(); ?>
 <?php get_sidebar(); ?>
 		<div id="primary" class="content-area">
@@ -219,33 +211,35 @@ get_header(); ?>
 								
 								} 
 								?>
-							<form action="" onsubmit="return validation()" method="post"> <!--  -->
+							<form action="" onsubmit="return validation()" method="post">
 								<div id="tripWarning">
 									Please be sure to select your favourite journey...
 								</div>
 								<div id="trips clearfix">
 								<?php
-									$counter = 1;
-									$trips = array("Great Bear Rainforest", "Sable Island", "Athabasca Sand Dunes");
+									$counter = 0;
+									$trips = array("Pacific Rim National Park", "Athabasca Sand Dunes", "Sable Island");
 									$cVal = "";
+									$imgURL = array("Vote_Rainforest.jpg", "Vote_SandDunes.jpg", "Vote_NS.jpg");
 									foreach ($trips as $trip) {
 										if($trip == $_POST["trip"])	{
 											$cVal = "checked";
 										} else { 
 											$cVal = ""; 
 										}
-										if($counter == 1){  ?>
+										$tripImg = get_template_directory_uri().'/images/'.$imgURL[$counter];
+										if($counter == 0){  ?>
 
 											<label class="trip gbr">
 												<input class="t_data" type="radio" name="trip" value="<?php echo $trip; ?>" <?php echo $cVal; ?> >
-												<img src="<?php echo get_template_directory_uri().'/images/trip1.png'; ?>" alt="<?php echo $trip."Trip"; ?>">
+												<img src="<?php echo $tripImg; ?>" alt="<?php echo $trip."Trip"; ?>">
 												<h4><?php echo $trip; ?></h4>
 											</label>
 								<?php	} else {  ?>
 
 											<label class="trip">
 												<input class="t_data" type="radio" name="trip" value="<?php echo $trip; ?>" <?php echo $cVal; ?> >
-												<img src="<?php echo get_template_directory_uri().'/images/trip1.png'; ?>" alt="<?php echo $trip."Trip"; ?>">
+												<img src="<?php echo $tripImg; ?>" alt="<?php echo $trip."Trip"; ?>">
 												<h4><?php echo $trip; ?></h4>
 											</label>
 								<?php	} 
@@ -279,7 +273,6 @@ get_header(); ?>
 										<option value="YT">Yukon</option>
 									</select>
 
-									<!-- <input type="text" name="province" placeholder="Province" value="<?php $_POST["province"]; ?>"> -->
 									<input class="p_code" type="text" name="pCode" placeholder="Postal Code" value="<?php echo $_POST["pCode"]; ?>">
 								</div>
 								<div class="iCar clearfix">
@@ -301,9 +294,11 @@ get_header(); ?>
 									</select>
 								</div>
 								<div class="rules_regs">
-									<input class="rules" type="checkbox" name="Rules" value="">I have read the <a href="#" target="_blank">Rules and Regulations</a><br>
-									<a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a>
+									<input class="rules" type="checkbox" name="Rules" value="true">I agree to the <a href="<?php echo  get_home_url().'/canada-undiscovered-contest-the-contest/'; ?>" target="_blank">Rules and Regulations</a><br>
+									<input class="privacy" type="checkbox" name="Privacy" value="true">I agree to the <a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a><br>
 								</div>
+									<div class="optin clearfix"><input class="oMarketing" type="checkbox" name="oMarketing" value="true"> <div class="disclaimer">I agree to receive electronic communications from Blue Ant Media Television Ltd. containing news, updates and promotions regarding Oasis HD, radX, Hifi and The Smithsonian Channel.  You may withdraw your consent at any time. Blue Ant Media Television, 130 Merton Street Suite 200, Toronto, Ontario M4S 1A4 <a href="http://www.oasishd.ca/" target="_blank">oasishd.ca</a></div></div>
+									<div class="optin clearfix"><input class="iMarketing" type="checkbox" name="iMarketing" value="true"><div class="disclaimer">Yes I would like to receive communications, including emails, from Infiniti, a division of Nissan Canada  Inc. about them and their products, services, events, news, updates, offers, promotions, customized ads, and more. I may withdraw consent at any time. Infiniti Canada, 5290 Orbitor Drive, Mississauga, Ontario L4W 4Z5 <a href="http://www.infiniti.ca/en/" target="_blank">infiniti.ca</a></div></div>								
 								<button type="submit" value="Enter">Enter</button>
 							</form>
 					
@@ -313,11 +308,24 @@ get_header(); ?>
 			</main>
 			<script type="text/javascript">
 				var $ = jQuery;
-				//console.log("this is the select elements: ", sel);
+				$(document).ready( function(){
+					var formSubmitted = <?php echo $errorFlag ?>;
+					sendTagData(180,"","");
 
+					if(formSubmitted == 1){
+						sendTagData(182,"","");
+					} else {
+						console.log("there was no formSubmitted information");
+					}
+				})
 			
 				function validation(){
-					sendTagData(180, "", "");
+					console.log("inside the validation function");
+					$(".warning").each(function(){
+						$(this).removeClass("warining");
+					});
+
+					$("#tripWarning").css("display", "none");
 					var missing = [];
 					var flag = 0;
 					var trips = false;
@@ -326,18 +334,21 @@ get_header(); ?>
 					var pc = document.getElementsByClassName("p_code");
 					var model = document.getElementsByClassName("model");
 					var rules = document.getElementsByClassName("rules");
+					var privacy = document.getElementsByClassName("privacy");
 					var k = 0;
 					var i = 0;
 					while(tripCheck[k]){
 						if(tripCheck[k].checked){
+							tripCheck[k].checked = true;
 							trips = true;
 							break;
 						} else {
 							flag = 1;
-							// return false;
 						}
 						k++;
+						console.log("this is the tripCheck");
 					}
+						console.log("this is the tripCheck: ", tripCheck);
 
 					while(req[i]){
 						if(req[i].value != ""){
@@ -361,11 +372,14 @@ get_header(); ?>
 						missing.push(model);
 					}
 					if(pc[0].value != "" ){
-						var pcRE = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
+						var pcRE = /[a-zA-Z][0-9][a-zA-Z]( )?[0-9][a-zA-Z][0-9]/;
 						if(pcRE.test(pc[0].value) == false){
+							console.log("this is the pc if it fails: ", pc[0].value);
 							pc[0].className = pc[0].className + " warning";
 							flag = 1;
 							missing.push(pc);
+						} else {
+							console.log("the postal code passed");
 						}
 					} else {
 						pc[0].className = pc[0].className+" warning";
@@ -378,22 +392,26 @@ get_header(); ?>
 
 						rules[0].parentNode.className = rules[0].parentNode.className+" warning";
 					}
-					if(flag != 0){
+					if(privacy[0].checked != true){
+						flag = 1;
+						missing.push(privacy);
+
+						privacy[0].parentNode.className = privacy[0].parentNode.className+" warning";
+					}
+					console.log("last check for error flags");
+					if(missing.length() > 0){
+						console.log("the missing array: ", missing);
+						console.log("we threw an error?");
 						sendTagData(181, "", "");
 						if(trips == false){
 							$("#tripWarning").css("display", "block");
 						}
 						return false;
 					} else {
-						sendTagData(182, "", "");
+						console.log("did this return true?");
 						return true;
-						// return false;
 					}
 				}
 			
 			</script>
 			<?php get_footer(); ?>
-		</div>
-		<div id="pageTags" style="display:none;"></div>
-		<!-- <script src="<?php echo get_stylesheet_directory().'/js/Undiscovered_Micro_Tags/engine.js' ?>" id="crmEngine" pageid="<?php echo $crmID[0]; ?>" pagelocale="en" pagesite="infiniti-Canada_Undiscovered" language="JavaScript" type="text/javascript"></script> -->
-<?php //get_footer(); ?>

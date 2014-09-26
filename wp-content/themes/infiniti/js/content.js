@@ -16,13 +16,14 @@ $(document).ready(function(){
 	var currentTop = currentOffset.top;
 	var yPosition = 0;
 	var offsetH;
-	var is_mobile = WURFL.is_mobile;
+	var _mob = WURFL._mob;
 	var aniTime = .25;
 	var imageIndex = 0;
 
 	setTimeout( function(){ checkOffset(); }, 1000);
 
-	$(".social_connections").on("click", doSocial);
+	$(".social_connections").on("mouseenter", openSocial);
+	$(".social_connections").on("mouseleave", openSocial);
 	$('.social_share li').on("click", socialTrack);
 	$(".panorama_img").on("click", doPopup);
 	$(".geo").on("click", doPopup);
@@ -31,9 +32,7 @@ $(document).ready(function(){
 	$('#cboxNext').on("click", changeImageCount);
 	$('#cboxPrevious').on("click", changeImageCount);
 	$('#cboxContent').on("click", changeImageCount);
-	// $(window).on("click", uInteraction);
-	// $(document).on("scroll", checkPos);
-
+	$(document).on("scroll", checkPos);
 	$(window).on("resize", $.debounce( 
 			50, 
 			true, 
@@ -43,9 +42,22 @@ $(document).ready(function(){
 	    })
 	);
 
+	$(".gallery-item").on("click", viewGallery);
+
+	function viewGallery( evt ){
+		/*console.log("this is the evt.target: ", $(evt.target));
+		console.log("this is the number of images on the page: ", $(".cboxElement img"));
+		// var containerClicked = $(evt.target).parents("gallery-item");
+		gImageIndex = $(".cboxElement img").index($(evt.target))+1;
+		console.log("this is the index of the image that we clicked on: ", gImageIndex);
+		sendTagData(38, gImageIndex, "");*/
+	}
+
 	function getImageData( evt ){
+		console.log("this is from getImageData");
 		imageIndex = $(".gallery-item img").index( evt.target) + 1;
-		sendTagData(38, imageIndex, 0);
+		console.log("this is the original image index: ", imageIndex);
+		sendTagData(38, '', imageIndex);
 	}
 	function changeImageCount( evt ){
 		evt.preventDefault();
@@ -65,28 +77,16 @@ $(document).ready(function(){
 				imageIndex ++;
 				break;
 		}
+		console.log("this is the index of the image that we clicked on: ", imageIndex);
 		sendTagData(38, imageIndex, 0);
 	}
-/*	function uInteraction( evt ){
-		evt.preventDefault();
-		evt.stopPropagation();
-		console.log("this is what was clicked on: ", $(evt.target));
-	}*/	
 	function socialTrack( evt ){
-		evt.preventDefault();
-		evt.stopPropagation();
-		console.log($(evt.target).attr("id"));
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
 	function mobMenu( evt ){
 		var totalHeight = $("#mobile_nav").outerHeight(true) + $(".menu-main-menu-container").outerHeight(true) + $('#infiniti_link').outerHeight(true) + $(".social_connections").outerHeight(true);
-/*		console.log("total outer height of nav: ", totalHeight);
-		console.log("total outer height of mobile_nav: ", $("#mobile_nav").outerHeight(true));
-		console.log("total outer height of menu-main-menu-container: ", $(".menu-main-menu-container").outerHeight(true));
-		console.log("total outer height of infiniti_link: ", $('#infiniti_link').outerHeight(true));
-		console.log("total outer height of social_connections: ", $(".social_connections").outerHeight(true));
-*/		if($("#mobile_nav").outerHeight() == 0){
+		if($("#mobile_nav").outerHeight() == 0){
 			console.log("should open the nav...");
 			$("#mobile_nav").css({height : totalHeight});
 		} else {
@@ -115,7 +115,6 @@ $(document).ready(function(){
 	}
 
 	function checkOffset(){
-		console.log("looking at emulation of devices and chcking for screen size change...");
 		offsetH = primaryContainer.outerHeight() - navHeight;
 		if( navHeight < $(window).height()){
 			$(".navigation").css({	position : "fixed",
@@ -152,7 +151,7 @@ $(document).ready(function(){
 		});
 		sendTagData(360, imageIndex, 0);
 	}
-	function doSocial( evt ){
+	function openSocial( evt ){
 		var openPos = -(parseInt($(this).css("margin-bottom")));
 		evt.stopPropagation();
 		evt.preventDefault();

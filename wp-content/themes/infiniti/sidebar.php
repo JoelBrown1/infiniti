@@ -9,7 +9,7 @@
 	return;
 }*/
 ?>
-<nav class="navigation">
+<div class="navigation">
 	<div id="branding">
 		<a href="<?php echo  get_home_url(); ?>"><img src="<?php echo get_template_directory_uri().'/images/content_logo.png'?>" alt="Infiniti and Oasis present Canada Undescovered!"></a>
 		
@@ -22,4 +22,4 @@
 	</div>
 	<?php get_template_part( "navigation", "social_channels" ); ?>
 
-</nav>
+</div>

@@ -1,10 +1,8 @@
 function sendTagData(crmEvent, param1, param2){
-	console.log("uncomment this code once you have the engine.js file");
-	console.log("data collected: "+crmEvent+" : "+param1+" : "+param2 );
-	/*switch(crmEvent){
+	switch(crmEvent){
 		case 1:
 		// this is for page load
-			console.log("this is the first event that is fired: "+ crmEvent+" : "+pageName);
+		console.log("this is the page loaded crm event");
 			try {
 				crmEvent1();
 			} catch(e){}
@@ -12,14 +10,17 @@ function sendTagData(crmEvent, param1, param2){
 
 		case 38:
 		// viewed image in gallery
-			console.log("this is the first event that is fired: "+ crmEvent+" : "+pageName);
+		console.log("this is the image gallery event to work with");
 			try {
-				crmEvent1();
+				crmEvent38({
+						'num' : param2
+					});
 			} catch(e){}
 			break;
 
 		case 101:
-		// video start
+		// video start - called 1 second after video has started to throw a single event
+		console.log("this is the start of video: ", param1, param2);
 			try {
 				crmEvent101({
 					'name' : param1,
@@ -53,6 +54,7 @@ function sendTagData(crmEvent, param1, param2){
 			try {
 				crmEvent106({
 					'name' : param1,
+					'social': param2
 				});
 			} catch(e){}
 			break;
@@ -60,7 +62,7 @@ function sendTagData(crmEvent, param1, param2){
 		case 180:
 		// form submitted
 			try {
-				crmEvent106({
+				crmEvent180({
 					'name' : param1,
 				});
 			} catch(e){}
@@ -69,7 +71,7 @@ function sendTagData(crmEvent, param1, param2){
 		case 181:
 		// form error
 			try {
-				crmEvent106({
+				crmEvent181({
 					'name' : param1,
 				});
 			} catch(e){}
@@ -77,8 +79,9 @@ function sendTagData(crmEvent, param1, param2){
 
 		case 182:
 		// form confirmed
+		console.log("this is the form confirmed...");
 			try {
-				crmEvent106({
+				crmEvent182({
 					'name' : param1,
 				});
 			} catch(e){}
@@ -87,8 +90,8 @@ function sendTagData(crmEvent, param1, param2){
 		case 360:
 		// 360 opened
 			try {
-				crmEvent106({
-					'name' : param1,
+				crmEvent360({
+//					'name' : param1,
 				});
 			} catch(e){}
 			break;
@@ -96,11 +99,11 @@ function sendTagData(crmEvent, param1, param2){
 		case 362:
 		// 360 was used
 			try {
-				crmEvent106({
-					'name' : param1,
+				crmEvent362({
+// 					'name' : param1,
 				});
 			} catch(e){}
 			break;
 
-	}*/
+	}
 }
