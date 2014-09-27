@@ -6,15 +6,20 @@ $(document).ready( function(window){
 	var aniTime = .25;
 	var aniNav = 1.5;
 	var origPos;
+
 	var navVis = true;
 	var mouseOver = false;
+
 	var currentlyPlaying;
+
 	var availableToPlay = false;
+
 	var opHide = .1;
 	var sound = false;
+
 	var vidIndex = 1;
 	var tripNavContainer;
-	var playerStates = [0, 0, 0, 0];
+	var playerStates = [0, 0];
 
 	var lvisible = false;
 
@@ -47,9 +52,14 @@ $(document).ready( function(window){
 	var vDuration;
 	var dFlag = false;
 	var vidLoop = true;
+
 	var introVid = true;
 	var introPlayed = false;
 	var introVidID = "buVSgs4GDtQ";
+	var replay = false;
+
+	var reportedVid = {};
+
 	var footerContainer = $("footer");
 	var cEnabled = false;
 
@@ -231,6 +241,8 @@ $(document).ready( function(window){
 		evt.stopPropagation();
 		evt.preventDefault();
 		introVid = false;
+		introPlayed = true;
+
 		vidList = $(this).attr("data-trip");
 		isPlaying = $(this).attr("data-state");	
 		trip = this;	
@@ -294,23 +306,16 @@ $(document).ready( function(window){
 			$("#tubular-shield").css({display: "block"});
 			cEnabled = false;
 		}
-		var playlist = availablePlayer.getPlaylist();
-		if(playlist) {
-			var cVid = availablePlayer.getVideoData();
-			for(var i = 0; i< playlist.length; i++){
-				if(playlist[i] == cVid.video_id){
-					vidIndex = i+1;
-				}
-				dFlag = false;
-			}
-			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+vidIndex+"/"+playlist.length+" <span class='nextVid'>next</span>");
-			
-		}
+
+		if(!introVid){
+			var v = getVidData(player);
+			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+v.Ivid+"/"+v.len+" <span class='nextVid'>next</span>");
+		} 
+
 		if( availablePlayer.getVideoData().video_id == introVidID && introPlayed == false){
 			sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
-		} else if(availablePlayer.getVideoData().video_id != introVidID){
-			sendTagData(101, availablePlayer.getVideoData().title, vidIndex);
-		}
+		} 
+
 		vDuration = availablePlayer.getDuration();
 		vPercent = setInterval( function(){calDuration()},500);
 	}
@@ -409,13 +414,32 @@ $(document).ready( function(window){
 		} else {
 			player.setPlaybackQuality("default");
 			player.addEventListener("onStateChange", function(evt){
-				console.log("player event data: ", evt.data);
-				console.log("this is the player states: ", playerStates);
-				playerStates[3] = playerStates[2];
-				playerStates[2] = playerStates[1];
 				playerStates[1] = playerStates[0];
 				playerStates[0] = evt.data;
-				console.log("this is the updated playerStates: ", playerStates);
+				// console.log("this is the updated playerStates: ", playerStates);
+
+				var reload = false;
+
+				if(introPlayed && player.getVideoData().video_id != introVidID){
+
+					if(playerStates[0] == 1 && playerStates[1] == -1){
+						var v = getVidData(player);
+						reportedVid = {
+							title : v.title,
+							vidID : v.Ivid
+						};
+						// console.log("the video has actaully started: ", v.title, v.Ivid);
+						sendTagData(101, reportedVid.title, reportedVid.vidID);
+						playerStates = [0, 0];
+					} else if(playerStates[0] == 0 && playerStates[1] == 3){
+						// var v = getVidData(availablePlayer);
+						// console.log("the video has actaully stopped: ", v.title, v.Ivid);
+						sendTagData(105, reportedVid.title, reportedVid.vidID);
+						playerStates = [0, 0];
+					}
+
+				}
+
 
 				switch(evt.data){
 					case 1:
@@ -432,23 +456,46 @@ $(document).ready( function(window){
 						} else if(player.getVideoData().video_id != introVidID){
 							if(vidIndex == player.getPlaylist().length){
 								console.log("we have gone back to the beginning of the experience");
-								player.setLoop(true);
-								player.cueVideoById(introVidID);
-								player.playVideo();
-								introVid = true;
+								reload = true;
+								// reset the navigation
 							}
-							sendTagData(105, finalVidTitle, finalVidIndex);
 						}
 						// break;
 				}
-				if(introPlayed){
-					if(playerStates[0] == 1 && playerStates[1] == -1 && playerStates[2] == 3 && playerStates[3] == -1){
-						console.log("the video has actaully started: ");
-					}
+				// console.log("checking condition to get to playerstates comparison: ",introPlayed);
+				if(reload){
+					console.log("reloading the entire experience");
+					replay = true;
+					player.clearVideo();
+					player.setLoop(true);
+					player.loadVideoById(introVidID);
+					player.playVideo();
+					console.log("this is what trip playing before reset: ",currentlyPlaying);
+					resetVids(currentlyPlaying);
+					introVid = true;
 				}
 			});
 
 			availablePlayer = player;
+		}
+	}
+
+	function getVidData( obj ){
+		var playlist = obj.getPlaylist();
+		if(playlist) {
+			var cVid = obj.getVideoData();
+			for(var i = 0; i< playlist.length; i++){
+				if(playlist[i] == cVid.video_id){
+					vidIndex = i+1;
+				}
+				dFlag = false;
+			}
+		}
+
+		return {
+			title: cVid.title,
+			Ivid: vidIndex,
+			len: playlist.length
 		}
 	}
 

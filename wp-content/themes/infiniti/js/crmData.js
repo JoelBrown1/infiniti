@@ -51,10 +51,10 @@ function sendTagData(crmEvent, param1, param2){
 
 		case 106:
 		// for social sharing tracking
+		console.log("parameters: ", param1, param2)
 			try {
 				crmEvent106({
-					'name' : param1,
-					'social': param2
+					'social': param1
 				});
 			} catch(e){}
 			break;
@@ -62,18 +62,14 @@ function sendTagData(crmEvent, param1, param2){
 		case 180:
 		// form submitted
 			try {
-				crmEvent180({
-					'name' : param1,
-				});
+				crmEvent180();
 			} catch(e){}
 			break;
 
 		case 181:
 		// form error
 			try {
-				crmEvent181({
-					'name' : param1,
-				});
+				crmEvent181();
 			} catch(e){}
 			break;
 
@@ -81,9 +77,7 @@ function sendTagData(crmEvent, param1, param2){
 		// form confirmed
 		console.log("this is the form confirmed...");
 			try {
-				crmEvent182({
-					'name' : param1,
-				});
+				crmEvent182();
 			} catch(e){}
 			break;
 

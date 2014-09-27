@@ -1,6 +1,13 @@
 var $ = jQuery;
 $(document).ready(function(){
-	sendTagData(1, "none", 0);
+	console.log("this is the document location: ", document.location.pathname);
+	if(document.location.pathname.indexOf("contest")){
+		if($("#thanks").length == 0){
+			sendTagData(180, "none", 0);
+		}
+	} else {
+		sendTagData(1, "none", 0);
+	}
 
 	var socialVis = false;
 
@@ -25,13 +32,14 @@ $(document).ready(function(){
 	$(".social_connections").on("mouseenter", openSocial);
 	$(".social_connections").on("mouseleave", openSocial);
 	$('.social_share li').on("click", socialTrack);
-	$(".panorama_img").on("click", doPopup);
-	$(".geo").on("click", doPopup);
+	// $(".panorama_img").on("click", doPopup);
+	// $(".geo").on("click", doPopup);
 	$(".ham_nav").on('click', mobMenu);
 	$(".gallery-item img").on('click', getImageData);
 	$('#cboxNext').on("click", changeImageCount);
 	$('#cboxPrevious').on("click", changeImageCount);
 	$('#cboxContent').on("click", changeImageCount);
+	$('.map_link').on("click", openMap);
 	$(document).on("scroll", checkPos);
 	$(window).on("resize", $.debounce( 
 			50, 
@@ -41,16 +49,9 @@ $(document).ready(function(){
 				getPos();
 	    })
 	);
-
-	$(".gallery-item").on("click", viewGallery);
-
-	function viewGallery( evt ){
-		/*console.log("this is the evt.target: ", $(evt.target));
-		console.log("this is the number of images on the page: ", $(".cboxElement img"));
-		// var containerClicked = $(evt.target).parents("gallery-item");
-		gImageIndex = $(".cboxElement img").index($(evt.target))+1;
-		console.log("this is the index of the image that we clicked on: ", gImageIndex);
-		sendTagData(38, gImageIndex, "");*/
+	function openMap( evt ){
+		console.log("this is the evt.target: ",evt.target);
+		sendTagData(360, "", 0);
 	}
 
 	function getImageData( evt ){
@@ -78,9 +79,10 @@ $(document).ready(function(){
 				break;
 		}
 		console.log("this is the index of the image that we clicked on: ", imageIndex);
-		sendTagData(38, imageIndex, 0);
+		sendTagData(38, "", imageIndex);
 	}
 	function socialTrack( evt ){
+		console.log("we clicked on the social buttons");
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
@@ -127,30 +129,6 @@ $(document).ready(function(){
 		}
 	}
 
-	if(sTitle){
-		if(sTitle.search(/bear/i)>= 0){
-			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
-		} else if(sTitle.search(/island/i)>= 0){
-			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
-		} else {
-			sIframe = '<iframe src="http://www.360cities.net/embed_iframe/machu-picchu-peru-2011" width="425" height="315" frameborder="0" bgcolor="#000000" target="_blank" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>';
-		}
-		var structure = '<div class="white-popup">'+sIframe+'</div>';
-	}
-
-	function doPopup( evt ){
-		$.magnificPopup.open({
-			items: sTitle,
-			type: 	'inline',
-			inline: {
-						markup : structure 
-					},
-			callbacks: {
-					    markupParse: function(template, values, item) {}
-					}
-		});
-		sendTagData(360, imageIndex, 0);
-	}
 	function openSocial( evt ){
 		var openPos = -(parseInt($(this).css("margin-bottom")));
 		evt.stopPropagation();

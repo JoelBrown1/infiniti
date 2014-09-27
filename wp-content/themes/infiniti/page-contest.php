@@ -17,7 +17,7 @@
 	$rDate = new DateTime();
 	$cIP = get_client_ip();
 	$crmID = get_post_meta($post->ID, 'crmPageID');
-
+	$firstLoad = true;
 	function get_client_ip() {
 	    $ipaddress = '';
 	    if ($_SERVER['HTTP_CLIENT_IP'])
@@ -44,6 +44,7 @@
 	$footer_image = get_post_meta($post->ID, 'footer_image');
 
 	if($_POST){
+		$firstLoad = false;
 		$pattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 		$pcPatter = "/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i";
 		$missing = array();
@@ -137,12 +138,12 @@
 											<language>EN</language>
 										</customer>
 										<vendor>
-											<id source="nissan-dealer-id">12345</id>
+											<id source="nissan-dealer-id">blank</id>
 											<vendorname>Unknown</vendorname>
 											<contact>
 												<name part="first" type="individual">Unknown</name>
 												<name part="last" type="individual">Unknown</name>
-												<phone type="voice" time="nopreference" preferredcontact="0">(111) 111-1111</phone>
+												<phone type="voice" time="nopreference" preferredcontact="0">blank</phone>
 											</contact>
 										</vendor>
 										<provider>
@@ -308,14 +309,16 @@ get_header(); ?>
 			</main>
 			<script type="text/javascript">
 				var $ = jQuery;
+				var contest = true;
+
 				$(document).ready( function(){
-					var formSubmitted = <?php echo $errorFlag ?>;
-					sendTagData(180,"","");
+
+					var formSubmitted = <?php echo $errorFlag; ?>;
 
 					if(formSubmitted == 1){
 						sendTagData(182,"","");
 					} else {
-						console.log("there was no formSubmitted information");
+						console.log("there was no formSubmitted information: ", formSubmitted);
 					}
 				})
 			
@@ -399,7 +402,7 @@ get_header(); ?>
 						privacy[0].parentNode.className = privacy[0].parentNode.className+" warning";
 					}
 					console.log("last check for error flags");
-					if(missing.length() > 0){
+					if(missing.length > 0){
 						console.log("the missing array: ", missing);
 						console.log("we threw an error?");
 						sendTagData(181, "", "");

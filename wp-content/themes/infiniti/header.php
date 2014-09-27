@@ -6,6 +6,7 @@
  *
  * @package infiniti
  */
+global $post;
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -24,6 +25,26 @@
     <meta property="og:locale" content="en_us"/>
 
 	<?php wp_head(); ?>
+	<?php 
+		if(strtolower ($post->post_title) == "contest"){?>
+			<!-- Facebook Conversion Code for Infinit Contest Pixel -->
+			<script>(function() {
+			  var _fbq = window._fbq || (window._fbq = []);
+			  if (!_fbq.loaded) {
+			    var fbds = document.createElement('script');
+			    fbds.async = true;
+			    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+			    var s = document.getElementsByTagName('script')[0];
+			    s.parentNode.insertBefore(fbds, s);
+			    _fbq.loaded = true;
+			  }
+			})();
+			window._fbq = window._fbq || [];
+			window._fbq.push(['track', '6018006447127', {'value':'0.00','currency':'CAD'}]);
+			</script>
+			<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6018006447127&amp;cd[value]=0.00&amp;cd[currency]=CAD&amp;noscript=1" /></noscript>
+	<?php	}
+	?>
 	<!--[if IE 8]>
 		<link rel="stylesheet" id="content-page-css" href="http://canadaundiscovered.infiniti.ca/wp-content/themes/infiniti/css/stylesheets/ie.css" type="text/css" media="all">	
 	<![endif]-->
