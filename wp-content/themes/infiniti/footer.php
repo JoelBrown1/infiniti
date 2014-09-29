@@ -25,18 +25,9 @@ $crmID = get_post_meta($post->ID, 'crmPageID');
 			var socialChannel = $(evt.target).attr("id");
 			if( socialChannel == "facebook"){
 				FB.ui( {
-			        method: 'feed',
-			        name: "INFINITI & OASIS Present Canada Underscovered!",
-			        link: "http://canadaundiscovered.infiniti.ca/",
-			        picture: "http://ford.cottagelife.com/fbImage2014.jpg",
-			        caption: "The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers, that aren’t on the postcards!"
-			    }, function( response ) {
-			        if ( response !== null && typeof response.post_id !== 'undefined' ) {
-			            // ajax call to save response
-			          $.post( 'http://www.webniraj.com/', { 'meta': response }, function( result ) {
-			            }, 'json' );
-			        }
-			    } );
+			        method: 'share',
+			        href: "http://canadaundiscovered.infiniti.ca/"
+			    }, function( response ) {} );
 			}
 			ga('send', socialChannel, 'Share', 'http://canadaundiscovered.infiniti.ca/');
 		}

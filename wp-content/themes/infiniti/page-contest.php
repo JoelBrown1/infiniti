@@ -48,6 +48,7 @@
 		$pattern = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
 		$pcPatter = "/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i";
 		$missing = array();
+		$modelDets;
 		if($_POST["firstname"] == "") array_push($missing, "First Name");
 		if($_POST["lastname"] == "") array_push($missing, "Last Name");
 		if($_POST["email"] == "" || preg_match($pattern, $_POST["email"]) == 0 || preg_match($pattern, $_POST["email"]) == false) {array_push($missing, "Email");}
@@ -56,6 +57,17 @@
 			array_push($missing, "Vehicle Model");
 		} else { 
 			$vDets = split(" ",$_POST["vehicle"]);
+			if(count($vDets)>2){
+				$modelDets = 	'<year>'.$vDets[2].'</year>
+								<make>Infiniti</make>
+								<model>'.$vDets[0].'</model>
+								<trim>'.$vDets[1].'</trim>';
+			} else {
+				$modelDets = '<year>'.$vDets[1].'</year>
+							<make>Infiniti</make>
+							<model>'.$vDets[0].'</model>
+							<trim></trim>';
+			}
 		}
 		if($_POST["Rules"] != "true"){array_push($missing, "Rules and Regulations");}
 		if($_POST["Privacy"] != "true"){array_push($missing, "Privacy Policy");}
@@ -107,20 +119,17 @@
 								)
 							);
 
-				$url = "http://staging.nissanleads.ca/leadservices/leadacceptanceservice.svc/SendLead";
+				$url = "https://production.nissanleads.ca/leadservices/leadacceptanceservice.svc/sendlead";
 				$content = '<?xml version="1.0" encoding="UTF-8"?>
 								<adf>
 									<prospect status="new">
-										<id source="LeadId" sequence="0">8059</id>
+										<id source="LeadId" sequence="0">3073</id>
 										<id source="EventName" sequence="1">Infiniti Canada Undiscovered</id>
 									    <id source="EventID" sequence="2">ICANUNDI</id>
 										<requestdate>'.$rDate->format("Y-m-d H:i:s").'</requestdate>
-										<vehicle status="new" interest="buy">
-											<year>'.$vDets[1].'</year>
-											<make>Infiniti</make>
-											<model>'.$vDets[0].'</model>
-											<comments />
-										</vehicle>
+										<vehicle status="new" interest="buy">'
+											.$modelDets.
+										'</vehicle>
 										<customer>
 											<contact>
 												<name part="first" type="individual">'.$_POST["firstname"].'</name>
@@ -138,16 +147,16 @@
 											<language>EN</language>
 										</customer>
 										<vendor>
-											<id source="nissan-dealer-id">blank</id>
-											<vendorname>Unknown</vendorname>
+											<id source="nissan-dealer-id"></id>
+											<vendorname></vendorname>
 											<contact>
-												<name part="first" type="individual">Unknown</name>
-												<name part="last" type="individual">Unknown</name>
-												<phone type="voice" time="nopreference" preferredcontact="0">blank</phone>
+												<name part="first" type="individual"></name>
+												<name part="last" type="individual"></name>
+												<phone type="voice" time="nopreference" preferredcontact="0"></phone>
 											</contact>
 										</vendor>
 										<provider>
-											<id source="nissan-source-id">8059</id>
+											<id source="nissan-source-id">3073</id>
 											<name part="full" type="individual">Nissan.ca</name>
 										</provider>
 									</prospect>
@@ -259,19 +268,19 @@ get_header(); ?>
 								<div class="clearfix">
 									<select placeholder="Province" name="province">
 										<option value="">Province</option>
-										<option value="AB">Alberta</option>
-										<option value="BC">British Columbia</option>
-										<option value="MB">Manitoba</option>
-										<option value="NB">New Brunswick</option>
-										<option value="NL">Newfoundland and Labrador</option>
-										<option value="NS">Nova Scotia</option>
-										<option value="ON">Ontario</option>
-										<option value="PE">Prince Edward Island</option>
-										<option value="QC">Quebec</option>
-										<option value="SK">Saskatchewan</option>
-										<option value="NT">Northwest Territories</option>
-										<option value="NU">Nunavut</option>
-										<option value="YT">Yukon</option>
+										<option value="AB"<?php if($_POST["vehicle"]== "AB") {?> selected="selected"<?php } ?>>Alberta</option>
+										<option value="BC"<?php if($_POST["vehicle"]== "BC") {?> selected="selected"<?php } ?>>British Columbia</option>
+										<option value="MB"<?php if($_POST["vehicle"]== "MB") {?> selected="selected"<?php } ?>>Manitoba</option>
+										<option value="NB"<?php if($_POST["vehicle"]== "NB") {?> selected="selected"<?php } ?>>New Brunswick</option>
+										<option value="NL"<?php if($_POST["vehicle"]== "NL") {?> selected="selected"<?php } ?>>Newfoundland and Labrador</option>
+										<option value="NS"<?php if($_POST["vehicle"]== "NS") {?> selected="selected"<?php } ?>>Nova Scotia</option>
+										<option value="ON"<?php if($_POST["vehicle"]== "ON") {?> selected="selected"<?php } ?>>Ontario</option>
+										<option value="PE"<?php if($_POST["vehicle"]== "PE") {?> selected="selected"<?php } ?>>Prince Edward Island</option>
+										<option value="QC"<?php if($_POST["vehicle"]== "QC") {?> selected="selected"<?php } ?>>Quebec</option>
+										<option value="SK"<?php if($_POST["vehicle"]== "SK") {?> selected="selected"<?php } ?>>Saskatchewan</option>
+										<option value="NT"<?php if($_POST["vehicle"]== "NT") {?> selected="selected"<?php } ?>>Northwest Territories</option>
+										<option value="NU"<?php if($_POST["vehicle"]== "NU") {?> selected="selected"<?php } ?>>Nunavut</option>
+										<option value="YT"<?php if($_POST["vehicle"]== "YT") {?> selected="selected"<?php } ?>>Yukon</option>
 									</select>
 
 									<input class="p_code" type="text" name="pCode" placeholder="Postal Code" value="<?php echo $_POST["pCode"]; ?>">
@@ -279,19 +288,19 @@ get_header(); ?>
 								<div class="iCar clearfix">
 									<select placeholder="Vehicle Models" class="model" name="vehicle">
 										<option value="">Choose a Model</option>
-										<option value="QX50 2015">QX50 2015</option>
-										<option value="QX70 2015">QX70 2015</option>
-										<option value="Q50 2015">Q50 2015</option>
-										<option value="Q50 Hybrid 2015">Q50 Hybrid 2015</option>
-										<option value="Q50 2014">Q50 2014</option>
-										<option value="Q50 Hybrid 2014">Q50 Hybrid 2014</option>
-										<option value="Q60 Convertible 2014">Q60 Convertible 2014</option>
-										<option value="Q60 Coupe 2014">Q60 Coupe 2014</option>
-										<option value="Q70 2014">Q70 2014</option>
-										<option value="Q70 Hybrid 2014">Q70 Hybrid 2014</option>
-										<option value="QX60 2014">QX60 2014</option>
-										<option value="QX60 Hybrid 2014">QX60 Hybrid 2014</option>
-										<option value="QX80 2014">QX80 2014</option>
+										<option value="QX50 2015" <?php if($_POST["vehicle"]== "QX50 2015") {?> selected="selected"<?php } ?> >QX50 2015</option>
+										<option value="QX70 2015"<?php if($_POST["vehicle"]== "QX70 2015") {?> selected="selected"<?php } ?>>QX70 2015</option>
+										<option value="Q50 2015"<?php if($_POST["vehicle"]== "Q50 2015") {?> selected="selected"<?php } ?>>Q50 2015</option>
+										<option value="Q50 Hybrid 2015"<?php if($_POST["vehicle"]== "Q50 Hybrid 2015") {?> selected="selected"<?php } ?>>Q50 Hybrid 2015</option>
+										<option value="Q50 2014"<?php if($_POST["vehicle"]== "Q50 2014") {?> selected="selected"<?php } ?>>Q50 2014</option>
+										<option value="Q50 Hybrid 2014"<?php if($_POST["vehicle"]== "Q50 Hybrid 2014") {?> selected="selected"<?php } ?>>Q50 Hybrid 2014</option>
+										<option value="Q60 Convertible 2014"<?php if($_POST["vehicle"]== "Q60 Convertible 2014") {?> selected="selected"<?php } ?>>Q60 Convertible 2014</option>
+										<option value="Q60 Coupe 2014"<?php if($_POST["vehicle"]== "Q60 Coupe 2014") {?> selected="selected"<?php } ?>>Q60 Coupe 2014</option>
+										<option value="Q70 2014"<?php if($_POST["vehicle"]== "Q70 2014") {?> selected="selected"<?php } ?>>Q70 2014</option>
+										<option value="Q70 Hybrid 2014"<?php if($_POST["vehicle"]== "Q70 Hybrid 2014") {?> selected="selected"<?php } ?>>Q70 Hybrid 2014</option>
+										<option value="QX60 2014"<?php if($_POST["vehicle"]== "QX60 2014") {?> selected="selected"<?php } ?>>QX60 2014</option>
+										<option value="QX60 Hybrid 2014"<?php if($_POST["vehicle"]== "QX60 Hybrid 2014") {?> selected="selected"<?php } ?>>QX60 Hybrid 2014</option>
+										<option value="QX80 2014"<?php if($_POST["vehicle"]== "QX80 2014") {?> selected="selected"<?php } ?>>QX80 2014</option>
 									</select>
 								</div>
 								<div class="rules_regs">

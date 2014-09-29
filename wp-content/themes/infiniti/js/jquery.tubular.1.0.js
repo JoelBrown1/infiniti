@@ -64,7 +64,8 @@
                         'showinfo': 0,
                         'modestbranding': 1,
                         'wmode': 'transparent',
-                        'rel': 0
+                        'rel': 0,
+                        'iv_load_policy' : 1
                     },
                     events: {
                         'onReady': onPlayerReady,

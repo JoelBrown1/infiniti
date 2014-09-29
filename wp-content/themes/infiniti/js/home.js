@@ -346,7 +346,6 @@ $(document).ready( function(window){
 	}
 
 	function socialTrack( evt ){
-		console.log("this is the button that was clicked: ", $(evt.target).attr("id"));
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
@@ -464,13 +463,11 @@ $(document).ready( function(window){
 				}
 				// console.log("checking condition to get to playerstates comparison: ",introPlayed);
 				if(reload){
-					console.log("reloading the entire experience");
 					replay = true;
 					player.clearVideo();
 					player.setLoop(true);
 					player.loadVideoById(introVidID);
 					player.playVideo();
-					console.log("this is what trip playing before reset: ",currentlyPlaying);
 					resetVids(currentlyPlaying);
 					introVid = true;
 				}

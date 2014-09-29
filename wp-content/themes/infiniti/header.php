@@ -13,63 +13,42 @@ global $post;
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0" />
 	<title><?php echo get_bloginfo( 'name' )." ".get_bloginfo('description'); ?></title>
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<meta name="google-site-verification" content="oPjrIiO6Jxjc7z7CjObPGJRq96mrbuUmn1DuPuVO0jY" />
 
     <meta property="og:url" content="http://canadaundiscovered.infiniti.ca/"/> 
     <meta property="og:title" content="INFINITI & OASIS Present Canada Underscovered!"/>
     <meta property="og:site_name" content="INFINITI & OASIS Present Canada Underscovered!"/>
-    <meta property="og:description" content="The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers, that aren’t on the postcards!"/>
+    <meta property="og:description" content="The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers that aren't on the postcards!"/>
     <meta property="og:type" content="website"/>
+    <meta property="og:image" content="<?php echo get_bloginfo('template_url').'/CU_FB_Share.jpg' ?>"/>
     <meta property="og:locale" content="en_us"/>
 
 	<?php wp_head(); ?>
 	<?php 
 		if(strtolower ($post->post_title) == "contest"){?>
-			<!-- Facebook Conversion Code for Infinit Contest Pixel -->
-			<script>(function() {
-			  var _fbq = window._fbq || (window._fbq = []);
-			  if (!_fbq.loaded) {
-			    var fbds = document.createElement('script');
-			    fbds.async = true;
-			    fbds.src = '//connect.facebook.net/en_US/fbds.js';
-			    var s = document.getElementsByTagName('script')[0];
-			    s.parentNode.insertBefore(fbds, s);
-			    _fbq.loaded = true;
-			  }
-			})();
-			window._fbq = window._fbq || [];
-			window._fbq.push(['track', '6018006447127', {'value':'0.00','currency':'CAD'}]);
-			</script>
-			<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6018006447127&amp;cd[value]=0.00&amp;cd[currency]=CAD&amp;noscript=1" /></noscript>
 	<?php	}
 	?>
-	<!--[if IE 8]>
-		<link rel="stylesheet" id="content-page-css" href="http://canadaundiscovered.infiniti.ca/wp-content/themes/infiniti/css/stylesheets/ie.css" type="text/css" media="all">	
-	<![endif]-->
-	<script>
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId: '303862166472823',
-				status: true,
-				xfbml: true
-			});
-		};
-	</script>
 </head>
 
 <body <?php body_class(); ?>>
 	<div id="fb-root"></div>
 	<script>
-		(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-		  fjs.parentNode.insertBefore(js, fjs);
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '904625116233059',
+				xfbml      : true,
+				version    : 'v2.1'
+				});
+			};
+
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-	</script>
+</script>
 	<div id="page" class="hfeed site">
 		
 

@@ -11,8 +11,9 @@
     <meta property="og:url" content="http://canadaundiscovered.infiniti.ca/"/> 
     <meta property="og:title" content="INFINITI & OASIS Present Canada Underscovered!"/>
     <meta property="og:site_name" content="INFINITI & OASIS Present Canada Underscovered!"/>
-    <meta property="og:description" content="The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers, that aren’t on the postcards!"/>
+    <meta property="og:description" content="The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers that aren't on the postcards!"/>
     <meta property="og:type" content="website"/>
+    <meta property="og:image" content="<?php echo get_bloginfo('template_url').'/CU_FB_Share.jpg' ?>"/>
     <meta property="og:locale" content="en_us"/>
 
 		<?php wp_head(); 
@@ -22,21 +23,30 @@
       }
     ?>
 
-    <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: '303862166472823',
-        status: true,
-        xfbml: true
-      });
-    };
-  </script>
+
 
 	</head>
 
 	<body>
     <div id="fb-root"></div>
-    <script>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '904625116233059',
+            xfbml      : true,
+            version    : 'v2.1'
+            });
+          };
+
+          (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+    <!-- <script>
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -44,7 +54,7 @@
         js.src = "//connect.facebook.net/en_US/all.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> -->
     <div id="loader"></div>
     <div id="content" class="clear">
       <div id="sndControls" class="off"></div>

@@ -1,6 +1,5 @@
 var $ = jQuery;
 $(document).ready(function(){
-	console.log("this is the document location: ", document.location.pathname);
 	if(document.location.pathname.indexOf("contest")){
 		if($("#thanks").length == 0){
 			sendTagData(180, "none", 0);
@@ -50,14 +49,11 @@ $(document).ready(function(){
 	    })
 	);
 	function openMap( evt ){
-		console.log("this is the evt.target: ",evt.target);
 		sendTagData(360, "", 0);
 	}
 
 	function getImageData( evt ){
-		console.log("this is from getImageData");
 		imageIndex = $(".gallery-item img").index( evt.target) + 1;
-		console.log("this is the original image index: ", imageIndex);
 		sendTagData(38, '', imageIndex);
 	}
 	function changeImageCount( evt ){
@@ -78,21 +74,17 @@ $(document).ready(function(){
 				imageIndex ++;
 				break;
 		}
-		console.log("this is the index of the image that we clicked on: ", imageIndex);
 		sendTagData(38, "", imageIndex);
 	}
 	function socialTrack( evt ){
-		console.log("we clicked on the social buttons");
 		sendTagData(106, $(evt.target).attr("id"), "_Click");
 	}
 
 	function mobMenu( evt ){
 		var totalHeight = $("#mobile_nav").outerHeight(true) + $(".menu-main-menu-container").outerHeight(true) + $('#infiniti_link').outerHeight(true) + $(".social_connections").outerHeight(true);
 		if($("#mobile_nav").outerHeight() == 0){
-			console.log("should open the nav...");
 			$("#mobile_nav").css({height : totalHeight});
 		} else {
-			console.log("should close the nav");
 			$("#mobile_nav").css({height : 0});
 		}
 	}
