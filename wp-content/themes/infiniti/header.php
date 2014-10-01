@@ -16,8 +16,8 @@ global $post;
 	<meta name="google-site-verification" content="oPjrIiO6Jxjc7z7CjObPGJRq96mrbuUmn1DuPuVO0jY" />
 
     <meta property="og:url" content="http://canadaundiscovered.infiniti.ca/"/> 
-    <meta property="og:title" content="INFINITI & OASIS Present Canada Underscovered!"/>
-    <meta property="og:site_name" content="INFINITI & OASIS Present Canada Underscovered!"/>
+    <meta property="og:title" content="INFINITI & OASIS Present Canada Undiscovered!"/>
+    <meta property="og:site_name" content="INFINITI & OASIS Present Canada Undiscovered!"/>
     <meta property="og:description" content="The Infiniti #CanadaUndiscovered gives you the chance to see awesome spots Canada offers that aren't on the postcards!"/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content="<?php echo get_bloginfo('template_url').'/CU_FB_Share.jpg' ?>"/>

@@ -18,6 +18,7 @@
 	$cIP = get_client_ip();
 	$crmID = get_post_meta($post->ID, 'crmPageID');
 	$firstLoad = true;
+	$optinVal = 1;
 	function get_client_ip() {
 	    $ipaddress = '';
 	    if ($_SERVER['HTTP_CLIENT_IP'])
@@ -72,6 +73,10 @@
 		if($_POST["Rules"] != "true"){array_push($missing, "Rules and Regulations");}
 		if($_POST["Privacy"] != "true"){array_push($missing, "Privacy Policy");}
 		if(preg_match($pcPatter, $_POST["pCode"]) == false) {array_push($missing, "Postal Code");}
+		if($_POST["iMarketing"] == true){
+			echo "set the optin message to 0 for collection";
+			$optinVal = 0;
+		}
 		$tStamp = new DateTime();
 		$cIP = get_client_ip();
 		$data = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE email=%s", $_POST["email"]));
@@ -143,6 +148,7 @@
 													<postalcode>'.$_POST["pCode"].'</postalcode>
 												</address>
 												<donotsend>1</donotsend>
+												<optin1>'.$optinVal.'</optin1>
 											</contact>
 											<language>EN</language>
 										</customer>
@@ -161,18 +167,19 @@
 										</provider>
 									</prospect>
 								</adf>';
-				/*echo $content;*/
-
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to 
-				curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-				curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
-				curl_setopt($ch, CURLOPT_HEADER, 1);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_POST, 1);  
-				$response = curl_exec($ch);
-				curl_close($ch);
+				// echo $content;
+				if($_POST["iMarketing"] == "true"){
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to 
+					curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+					curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
+					curl_setopt($ch, CURLOPT_HEADER, 1);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_POST, 1);  
+					$response = curl_exec($ch);
+					curl_close($ch);
+				}
 
 				$errorFlag = 1;
 								
@@ -207,13 +214,16 @@ get_header(); ?>
 							switch ($errorFlag) {
 								case 1: ?>
 									<div id="thanks">
+										<?php if($optinVal == 0){?>
+										<div id="i_market"></div>
+										<?php } ?> 
 										<h2>Success!</h2>
 										<p>Your entry was submitted successfully. Thanks!</p>
 									</div>
 								<?php	break;
 								
 								case 2: ?>
-									<div  class="formError">
+									<div id="duplicate" class="formError">
 										<h2>Sorry!</h2>
 										<p>You've already entered.</p>
 									</div>
@@ -325,7 +335,11 @@ get_header(); ?>
 					var formSubmitted = <?php echo $errorFlag; ?>;
 
 					if(formSubmitted == 1){
-						sendTagData(182,"","");
+						var opt = false;
+						if($("#i_market").length > 0){
+							opt = true;
+						} 
+						sendTagData(182,opt,"");
 					} else {
 						console.log("there was no formSubmitted information: ", formSubmitted);
 					}

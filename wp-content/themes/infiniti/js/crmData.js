@@ -48,6 +48,7 @@ function sendTagData(crmEvent, param1, param2){
 
 		case 106:
 		// for social sharing tracking
+		console.log("this is param1: ", param1);
 			try {
 				crmEvent106({
 					'social': param1
@@ -72,25 +73,23 @@ function sendTagData(crmEvent, param1, param2){
 		case 182:
 		// form confirmed
 			try {
-				crmEvent182();
+				crmEvent182({
+					'optin': param1
+				});
 			} catch(e){}
 			break;
 
 		case 360:
 		// 360 opened
 			try {
-				crmEvent360({
-//					'name' : param1,
-				});
+				crmEvent360();
 			} catch(e){}
 			break;
 
 		case 362:
 		// 360 was used
 			try {
-				crmEvent362({
-// 					'name' : param1,
-				});
+				crmEvent362();
 			} catch(e){}
 			break;
 

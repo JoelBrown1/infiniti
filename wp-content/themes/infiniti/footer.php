@@ -8,11 +8,15 @@
  */
 global $post;
 $crmID = get_post_meta($post->ID, 'crmPageID');
+$trackedURL = '?next=canada_undiscovered_behind_scenes.infiniti_home';
+if(is_front_page()){
+	$trackedURL = '?next=canada_undiscovered_home.infiniti_home';
+}
 ?>
 
-
+		
 		<footer id="colophon" class="site-footer clearfix" role="contentinfo">
-			<a href="http://www.infiniti.ca" target="_blank" id="infinitiLink">infiniti.ca</a>
+			<a href="<?php echo 'http://www.infiniti.ca'.$trackedURL; ?>" target="_blank" id="infinitiLink">infiniti.ca</a>
 			<div id="trademark">INFINITI names, logos, product names, feature names and slogans are trademarks owned by or licensed to Nissan Motor Co. Ltd., and/or its North American subsidiaries. <br> ©2014 INFINITI. All rights reserved.</div>
 		</footer>
 	</div>

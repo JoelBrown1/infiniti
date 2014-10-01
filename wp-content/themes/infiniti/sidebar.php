@@ -17,7 +17,7 @@
 	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
 	<div id="infiniti_link">
 		<div class="top_level">
-			<a href="http://www.infiniti.ca/en/" target="_blank">Explore the infiniti model range</a>
+			<a href="http://www.infiniti.ca/en/?next=canada_undiscovered_behind_scenes.infiniti_home" target="_blank">Explore the infiniti model range</a>
 		</div>
 	</div>
 	<?php get_template_part( "navigation", "social_channels" ); ?>

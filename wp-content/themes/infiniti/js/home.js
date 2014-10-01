@@ -308,7 +308,7 @@ $(document).ready( function(window){
 		}
 
 		if(!introVid){
-			var v = getVidData(player);
+			var v = getVidData(availablePlayer);
 			$(tripNavContainer).find("div").html("now playing<br><span class='prevVid'>prev</span> "+v.Ivid+"/"+v.len+" <span class='nextVid'>next</span>");
 		} 
 
@@ -334,10 +334,12 @@ $(document).ready( function(window){
 			dFlag = true;
 		}
 		if( !introVid && _duration> .9){
-			$("#content").css({display: "none"});
-			$("#tubular-shield").css({display: "none"});
-			cEnabled = true;
-			stopInterval();
+			if(!_mob){
+				$("#content").css({display: "none"});
+				$("#tubular-shield").css({display: "none"});
+				cEnabled = true;
+				stopInterval();				
+			}
 		}
 	}
 
@@ -409,13 +411,11 @@ $(document).ready( function(window){
 		    mobVidCont.appendChild(videoBox);
 		    videoBox.appendChild(vidIframe);
 		    setMobilePlayer(introVidID);
-
 		} else {
 			player.setPlaybackQuality("default");
 			player.addEventListener("onStateChange", function(evt){
 				playerStates[1] = playerStates[0];
 				playerStates[0] = evt.data;
-				// console.log("this is the updated playerStates: ", playerStates);
 
 				var reload = false;
 
@@ -427,12 +427,9 @@ $(document).ready( function(window){
 							title : v.title,
 							vidID : v.Ivid
 						};
-						// console.log("the video has actaully started: ", v.title, v.Ivid);
 						sendTagData(101, reportedVid.title, reportedVid.vidID);
 						playerStates = [0, 0];
 					} else if(playerStates[0] == 0 && playerStates[1] == 3){
-						// var v = getVidData(availablePlayer);
-						// console.log("the video has actaully stopped: ", v.title, v.Ivid);
 						sendTagData(105, reportedVid.title, reportedVid.vidID);
 						playerStates = [0, 0];
 					}
@@ -456,18 +453,18 @@ $(document).ready( function(window){
 							if(vidIndex == player.getPlaylist().length){
 								console.log("we have gone back to the beginning of the experience");
 								reload = true;
-								// reset the navigation
 							}
 						}
 						// break;
 				}
-				// console.log("checking condition to get to playerstates comparison: ",introPlayed);
 				if(reload){
+					console.log("reloading the entire experience");
 					replay = true;
 					player.clearVideo();
 					player.setLoop(true);
 					player.loadVideoById(introVidID);
 					player.playVideo();
+					console.log("this is what trip playing before reset: ",currentlyPlaying);
 					resetVids(currentlyPlaying);
 					introVid = true;
 				}
@@ -514,6 +511,7 @@ $(document).ready( function(window){
 	            'onStateChange': mobPlayerStateChange
 			}	
 		});
+		player.unMute();
 		availablePlayer = mPlayer;
 	}
 

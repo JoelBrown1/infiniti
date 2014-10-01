@@ -1,8 +1,12 @@
 var $ = jQuery;
 $(document).ready(function(){
-	if(document.location.pathname.indexOf("contest")){
+	if(document.location.pathname.indexOf("contest")>0){
 		if($("#thanks").length == 0){
-			sendTagData(180, "none", 0);
+			if($("#duplicate").length == 0){
+				sendTagData(180, "none", 0);
+			} else {
+				sendTagData(181, "none", 0);
+			} 
 		}
 	} else {
 		sendTagData(1, "none", 0);
@@ -74,7 +78,14 @@ $(document).ready(function(){
 				imageIndex ++;
 				break;
 		}
-		sendTagData(38, "", imageIndex);
+
+		if(imageIndex < $(".gallery-item img").length+1 && imageIndex > 0){
+			sendTagData(38, "", imageIndex);		
+		} else if(imageIndex>$(".gallery-item img").length){
+			imageIndex = $(".gallery-item img").length;
+		} else {
+			imageIndex = 1;
+		}
 	}
 	function socialTrack( evt ){
 		sendTagData(106, $(evt.target).attr("id"), "_Click");

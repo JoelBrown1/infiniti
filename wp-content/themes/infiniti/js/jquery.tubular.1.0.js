@@ -54,26 +54,25 @@
         // set up iframe player, use global scope so YT api can talk
         window.player;
         window.onYouTubeIframeAPIReady = function() {
-            if(!window.isMobile){
-                player = new YT.Player('tubular-player', {
-                    width: options.width,
-                    height: Math.ceil(options.width / options.ratio),
-                    videoId: options.videoId,
-                    playerVars: {
-                        'controls': 0,
-                        'showinfo': 0,
-                        'modestbranding': 1,
-                        'wmode': 'transparent',
-                        'rel': 0,
-                        'iv_load_policy' : 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-                ytReady = true;
-            }
+            player = new YT.Player('tubular-player', {
+                width: options.width,
+                height: Math.ceil(options.width / options.ratio),
+                videoId: options.videoId,
+                playerVars: {
+                    'controls': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'wmode': 'transparent',
+                    'rel': 0,
+                    'iv_load_policy' : 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+            ytReady = true;
+        
     
         }
 
@@ -81,7 +80,9 @@
             resize();
             if (options.mute) e.target.mute();
             e.target.seekTo(options.start);
-            e.target.playVideo();
+            if(!window._mob){
+                e.target.playVideo();               
+            }
             window.setReady(e.target);
         }
 

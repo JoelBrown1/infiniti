@@ -1,6 +1,6 @@
 // **** PAGE 33332 START **** 
 
-crmBuildInfo(1,1410584482211);
+crmBuildInfo(1,1412093210955);
 // Tag for GENERICTAGGING
 if(typeof(jQuery)!="undefined") {jQuery.extend(genTag,{"siteSection":"Microsite"});
 jQuery.extend(genTag,{"pageName":"Canada_Undiscovered"});
@@ -58,7 +58,7 @@ s.prop31="French";
 s.prop35="Canada_Undiscovered_Micro_Contest_Entry_Form.";
 s.prop48="Microsite_Contest_Entry";
 s.prop49=(crmGetCookie(crmZipCode) != null);
-s.eVar34="Micra_Micro_UpdateMe";
+s.eVar34="Canada_Undiscovered_Micro_Contest_Entry";
 s.hier2="Generic_(No_Specific_Model).Microsite.Canada_Undiscovered.Contest_Entry.Form";
 s.hier3="Microsite.Canada_Undiscovered.Contest_Entry.Form.Generic_(No_Specific_Model)";
 eventArray = [];
@@ -92,7 +92,7 @@ s.prop31="French";
 s.prop35="Canada_Undiscovered_Micro_Contest_Entry_Error." + formError;
 s.prop48="Microsite_Contest_Entry";
 s.prop49=(crmGetCookie(crmZipCode) != null);
-s.eVar34="Micra_Micro_UpdateMe";
+s.eVar34="Canada_Undiscovered_Micro_Contest_Entry";
 s.hier2="Generic_(No_Specific_Model).Microsite.Canada_Undiscovered.Contest_Entry.Error";
 s.hier3="Microsite.Canada_Undiscovered.Contest_Entry.Error.Generic_(No_Specific_Model)";
 eventArray = [];
@@ -105,7 +105,7 @@ pingOmn();
 }
 
 function crmEvent182() { coreEvent182.apply(null, crmMarshallEventParams(crmEvent182, coreEvent182) ); }
-function coreEvent182() {
+function coreEvent182(optin) {
 try {
 crmDebug(coreEvent182);
 
@@ -128,13 +128,12 @@ s.prop31="French";
 s.prop35="Canada_Undiscovered_Micro_Contest_Entry_Confirm.";
 s.prop48="Microsite_Contest_Entry";
 s.prop49=(crmGetCookie(crmZipCode) != null);
-s.eVar1="Optin";
 s.eVar20=crmGetZipCode();
-s.eVar34="Micra_Micro_UpdateMe";
+s.eVar34="Canada_Undiscovered_Micro_Contest_Entry";
 s.hier2="Generic_(No_Specific_Model).Microsite.Canada_Undiscovered.Contest_Entry.Confirm";
 s.hier3="Microsite.Canada_Undiscovered.Contest_Entry.Confirm.Generic_(No_Specific_Model)";
 eventArray = [];
-eventArray.push("event6");
+if (optin) eventArray.push("event6");
 eventArray.push("scCheckout");
 s.events=eventArray.join(',');
 s.pageName="Canada_Undiscovered_Micro_Contest_Entry_Confirm";
