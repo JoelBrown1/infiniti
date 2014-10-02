@@ -55,7 +55,7 @@ $(document).ready( function(window){
 
 	var introVid = true;
 	var introPlayed = false;
-	var introVidID = "buVSgs4GDtQ";
+	var introVidID = "zbRWeCiji9E";
 	var replay = false;
 
 	var reportedVid = {};
@@ -272,7 +272,7 @@ $(document).ready( function(window){
 				}
 			});
 		}
-		console.log("this is the playlist: ", vidList);
+
 		if(isPlaying == "false"){
 			if(availablePlayer.isMuted()){
 				availablePlayer.unMute();
@@ -451,20 +451,17 @@ $(document).ready( function(window){
 							}
 						} else if(player.getVideoData().video_id != introVidID){
 							if(vidIndex == player.getPlaylist().length){
-								console.log("we have gone back to the beginning of the experience");
 								reload = true;
 							}
 						}
 						// break;
 				}
 				if(reload){
-					console.log("reloading the entire experience");
 					replay = true;
 					player.clearVideo();
 					player.setLoop(true);
 					player.loadVideoById(introVidID);
 					player.playVideo();
-					console.log("this is what trip playing before reset: ",currentlyPlaying);
 					resetVids(currentlyPlaying);
 					introVid = true;
 				}

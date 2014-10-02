@@ -48,7 +48,6 @@ function sendTagData(crmEvent, param1, param2){
 
 		case 106:
 		// for social sharing tracking
-		console.log("this is param1: ", param1);
 			try {
 				crmEvent106({
 					'social': param1
