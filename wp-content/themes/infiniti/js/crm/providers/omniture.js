@@ -192,7 +192,7 @@ function omnCustEvents () {
         return;
     }
     var evts = s.events.split(',');
-    if ( listContains(evts,'event4') || listContains(evts,'event8') || listContains(evts,'event11') || listContains(evts,'event22') || listContains(evts,'event23') || listContains(evts,'event24') || listContains(evts,'event28') || listContains(evts,'event31') || listContains(evts,'event62') || listContains(evts,'event63') || listContains(evts,'event64') ) {
+    if ( listContains(evts,'event4') || listContains(evts,'event8') || listContains(evts,'event11') || listContains(evts,'event22') || listContains(evts,'event23') || listContains(evts,'event24') || listContains(evts,'event28') || listContains(evts,'event31') || listContains(evts,'event62') || listContains(evts,'event63') || listContains(evts,'event64' || listContains(evts,'event73') ) {
         s.events +=',event12,event68';
         if (s.prop20 != "") {
             s.prop20 = s.prop20 + "_Lead";

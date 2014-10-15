@@ -1,6 +1,6 @@
 // **** PAGE 33332 START **** 
 
-crmBuildInfo(1,1412093210955);
+crmBuildInfo(1,1412723165431);
 // Tag for GENERICTAGGING
 if(typeof(jQuery)!="undefined") {jQuery.extend(genTag,{"siteSection":"Microsite"});
 jQuery.extend(genTag,{"pageName":"Canada_Undiscovered"});
@@ -105,7 +105,7 @@ pingOmn();
 }
 
 function crmEvent182() { coreEvent182.apply(null, crmMarshallEventParams(crmEvent182, coreEvent182) ); }
-function coreEvent182(optin) {
+function coreEvent182(optin,contest) {
 try {
 crmDebug(coreEvent182);
 
@@ -134,6 +134,7 @@ s.hier2="Generic_(No_Specific_Model).Microsite.Canada_Undiscovered.Contest_Entry
 s.hier3="Microsite.Canada_Undiscovered.Contest_Entry.Confirm.Generic_(No_Specific_Model)";
 eventArray = [];
 if (optin) eventArray.push("event6");
+if (contest) eventArray.push("event73");
 eventArray.push("scCheckout");
 s.events=eventArray.join(',');
 s.pageName="Canada_Undiscovered_Micro_Contest_Entry_Confirm";
