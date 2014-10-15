@@ -903,7 +903,7 @@ body [type=checkbox] {
 }
 /* line 705, ../sass/content.scss */
 body .rules_regs > * {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 /* line 708, ../sass/content.scss */
 body .oMarketing, body .iMarketing {
@@ -913,21 +913,29 @@ body .oMarketing, body .iMarketing {
 /* line 712, ../sass/content.scss */
 body .optin {
   margin-bottom: 10px;
+  text-align: left;
 }
-/* line 715, ../sass/content.scss */
-body .disclaimer {
+/* line 716, ../sass/content.scss */
+body .disclaimer, body .i_disclaimer {
   width: 80%;
   float: left;
   text-align: left;
   font-size: 11px;
 }
+/* line 722, ../sass/content.scss */
+body .i_disclaimer {
+  width: 100%;
+  margin-bottom: 10px;
+  padding-left: 25px;
+  line-height: 14px;
+}
 @media screen and (max-width: 640px) {
-  /* line 722, ../sass/content.scss */
+  /* line 729, ../sass/content.scss */
   body .gallery-item {
     width: 30%;
   }
 }
-/* line 726, ../sass/content.scss */
+/* line 733, ../sass/content.scss */
 body .embed-container {
   position: relative;
   padding-bottom: 56.25%;
@@ -936,7 +944,7 @@ body .embed-container {
   max-width: 100%;
   height: auto;
 }
-/* line 734, ../sass/content.scss */
+/* line 741, ../sass/content.scss */
 body .embed-container iframe, body .embed-container object, body .embed-container embed {
   position: absolute;
   top: 0;
@@ -945,13 +953,13 @@ body .embed-container iframe, body .embed-container object, body .embed-containe
   height: 100%;
 }
 
-/* line 742, ../sass/content.scss */
+/* line 749, ../sass/content.scss */
 #trademark {
   font-size: 9px;
   line-height: 12px;
 }
 
-/* line 746, ../sass/content.scss */
+/* line 753, ../sass/content.scss */
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -961,23 +969,23 @@ body .embed-container iframe, body .embed-container object, body .embed-containe
   height: 0;
 }
 
-/* line 754, ../sass/content.scss */
+/* line 761, ../sass/content.scss */
 * html .clearfix {
   zoom: 1;
 }
 
 /* IE6 */
-/* line 755, ../sass/content.scss */
+/* line 762, ../sass/content.scss */
 *:first-child + html .clearfix {
   zoom: 1;
 }
 
 /* IE7 */
-/* line 758, ../sass/content.scss */
+/* line 765, ../sass/content.scss */
 body.page-id-2 header.entry-header {
   margin-top: 60px;
 }
-/* line 761, ../sass/content.scss */
+/* line 768, ../sass/content.scss */
 body.page-id-2 .entry-content p:first-child img {
   width: 100%;
 }
