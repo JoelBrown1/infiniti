@@ -70,11 +70,16 @@
 							<trim></trim>';
 			}
 		}
+		if($_POST["salesContact"] == "true"){
+			$lead = 0;
+		} else {
+			$lead = 1;
+		}
 		if($_POST["Rules"] != "true"){array_push($missing, "Rules and Regulations");}
-		if($_POST["Privacy"] != "true"){array_push($missing, "Privacy Policy");}
-		if(preg_match($pcPatter, $_POST["pCode"]) == false) {array_push($missing, "Postal Code");}
+		$pCode = strtolower($_POST["pCode"]);
+		$pCode = str_replace(' ', '', $pCode);
+		if(preg_match($pcPatter, $pCode) == false) {array_push($missing, "Postal Code");}
 		if($_POST["iMarketing"] == true){
-			echo "set the optin message to 0 for collection";
 			$optinVal = 0;
 		}
 		$tStamp = new DateTime();
@@ -147,7 +152,7 @@
 													<regioncode>'.$_POST["province"].'</regioncode>
 													<postalcode>'.$_POST["pCode"].'</postalcode>
 												</address>
-												<donotsend>1</donotsend>
+												<donotsend>'.$lead.'</donotsend>
 												<optin1>'.$optinVal.'</optin1>
 											</contact>
 											<language>EN</language>
@@ -167,7 +172,6 @@
 										</provider>
 									</prospect>
 								</adf>';
-				// echo $content;
 				if($_POST["iMarketing"] == "true"){
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to 
@@ -217,6 +221,9 @@ get_header(); ?>
 										<?php if($optinVal == 0){?>
 										<div id="i_market"></div>
 										<?php } ?> 
+										<?php if($_POST["dealer"] == "true"){?>
+										<div id="dealer"></div>
+										<?php } ?>
 										<h2>Success!</h2>
 										<p>Your entry was submitted successfully. Thanks!</p>
 									</div>
@@ -278,26 +285,26 @@ get_header(); ?>
 								<div class="clearfix">
 									<select placeholder="Province" name="province">
 										<option value="">Province</option>
-										<option value="AB"<?php if($_POST["vehicle"]== "AB") {?> selected="selected"<?php } ?>>Alberta</option>
-										<option value="BC"<?php if($_POST["vehicle"]== "BC") {?> selected="selected"<?php } ?>>British Columbia</option>
-										<option value="MB"<?php if($_POST["vehicle"]== "MB") {?> selected="selected"<?php } ?>>Manitoba</option>
-										<option value="NB"<?php if($_POST["vehicle"]== "NB") {?> selected="selected"<?php } ?>>New Brunswick</option>
-										<option value="NL"<?php if($_POST["vehicle"]== "NL") {?> selected="selected"<?php } ?>>Newfoundland and Labrador</option>
-										<option value="NS"<?php if($_POST["vehicle"]== "NS") {?> selected="selected"<?php } ?>>Nova Scotia</option>
-										<option value="ON"<?php if($_POST["vehicle"]== "ON") {?> selected="selected"<?php } ?>>Ontario</option>
-										<option value="PE"<?php if($_POST["vehicle"]== "PE") {?> selected="selected"<?php } ?>>Prince Edward Island</option>
-										<option value="QC"<?php if($_POST["vehicle"]== "QC") {?> selected="selected"<?php } ?>>Quebec</option>
-										<option value="SK"<?php if($_POST["vehicle"]== "SK") {?> selected="selected"<?php } ?>>Saskatchewan</option>
-										<option value="NT"<?php if($_POST["vehicle"]== "NT") {?> selected="selected"<?php } ?>>Northwest Territories</option>
-										<option value="NU"<?php if($_POST["vehicle"]== "NU") {?> selected="selected"<?php } ?>>Nunavut</option>
-										<option value="YT"<?php if($_POST["vehicle"]== "YT") {?> selected="selected"<?php } ?>>Yukon</option>
+										<option value="AB"<?php if($_POST["province"]== "AB") {?> selected="selected"<?php } ?>>Alberta</option>
+										<option value="BC"<?php if($_POST["province"]== "BC") {?> selected="selected"<?php } ?>>British Columbia</option>
+										<option value="MB"<?php if($_POST["province"]== "MB") {?> selected="selected"<?php } ?>>Manitoba</option>
+										<option value="NB"<?php if($_POST["province"]== "NB") {?> selected="selected"<?php } ?>>New Brunswick</option>
+										<option value="NL"<?php if($_POST["province"]== "NL") {?> selected="selected"<?php } ?>>Newfoundland and Labrador</option>
+										<option value="NS"<?php if($_POST["province"]== "NS") {?> selected="selected"<?php } ?>>Nova Scotia</option>
+										<option value="ON"<?php if($_POST["province"]== "ON") {?> selected="selected"<?php } ?>>Ontario</option>
+										<option value="PE"<?php if($_POST["province"]== "PE") {?> selected="selected"<?php } ?>>Prince Edward Island</option>
+										<option value="QC"<?php if($_POST["province"]== "QC") {?> selected="selected"<?php } ?>>Quebec</option>
+										<option value="SK"<?php if($_POST["province"]== "SK") {?> selected="selected"<?php } ?>>Saskatchewan</option>
+										<option value="NT"<?php if($_POST["province"]== "NT") {?> selected="selected"<?php } ?>>Northwest Territories</option>
+										<option value="NU"<?php if($_POST["province"]== "NU") {?> selected="selected"<?php } ?>>Nunavut</option>
+										<option value="YT"<?php if($_POST["province"]== "YT") {?> selected="selected"<?php } ?>>Yukon</option>
 									</select>
 
 									<input class="p_code" type="text" name="pCode" placeholder="Postal Code" value="<?php echo $_POST["pCode"]; ?>">
 								</div>
 								<div class="iCar clearfix">
 									<select placeholder="Vehicle Models" class="model" name="vehicle">
-										<option value="">Choose a Model</option>
+										<option value="">Vehicle of Interest</option>
 										<option value="QX50 2015" <?php if($_POST["vehicle"]== "QX50 2015") {?> selected="selected"<?php } ?> >QX50 2015</option>
 										<option value="QX70 2015"<?php if($_POST["vehicle"]== "QX70 2015") {?> selected="selected"<?php } ?>>QX70 2015</option>
 										<option value="Q50 2015"<?php if($_POST["vehicle"]== "Q50 2015") {?> selected="selected"<?php } ?>>Q50 2015</option>
@@ -313,12 +320,16 @@ get_header(); ?>
 										<option value="QX80 2014"<?php if($_POST["vehicle"]== "QX80 2014") {?> selected="selected"<?php } ?>>QX80 2014</option>
 									</select>
 								</div>
-								<div class="rules_regs">
-									<input class="rules" type="checkbox" name="Rules" value="true">I agree to the <a href="<?php echo  get_home_url().'/canada-undiscovered-contest-the-contest/'; ?>" target="_blank">Rules and Regulations</a><br>
-									<input class="privacy" type="checkbox" name="Privacy" value="true">I agree to the <a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a><br>
+								<div class="rules_regs clearfix">
+									<div class="optin"><input type="checkbox" name="salesContact" value="true" <?php if($_POST["salesContact"] == "true"){ echo "checked";} ?> > Yes, I would like an Infiniti retailer to contact me </div>
+									<div class="i_disclaimer option">Note: You may withdraw your consent at any time. By providing your personal information above, you agree to the collection, use and disclosure of the personal information you provided as described in our <a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a> </div>
 								</div>
-									<div class="optin clearfix"><input class="oMarketing" type="checkbox" name="oMarketing" value="true"> <div class="disclaimer">I agree to receive electronic communications from Blue Ant Media Television Ltd. containing news, updates and promotions regarding Oasis HD, radX, Hifi and The Smithsonian Channel.  You may withdraw your consent at any time. Blue Ant Media Television, 130 Merton Street Suite 200, Toronto, Ontario M4S 1A4 <a href="http://www.oasishd.ca/" target="_blank">oasishd.ca</a></div></div>
-									<div class="optin clearfix"><input class="iMarketing" type="checkbox" name="iMarketing" value="true"><div class="disclaimer">Yes I would like to receive communications, including emails, from Infiniti, a division of Nissan Canada  Inc. about them and their products, services, events, news, updates, offers, promotions, customized ads, and more. I may withdraw consent at any time. Infiniti Canada, 5290 Orbitor Drive, Mississauga, Ontario L4W 4Z5 <a href="http://www.infiniti.ca/en/" target="_blank">infiniti.ca</a></div></div>								
+								<div class="rules_regs">
+									<!-- <div class="optin clearfix">Yes, I would like an Infiniti retailer to contact me <input type="radio" name="salesContact" value="yes"> Yes <input type="radio" name="salesContact" value="no"> No</div> -->
+									<input class="rules" type="checkbox" name="Rules" value="true" <?php if($_POST["Rules"] == "true"){ echo "checked";} ?> >Yes, I agree to the Contest <a href="<?php echo  get_home_url().'/canada-undiscovered-contest-the-contest/'; ?>" target="_blank">Rules and Regulations</a><br>
+								</div>
+									<div class="optin clearfix"><input class="oMarketing" type="checkbox" name="oMarketing" value="true" <?php if($_POST["oMarketing"] == "true"){ echo "checked";} ?> > <div class="disclaimer">I agree to receive electronic communications from Blue Ant Media Television Ltd. containing news, updates and promotions regarding Oasis HD, radX, Hifi and The Smithsonian Channel.  You may withdraw your consent at any time. Blue Ant Media Television, 130 Merton Street Suite 200, Toronto, Ontario M4S 1A4 <a href="http://www.oasishd.ca/" target="_blank">oasishd.ca</a></div></div>
+									<div class="optin clearfix"><input class="iMarketing" type="checkbox" name="iMarketing" value="true" <?php if($_POST["iMarketing"] == "true"){ echo "checked";} ?> ><div class="disclaimer">Yes, I would like to receive newsletters, marketing and promotional materials from Infiniti Canada Inc. and its affiliates regarding Infiniti Canada Inc.’s products and services.  You can withdraw your consent at any time.<br> Please refer to our <a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a> or <a href="http://www.infiniti.ca/en/privacy.html#Contact" target="_blank">Contact Us</a> for more details.  Affiliates: Infiniti Canada Financial Services Inc., Infiniti Canada Extended Services Inc. By providing your personal information above, you agree to the collection, use and disclosure of the personal information you provided as described in our <a href="http://www.infiniti.ca/en/privacy.html" target="_blank">Privacy Policy</a></div></div>								
 								<button type="submit" value="Enter">Enter</button>
 							</form>
 					
@@ -329,6 +340,7 @@ get_header(); ?>
 			<script type="text/javascript">
 				var $ = jQuery;
 				var contest = true;
+				var missing = [];
 
 				$(document).ready( function(){
 
@@ -339,20 +351,24 @@ get_header(); ?>
 						if($("#i_market").length > 0){
 							opt = true;
 						} 
+						if($("#dealer").length > 0){
+							// new flag to send to reporting to go here...
+						}
 						sendTagData(182,opt,"");
-					} else {
-						console.log("there was no formSubmitted information: ", formSubmitted);
-					}
+					} 
 				})
 			
 				function validation(){
-					console.log("inside the validation function");
+					if(missing.length > 0){
+						var msges = $("form").find(".warning");
+						missing = [];						
+					}
 					$(".warning").each(function(){
 						$(this).removeClass("warining");
 					});
 
 					$("#tripWarning").css("display", "none");
-					var missing = [];
+
 					var flag = 0;
 					var trips = false;
 					var tripCheck = document.getElementsByClassName("t_data");
@@ -367,22 +383,27 @@ get_header(); ?>
 						if(tripCheck[k].checked){
 							tripCheck[k].checked = true;
 							trips = true;
+							if($("#tripWarning").css({display: "block"})){
+								$("#tripWarning").css({display: "none"});
+							}
 							break;
 						} else {
 							flag = 1;
 						}
 						k++;
-						console.log("this is the tripCheck");
 					}
-						console.log("this is the tripCheck: ", tripCheck);
 
 					while(req[i]){
 						if(req[i].value != ""){
+							req[i].className = "r_data names";
 							if(req[i].getAttribute("name") == "email"){
 								var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 							    if(re.test(req[i].value) == false){
 							    	flag = 1;
+							    	req[i].className = "r_data warning";
 							    	missing.push(req[i]);
+							    } else {
+							    	req[i].className = "r_data";
 							    }
 							}
 						} else {
@@ -396,16 +417,17 @@ get_header(); ?>
 						flag = 1;
 						model[0].className = model[0].className + " warning";
 						missing.push(model);
+					} else {
+						model[0].className = "model";
 					}
 					if(pc[0].value != "" ){
 						var pcRE = /[a-zA-Z][0-9][a-zA-Z]( )?[0-9][a-zA-Z][0-9]/;
 						if(pcRE.test(pc[0].value) == false){
-							console.log("this is the pc if it fails: ", pc[0].value);
 							pc[0].className = pc[0].className + " warning";
 							flag = 1;
 							missing.push(pc);
 						} else {
-							console.log("the postal code passed");
+							pc[0].className = "p_code";
 						}
 					} else {
 						pc[0].className = pc[0].className+" warning";
@@ -417,24 +439,16 @@ get_header(); ?>
 						missing.push(rules);
 
 						rules[0].parentNode.className = rules[0].parentNode.className+" warning";
+					} else {
+						rules[0].parentNode.className = "rules_regs";
 					}
-					if(privacy[0].checked != true){
-						flag = 1;
-						missing.push(privacy);
-
-						privacy[0].parentNode.className = privacy[0].parentNode.className+" warning";
-					}
-					console.log("last check for error flags");
 					if(missing.length > 0){
-						console.log("the missing array: ", missing);
-						console.log("we threw an error?");
 						sendTagData(181, "", "");
 						if(trips == false){
 							$("#tripWarning").css("display", "block");
 						}
 						return false;
 					} else {
-						console.log("did this return true?");
 						return true;
 					}
 				}
