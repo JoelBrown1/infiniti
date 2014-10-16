@@ -686,11 +686,11 @@ if(typeof String.prototype.format != 'function'){
     // +++ edited to allow for shopping tools paths +++
     if (crmAllowCreateVidCookie) {
         // Include provider specific js files
-		document.write('\n<scr'+'ipt src="http://canadaundiscovered.infiniti.ca/wp-content/themes/infiniti/js/crm/providers/omniture.js" language="JavaScript" type="text/javascript"></scr'+'ipt>\n');        
+		document.write('\n<scr'+'ipt src="/wp-content/themes/infiniti/js/crm/providers/omniture.js" language="JavaScript" type="text/javascript"></scr'+'ipt>\n');        
     }
 
     // Include page specific tagging file    
-    document.write('<scr'+'ipt src="http://canadaundiscovered.infiniti.ca/wp-content/themes/infiniti/js/crm/page/' + crmPageId + '.js" language="JavaScript" type="text/javascript"></scr'+'ipt>\n'); 
+    document.write('<scr'+'ipt src="/wp-content/themes/infiniti/js/crm/page/' + crmPageId + '.js" language="JavaScript" type="text/javascript"></scr'+'ipt>\n'); 
 
   } else { // Create crmEngine failure debug message
     crmErrorMsg = "crmEngine FAILED\n";

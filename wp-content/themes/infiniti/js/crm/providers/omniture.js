@@ -192,7 +192,7 @@ function omnCustEvents () {
         return;
     }
     var evts = s.events.split(',');
-    if ( listContains(evts,'event4') || listContains(evts,'event8') || listContains(evts,'event11') || listContains(evts,'event22') || listContains(evts,'event23') || listContains(evts,'event24') || listContains(evts,'event28') || listContains(evts,'event31') || listContains(evts,'event62') || listContains(evts,'event63') || listContains(evts,'event64' || listContains(evts,'event73') ) {
+ if ( listContains(evts,'event4') || listContains(evts,'event8') || listContains(evts,'event11') || listContains(evts,'event22') || listContains(evts,'event23') || listContains(evts,'event24') || listContains(evts,'event28') || listContains(evts,'event31') || listContains(evts,'event62') || listContains(evts,'event63') || listContains(evts,'event64') || listContains(evts,'event73') ) {
         s.events +=',event12,event68';
         if (s.prop20 != "") {
             s.prop20 = s.prop20 + "_Lead";
@@ -200,11 +200,11 @@ function omnCustEvents () {
         crmDebug('Omniture: Added "event12" to s.events\n\ns.events = '+s.events);
     }
     if ( listContains(evts,'event1') || listContains(evts,'event2') || listContains(evts,'event6') || listContains(evts,'event44') || listContains(evts,'event50') ) {
-        s.events +=',event13,event69';
+        s.events +=',event12,event68';
         if (s.prop20 != "" && s.prop20.indexOf("_Lead") < 0) {
             s.prop20 = s.prop20 + "_Handraiser";
         }
-        crmDebug('Omniture: Added "event13" to s.events\n\ns.events = '+s.events);
+        crmDebug('Omniture: Added "event12" to s.events\n\ns.events = '+s.events);
     }
 
     if (s.prop29 != '') {
